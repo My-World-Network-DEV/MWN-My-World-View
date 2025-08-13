@@ -1,0 +1,11 @@
+name: Bug report
+description: Report a problem to help us improve
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and steps to reproduce
+    validations:
+      required: true
