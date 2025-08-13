@@ -1,9 +1,6 @@
-Title: <type(scope): summary>
-Changes:
+## Summary
+- 
 
-what changed
-Testing:
-
-how you tested
-Checklist:
-
+## Testing
+- [ ] `pnpm lint`
+- [ ] `pnpm test`
