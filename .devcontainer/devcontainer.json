@@ -1,0 +1,6 @@
+{
+  "name": "MWV Dev",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "postCreateCommand": "pnpm install",
+  "forwardPorts": [3000]
+}
