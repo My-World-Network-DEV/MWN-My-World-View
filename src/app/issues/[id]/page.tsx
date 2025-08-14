@@ -1,7 +1,7 @@
 import React from 'react';
 import TopNav from '@/components/TopNav';
 
-export default function Page({ params }: { params?: { [key: string]: string } }) {
+export default function Page() {
   return (
     <div className="min-h-screen bg-gray-50">
       <TopNav />
