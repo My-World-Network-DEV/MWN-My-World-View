@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export type PostCardProps = {
   id?: string;
@@ -12,7 +13,7 @@ export default function PostCard({ authorName, authorAvatar, content, createdAt 
   return (
     <article className="rounded-lg border bg-white p-4 shadow-sm">
       <header className="flex items-center gap-3">
-        <img src={authorAvatar || '/avatar-placeholder.svg'} alt={authorName} className="h-10 w-10 rounded-full object-cover" />
+        <Image src={authorAvatar || '/avatar-placeholder.svg'} alt={authorName} width={40} height={40} className="rounded-full object-cover" />
         <div>
           <div className="text-sm font-medium">{authorName}</div>
           <div className="text-xs text-gray-500">{createdAt || 'just now'}</div>

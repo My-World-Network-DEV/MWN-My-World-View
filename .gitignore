@@ -1,3 +1,4 @@
+/# We use pnpm in this repo; prefer pnpm-lock.yaml and avoid npm/yarn lockfiles
 /node_modules
 /coverage
 /.next/
