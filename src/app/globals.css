@@ -2,8 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	@apply bg-gray-50 text-gray-900;
+:root {
+  --mwv-background: #f8fafc;
+  --mwv-foreground: #0f172a;
+  --mwv-card: #ffffff;
+  --mwv-muted: #f1f5f9;
+  --mwv-border: #e2e8f0;
+  --mwv-ring: #3b82f6;
 }
 
+.dark {
+  --mwv-background: #0f172a;
+  --mwv-foreground: #f8fafc;
+  --mwv-card: #1e293b;
+  --mwv-muted: #334155;
+  --mwv-border: #475569;
+  --mwv-ring: #3b82f6;
+}
+
+body {
+  @apply bg-mwv-background text-mwv-foreground;
+}
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-mwv-primary focus:text-mwv-primary-foreground focus:px-3 focus:py-2;
+}
+
+.card {
+  @apply rounded-2xl border border-mwv-border bg-mwv-card shadow-card transition-all duration-150;
+}
+
+.card-hover:hover {
+  @apply shadow-card-hover ring-1 ring-mwv-ring ring-opacity-20 translate-y-[1px];
+}
+
+.pill {
+  @apply rounded-full border border-mwv-border bg-mwv-muted px-2.5 py-1 text-xs;
+}
+
+.skeleton {
+  @apply animate-pulse rounded bg-slate-200/70 dark:bg-slate-700/50;
+}
+
+*:focus-visible {
+  @apply outline-none ring-2 ring-mwv-ring ring-opacity-60 ring-offset-2;
+}
 
