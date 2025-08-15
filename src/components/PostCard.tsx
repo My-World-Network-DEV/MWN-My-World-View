@@ -36,7 +36,12 @@ export default function PostCard({ post }: { post: Post }) {
       </header>
 
       <footer className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-600">
-        <button className="rounded px-2 py-1 hover:bg-gray-50">Promote to Motion</button>
+        <button
+          className="rounded px-2 py-1 hover:bg-gray-50"
+          title="Draft a motion from this post"
+        >
+          Promote to Motion
+        </button>
         <button className="rounded px-2 py-1 hover:bg-gray-50">Comment</button>
         <button className="rounded px-2 py-1 hover:bg-gray-50">Share</button>
         <button

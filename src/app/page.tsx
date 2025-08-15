@@ -1,17 +1,27 @@
+import React from 'react';
 import TopNav from '@/components/TopNav';
 import Sidebar from '@/components/Sidebar';
 import Composer from '@/components/Composer';
 import PostCard from '@/components/PostCard';
-import RightRail from '@/components/RightRail';
+import HeaderHero from '@/components/HeaderHero';
+import StanceBar from '@/components/StanceBar';
+import FeedTabs from '@/components/FeedTabs';
 
+type CensusCounts = { for: number; against: number; abstain: number };
 type Post = {
   id: string;
   author: { name: string; handle: string; avatarUrl?: string };
   minutesAgo: number;
   text: string;
   evidenceCount?: number;
-  topic?: string;
 };
+type MotionTrend = {
+  title: string;
+  counts: CensusCounts;
+  total: number;
+};
+type TopicLite = { title: string };
+type IssueLite = { title: string; motionCount: number };
 
 const posts: Post[] = [
   {
@@ -21,7 +31,6 @@ const posts: Post[] = [
     text:
       'New proposals to decrease insecting renewable energy policy efficacy—counterfactuals suggest a 3–5y lag unless permitting is streamlined.',
     evidenceCount: 3,
-    topic: 'Climate Change',
   },
   {
     id: '2',
@@ -29,7 +38,6 @@ const posts: Post[] = [
     minutesAgo: 9,
     text:
       'Support carbon pricing to develop economic impact buffers on agriculture. Suggest pairing with soil credits.',
-    topic: 'Economics',
   },
   {
     id: '3',
@@ -38,23 +46,39 @@ const posts: Post[] = [
     text:
       'Explore a steady revenue line through a circular reform—shift e-waste levies to upstream manufacturers.',
     evidenceCount: 1,
-    topic: 'Policy',
   },
+];
+
+const trending: MotionTrend[] = [
+  { title: 'AI is essential for …', counts: { for: 62, against: 28, abstain: 10 }, total: 1204 },
+  { title: 'Ban plastic bags in …', counts: { for: 54, against: 36, abstain: 10 }, total: 987 },
+  { title: 'Universal basic income …', counts: { for: 39, against: 48, abstain: 13 }, total: 654 },
+];
+
+const suggestedTopics: TopicLite[] = [
+  { title: 'Artificial intelligence' },
+  { title: 'Renewable energy' },
+  { title: 'Freedom of speech' },
+  { title: 'Climate policy' },
+  { title: 'Urban planning' },
+  { title: 'Healthcare' },
+];
+
+const activeIssues: IssueLite[] = [
+  { title: 'Regulate AI alignment', motionCount: 4 },
+  { title: 'Plastic waste export bans', motionCount: 3 },
+  { title: 'Cashless society risks', motionCount: 5 },
 ];
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
       <TopNav />
-
-      {/* Hero header */}
       <HeaderHero />
-
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
-        {/* Left rail */}
-        <aside className="lg:col-span-2 xl:col-span-2 space-y-4">
+        <aside className="hidden space-y-4 lg:col-span-2 lg:block" aria-label="Sidebar and shortcuts">
           <Sidebar />
-          <Card>
+          <Card aria-label="Shortcuts">
             <div className="text-sm font-medium text-gray-800">Shortcuts</div>
             <ul className="mt-2 space-y-2 text-sm">
               <li className="flex items-center justify-between">
@@ -71,32 +95,28 @@ export default function Page() {
               </li>
             </ul>
           </Card>
+          <Card aria-label="Quick Start">
+            <div className="text-sm font-medium text-gray-800">Quick Start</div>
+            <ol className="mt-2 list-decimal pl-4 text-sm text-gray-700">
+              <li>Post a thought with a link</li>
+              <li>Promote it into a Motion</li>
+              <li>Watch the Census update</li>
+            </ol>
+          </Card>
         </aside>
 
-        {/* Main feed */}
-        <section className="lg:col-span-7 xl:col-span-7 space-y-5">
-          {/* Tabs (static for now) */}
-          <div className="sticky top-0 z-10 -mt-2 bg-white/70 py-2 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-            <div className="flex gap-2">
-              <button className="rounded-full px-3 py-1.5 text-sm transition border bg-gray-900 text-white border-gray-900">For You</button>
-              <button className="rounded-full px-3 py-1.5 text-sm transition border bg-white text-gray-700 border-gray-200 hover:bg-gray-50">Following</button>
-              <button className="rounded-full px-3 py-1.5 text-sm transition border bg-white text-gray-700 border-gray-200 hover:bg-gray-50">Latest</button>
-            </div>
-          </div>
-
-          {/* Composer in card */}
+        <section className="lg:col-span-7 space-y-5">
+          <FeedTabs />
           <Card>
             <Composer />
-            <div className="mt-3 flex items-center justify-between">
+            <div className="mt-3">
               <div className="flex gap-2 text-xs text-gray-600">
-                <Chip>Attach</Chip>
-                <Chip>Quote</Chip>
-                <Chip>Poll</Chip>
+                <Chip>Attach evidence</Chip>
+                <Chip>Quote a source</Chip>
+                <Chip>Turn into motion</Chip>
               </div>
             </div>
           </Card>
-
-          {/* Feed */}
           <ul className="space-y-3">
             {posts.map((p) => (
               <li key={p.id}>
@@ -106,43 +126,76 @@ export default function Page() {
           </ul>
         </section>
 
-        {/* Right rail */}
-        <aside className="lg:col-span-3 xl:col-span-3 space-y-4">
-          <RightRail />
-          <PromoCard />
+        <aside className="hidden space-y-4 lg:col-span-3 lg:block" aria-label="Trending motions and topics">
+          <Card aria-label="Trending motions">
+            <SectionTitle>Trending Motions</SectionTitle>
+            <ul className="mt-3 space-y-3">
+              {trending.map((m) => (
+                <li key={m.title} className="space-y-1">
+                  <div className="text-sm text-gray-800 line-clamp-1">{m.title}</div>
+                  <StanceBar
+                    forPct={m.counts.for}
+                    againstPct={m.counts.against}
+                    abstainPct={m.counts.abstain}
+                  />
+                  <div className="flex justify-between text-[11px] text-gray-600">
+                    <span>
+                      {m.counts.for}% · {m.counts.against}% · {m.counts.abstain}%
+                    </span>
+                    <span>{m.total} votes</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Card>
+          <Card aria-label="Suggested topics">
+            <SectionTitle>Suggested Topics</SectionTitle>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {suggestedTopics.map((t) => (
+                <li key={t.title}>
+                  <button className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-700 hover:bg-gray-100">
+                    {t.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </Card>
+          <Card aria-label="Recently active issues">
+            <SectionTitle>Recently Active Issues</SectionTitle>
+            <ul className="mt-3 space-y-2">
+              {activeIssues.map((i) => (
+                <li key={i.title} className="flex justify-between text-sm text-gray-700">
+                  <span className="line-clamp-1">{i.title}</span>
+                  <span className="text-gray-500">Motions: {i.motionCount}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
         </aside>
       </main>
     </div>
   );
 }
 
-function HeaderHero() {
+function Card({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <div className="relative overflow-hidden border-b bg-white">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.10),transparent_55%),radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.10),transparent_55%)]" />
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Home</h1>
-            <p className="mt-1 max-w-2xl text-sm text-gray-600">
-              A clean, evidence-first feed. Compose quickly, promote to Issues or Motions, and see stance trends.
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm hover:bg-gray-50">New Topic</button>
-            <button className="rounded-lg bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black">Start Motion</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <section
+      {...props}
+      className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow ${
+        props.className || ''
+      }`}
+    >
+      {children}
+    </section>
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children, action }: { children: React.ReactNode; action?: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow">
-      {children}
-    </section>
+    <div className="flex items-center justify-between">
+      <div className="text-sm font-medium text-gray-800">{children}</div>
+      {action}
+    </div>
   );
 }
 
@@ -151,24 +204,5 @@ function Chip({ children }: { children: React.ReactNode }) {
     <span className="inline-flex items-center rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-700">
       {children}
     </span>
-  );
-}
-
-function PromoCard() {
-  return (
-    <section className="overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-blue-50 to-emerald-50 p-5 shadow-sm">
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-xl bg-white shadow-sm ring-1 ring-gray-200 flex items-center justify-center">💡</div>
-        <div className="flex-1">
-          <div className="text-sm font-medium text-gray-900">Tip: Evidence-first</div>
-          <div className="text-sm text-gray-700">
-            Paste links in your post—MWV will auto-fetch titles and domains for Evidence cards.
-          </div>
-        </div>
-      </div>
-      <div className="mt-3 text-right">
-        <button className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm hover:bg-gray-50">Learn more</button>
-      </div>
-    </section>
   );
 }
