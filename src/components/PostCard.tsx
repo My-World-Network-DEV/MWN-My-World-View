@@ -15,7 +15,7 @@ export default function PostCard({ post }: { post: Post }) {
   const [saved, setSaved] = useState(false);
 
   return (
-    <article className="rounded-lg border bg-white p-4">
+    <article className="card card-hover p-4">
       <header className="mb-2 flex items-start gap-3">
         <Image
           src={post.author.avatarUrl || "/avatar-placeholder.svg"}
@@ -37,21 +37,22 @@ export default function PostCard({ post }: { post: Post }) {
 
       <footer className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-600">
         <button
-          className="rounded px-2 py-1 hover:bg-gray-50"
+          className="flex items-center gap-1 rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150"
           title="Draft a motion from this post"
         >
-          Promote to Motion
+          <span aria-hidden>🚀</span>
+          Promote
         </button>
-        <button className="rounded px-2 py-1 hover:bg-gray-50">Comment</button>
-        <button className="rounded px-2 py-1 hover:bg-gray-50">Share</button>
+        <button className="rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150">Comment</button>
+        <button className="rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150">Share</button>
         <button
-          className={`rounded px-2 py-1 hover:bg-gray-50 ${saved ? 'text-blue-600' : ''}`}
+          className={`rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150 ${saved ? 'text-mwv-primary' : ''}`}
           onClick={() => setSaved((s) => !s)}
         >
           {saved ? 'Saved' : 'Save'}
         </button>
         {typeof post.evidenceCount === 'number' && (
-          <span className="ml-auto text-xs text-gray-500">{post.evidenceCount} evidence links</span>
+          <span className="ml-auto pill">{post.evidenceCount} evidence</span>
         )}
       </footer>
     </article>
