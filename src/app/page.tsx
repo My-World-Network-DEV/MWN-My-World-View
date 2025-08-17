@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import TopNav from '@/components/TopNav';
 import Sidebar from '@/components/Sidebar';
+import Chip from '@/components/Chip';
+import { SkeletonCard } from '@/components/Skeleton';
 import Composer from '@/components/Composer';
 import PostCard from '@/components/PostCard';
 import HeaderHero from '@/components/HeaderHero';
@@ -105,8 +107,10 @@ export default function Page() {
           </Card>
         </aside>
 
-        <section className="lg:col-span-7 space-y-5">
-          <FeedTabs />
+        <section className="lg:col-span-8 space-y-5">
+          <Suspense fallback={<div className="h-10" aria-hidden />}>
+            <FeedTabs />
+          </Suspense>
           <Card>
             <Composer />
             <div className="mt-3">
@@ -124,9 +128,14 @@ export default function Page() {
               </li>
             ))}
           </ul>
+          {/* Skeleton examples (could be conditional) */}
+          <div className="hidden">
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         </section>
 
-        <aside className="hidden space-y-4 lg:col-span-3 lg:block" aria-label="Trending motions and topics">
+        <aside className="hidden space-y-4 lg:col-span-4 lg:block" aria-label="Trending motions and topics">
           <Card aria-label="Trending motions">
             <SectionTitle>Trending Motions</SectionTitle>
             <ul className="mt-3 space-y-3">
@@ -181,9 +190,8 @@ function Card({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
     <section
       {...props}
-      className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow ${
-        props.className || ''
-      }`}
+      className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow ${props.className || ''
+        }`}
     >
       {children}
     </section>
@@ -199,10 +207,4 @@ function SectionTitle({ children, action }: { children: React.ReactNode; action?
   );
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-700">
-      {children}
-    </span>
-  );
-}
+// Chip moved to `src/components/Chip.tsx`

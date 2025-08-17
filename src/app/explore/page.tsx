@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import TopNav from '@/components/TopNav';
+import Chip from '@/components/Chip';
 
 type TopicTile = { slug: string; title: string; issuesCount: number };
 type IssueTile = { id: string; title: string; topicSlug: string };
@@ -35,13 +36,21 @@ export default function Page() {
       <TopNav />
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <section className="lg:col-span-8 space-y-6">
-          {/* Filters */}
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-semibold">Explore</h1>
-            <div className="flex gap-2 text-sm">
-              <button className="rounded border bg-white px-3 py-1">Trending</button>
-              <button className="rounded border bg-white px-3 py-1">Latest</button>
-              <button className="rounded border bg-white px-3 py-1">Following</button>
+          {/* Sticky search + filters */}
+          <div className="sticky top-0 -mt-2 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+            <div className="flex items-center justify-between py-2">
+              <h1 className="text-xl font-semibold">Explore</h1>
+              <div className="flex gap-2 text-sm">
+                <button className="rounded border bg-white px-3 py-1">Trending</button>
+                <button className="rounded border bg-white px-3 py-1">Latest</button>
+                <button className="rounded border bg-white px-3 py-1">Following</button>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 pb-2">
+              <Chip selected>All</Chip>
+              <Chip>Topics</Chip>
+              <Chip>Issues</Chip>
+              <Chip>Motions</Chip>
             </div>
           </div>
 
