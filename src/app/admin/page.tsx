@@ -19,7 +19,7 @@ export default function Page() {
             <div className="text-sm font-medium">Moderation queue</div>
             <ul className="mt-2 space-y-2 text-sm">
               <li className="flex justify-between"><span>Comment by @demo</span><button className="rounded bg-mwv-success px-2 py-1 text-white text-xs">Approve</button></li>
-              <li className="flex justify-between"><span>Motion "Ban plastic exports"</span><button className="rounded bg-mwv-error px-2 py-1 text-white text-xs">Flag</button></li>
+              <li className="flex justify-between"><span>Motion &quot;Ban plastic exports&quot;</span><button className="rounded bg-mwv-error px-2 py-1 text-white text-xs">Flag</button></li>
             </ul>
           </Card>
           <Card>

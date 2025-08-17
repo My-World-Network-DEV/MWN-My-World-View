@@ -2,7 +2,9 @@ import React from 'react';
 import AppMenuBar from '@/components/AppMenuBar';
 import Card from '@/components/Card';
 
-export default function Page({ params }: { params: { username: string } }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Page(props: any) {
+  const params = (props as any).params || {};
   return (
     <div className="min-h-screen bg-gray-50">
       <AppMenuBar />

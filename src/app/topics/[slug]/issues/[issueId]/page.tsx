@@ -3,7 +3,9 @@ import AppMenuBar from '@/components/AppMenuBar';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Card from '@/components/Card';
 
-export default function Page({ params }: { params: { slug: string; issueId: string } }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Page(props: any) {
+  const params = (props as any).params || { slug: '', issueId: '' };
   return (
     <div className="min-h-screen bg-gray-50">
       <AppMenuBar />

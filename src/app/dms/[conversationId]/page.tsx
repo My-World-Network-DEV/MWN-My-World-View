@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 
 type Msg = { id: string; from: string; text: string; at: string };
 
-export default function Page({ params }: { params: { conversationId: string } }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Page({ params }: any) {
     const [msgs, setMsgs] = useState<Msg[]>([
         { id: 'm1', from: 'ava', text: 'Hey! Reviewing the motion now.', at: '10:02' },
         { id: 'm2', from: 'me', text: 'Thanks! Added a new evidence link.', at: '10:05' },
