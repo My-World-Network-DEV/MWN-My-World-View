@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import Link from 'next/link';
 import QuickActions from '@/components/QuickActions';
 import AppMenuBar from '@/components/AppMenuBar';
 import Sidebar from '@/components/Sidebar';
@@ -77,7 +78,7 @@ export default async function Page() {
 
         <aside className="hidden space-y-4 lg:col-span-4 lg:block" aria-label="Trending motions and topics">
           <Card aria-label="Trending motions">
-            <SectionTitle>Trending Motions</SectionTitle>
+            <SectionTitle action={<Link href="/motions" className="text-xs text-blue-600 hover:underline">View all</Link>}>Trending Motions</SectionTitle>
             <ul className="mt-3 space-y-3">
               {trending.map((m: { title: string; counts: { for: number; against: number; abstain: number }; total: number }) => (
                 <li key={m.title} className="space-y-1">
@@ -98,19 +99,18 @@ export default async function Page() {
             </ul>
           </Card>
           <Card aria-label="Suggested topics">
-            <SectionTitle>Suggested Topics</SectionTitle>
+            <SectionTitle action={<Link href="/topics" className="text-xs text-blue-600 hover:underline">View all</Link>}>Suggested Topics</SectionTitle>
             <ul className="mt-3 flex flex-wrap gap-2">
               {suggestedTopics.map((t: { title: string }) => (
-                <li key={t.title}>
-                  <button className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-700 hover:bg-gray-100">
-                    {t.title}
-                  </button>
+                <li key={t.title} className="flex items-center gap-2">
+                  <button className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-700 hover:bg-gray-100" aria-label={`Open ${t.title}`}>{t.title}</button>
+                  <button className="rounded border px-2 py-1 text-[11px] hover:bg-gray-50" aria-label={`Follow ${t.title}`}>Follow</button>
                 </li>
               ))}
             </ul>
           </Card>
           <Card aria-label="Recently active issues">
-            <SectionTitle>Recently Active Issues</SectionTitle>
+            <SectionTitle action={<Link href="/issues" className="text-xs text-blue-600 hover:underline">View all</Link>}>Recently Active Issues</SectionTitle>
             <ul className="mt-3 space-y-2">
               {activeIssues.map((i: { title: string; motionCount: number }) => (
                 <li key={i.title} className="flex justify-between text-sm text-gray-700">

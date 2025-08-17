@@ -1,7 +1,8 @@
 "use client";
 
 import Image from 'next/image';
-import Card from './Card';
+import CardExpandable from './CardExpandable';
+import StanceBar from './StanceBar';
 import ModalDialog from './ModalDialog';
 import { useState } from 'react';
 import { useToast } from './ToastManager';
@@ -15,7 +16,6 @@ type Post = {
 };
 
 export default function PostCard({ post }: { post: Post }) {
-  const [saved, setSaved] = useState(false);
   const [promoteOpen, setPromoteOpen] = useState(false);
   const [title, setTitle] = useState(post.text);
   const [issue, setIssue] = useState('');
@@ -23,50 +23,52 @@ export default function PostCard({ post }: { post: Post }) {
 
   return (
     <>
-      <Card as="article">
-        <header className="mb-2 flex items-start gap-4">
-          <Image
-            src={post.author.avatarUrl || "/avatar-placeholder.svg"}
-            alt={post.author.name}
-            width={36}
-            height={36}
-            className="rounded-full ring-1 ring-gray-200"
-          />
-          <div className="flex-1">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-medium">{post.author.name}</span>
-              <span className="text-gray-500">@{post.author.handle}</span>
-              <span className="text-gray-400">· {post.minutesAgo}m</span>
+      <CardExpandable
+        header={
+          <header className="mb-2 flex items-start gap-4">
+            <Image
+              src={post.author.avatarUrl || "/avatar-placeholder.svg"}
+              alt={post.author.name}
+              width={36}
+              height={36}
+              className="rounded-full ring-1 ring-gray-200"
+            />
+            <div className="flex-1">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="font-medium">{post.author.name}</span>
+                <span className="text-gray-500">@{post.author.handle}</span>
+                <span className="text-gray-400">· {post.minutesAgo}m</span>
+              </div>
+              <p className="mt-1 line-clamp-2 text-[15px] text-gray-800">{post.text}</p>
             </div>
-            <p className="mt-1 text-[15px] text-gray-800">{post.text}</p>
+            <button className="rounded p-2 text-gray-500 hover:bg-gray-50">⋯</button>
+          </header>
+        }
+        collapsed={
+          <div className="mt-2 flex items-center justify-between text-sm text-gray-600">
+            <div className="inline-flex items-center gap-2">
+              <div className="hidden sm:block">
+                <StanceBar census5={{ counts: { 1: 10, 2: 10, 3: 20, 4: 30, 5: 30 }, total: 100 }} variant="dense" />
+              </div>
+              {typeof post.evidenceCount === 'number' && (
+                <span className="pill" aria-label={`${post.evidenceCount} pieces of evidence`}>
+                  Evidence · {post.evidenceCount}
+                </span>
+              )}
+            </div>
           </div>
-          <button className="rounded p-2 text-gray-500 hover:bg-gray-50">⋯</button>
-        </header>
-
-        <footer className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
-          <button
-            className="flex items-center gap-1 rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150 text-mwv-accent"
-            title="Draft a motion from this post"
-            onClick={() => setPromoteOpen(true)}
-          >
-            <span aria-hidden>🚀</span>
-            Promote
-          </button>
-          <button className="rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150">Comment</button>
-          <button className="rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150">Share</button>
-          <button
-            className={`rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150 ${saved ? 'text-mwv-primary' : ''}`}
-            onClick={() => setSaved((s) => !s)}
-          >
-            {saved ? 'Saved' : 'Save'}
-          </button>
-          {typeof post.evidenceCount === 'number' && (
-            <span className="ml-auto pill" aria-label={`${post.evidenceCount} pieces of evidence`}>
-              Evidence · {post.evidenceCount}
-            </span>
-          )}
-        </footer>
-      </Card>
+        }
+        expanded={
+          <div className="space-y-3">
+            <StanceBar census5={{ counts: { 1: 10, 2: 10, 3: 20, 4: 30, 5: 30 }, total: 100 }} />
+            <div className="flex gap-2">
+              <button className="rounded bg-mwv-accent px-3 py-2 text-sm text-white">Join stance</button>
+              <button className="rounded border px-3 py-2 text-sm hover:bg-gray-50">Add argument</button>
+            </div>
+            <div className="text-xs text-gray-600">Sources: oecd.org (2023-10-01), data.gov (2024-02-12)</div>
+          </div>
+        }
+      />
       <ModalDialog open={promoteOpen} onClose={() => setPromoteOpen(false)} title="Promote to Motion">
         <div className="space-y-3 text-sm">
           <label className="block">

@@ -35,13 +35,13 @@ export default function MotionCard({ title, issueTitle, census, evidenceCount }:
       )}
       collapsed={counts ? (
         <div className="mt-3">
-          <StanceBar counts={counts} labels={false} />
+          <StanceBar census5={{ counts: { 1: 0, 2: againstPct, 3: abstainPct, 4: 0, 5: forPct } as any, total: 100 }} variant="dense" />
         </div>
       ) : null}
       expanded={counts ? (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="sm:col-span-2 space-y-2">
-            <StanceBar counts={counts} />
+            <StanceBar census5={{ counts: { 1: againstPct, 2: 0, 3: abstainPct, 4: 0, 5: forPct } as any, total: 100 }} />
             <div className="flex justify-between text-xs text-gray-600">
               <span>For {forPct}%</span>
               <span>Against {againstPct}%</span>

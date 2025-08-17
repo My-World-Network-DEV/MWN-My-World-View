@@ -2,6 +2,7 @@ import AppMenuBar from '@/components/AppMenuBar';
 import Card from '@/components/Card';
 import Link from 'next/link';
 import { use } from 'react';
+import EmptyState from '@/components/EmptyState';
 
 type Forum = { id: string; title: string; topic: string; threads: number; lastActivityM: number; status: 'open' | 'resolved' };
 
@@ -40,6 +41,11 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
+                    {forums.length === 0 && (
+                        <div className="sm:col-span-2">
+                            <EmptyState title="No forum threads yet" body="Be the first to start a discussion." primaryAction={{ href: '/forums/new', label: 'New thread' }} docsHref="https://docs" />
+                        </div>
+                    )}
                     {forums.map((f) => (
                         <Card key={f.id} as="article">
                             <div className="flex items-start justify-between">

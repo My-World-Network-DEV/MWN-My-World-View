@@ -2,6 +2,7 @@ import AppMenuBar from '@/components/AppMenuBar';
 import Card from '@/components/Card';
 import Link from 'next/link';
 import { use } from 'react';
+import EmptyState from '@/components/EmptyState';
 
 type Debate = { id: string; title: string; phase: 'opening' | 'rebuttal' | 'closing' | 'finished'; participants: number; endsInMin?: number };
 
@@ -22,6 +23,11 @@ export default function Page() {
                 <h1 className="text-2xl font-semibold">Debates</h1>
                 <p className="text-sm text-gray-600">Browse active and archived debates.</p>
                 <div className="grid gap-3 sm:grid-cols-2">
+                    {debates.length === 0 && (
+                        <div className="sm:col-span-2">
+                            <EmptyState title="No debates yet" body="Start a new debate to kick off a focused discussion." primaryAction={{ href: '/debates/new', label: 'Start debate' }} docsHref="https://docs" />
+                        </div>
+                    )}
                     {debates.map((d) => (
                         <Card key={d.id} as="article">
                             <div className="flex items-center justify-between">
