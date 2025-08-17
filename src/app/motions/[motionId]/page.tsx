@@ -2,6 +2,7 @@ import Link from 'next/link';
 import TopNav from '@/components/TopNav';
 import StanceBar from '@/components/StanceBar';
 import MotionCensusRealtime from '@/components/MotionCensusRealtime';
+import StanceSelector from '@/components/StanceSelector';
 
 //
 
@@ -58,15 +59,23 @@ export default async function Page({ params }: any) {
             )}
             <div className="mt-2 text-xs text-gray-600">{api ? `${total.toLocaleString()} participants` : 'mock data'}</div>
             <div className="mt-3 flex gap-2">
-              <Link href="#" className="rounded bg-emerald-600 px-3 py-2 text-sm text-white">
-                Vote For
-              </Link>
-              <Link href="#" className="rounded bg-rose-600 px-3 py-2 text-sm text-white">
-                Vote Against
-              </Link>
-              <Link href="#" className="rounded bg-gray-200 px-3 py-2 text-sm">
-                Abstain
-              </Link>
+              <div className="w-full">
+                <StanceSelector
+                  onSubmit={async ({ stance, privacy, reasonText }) => {
+                    try {
+                      await fetch('/api/stance-events', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ motionId: motionId, stance, privacy, reasonText }),
+                      });
+                      // Redirect to room
+                      window.location.href = `/motions/${motionId}/positions/${stance}`;
+                    } catch {
+                      // ignore for now
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
 
