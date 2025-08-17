@@ -1,7 +1,7 @@
 import TopNav from '@/components/TopNav';
 import ForumThread from '@/components/ForumThread';
 
-export default function Page({ params }: { params: { positionId: string } }) {
+export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">
             <TopNav />

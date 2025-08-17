@@ -2,17 +2,18 @@
 
 import { useState } from 'react';
 
-type Props = { onSubmit: (v: { stance: 1 | 2 | 3 | 4 | 5; privacy: 'public' | 'anonymous' }) => void };
+type Props = { onSubmit?: (v: { stance: 1 | 2 | 3 | 4 | 5; privacy: 'public' | 'anonymous' }) => void };
 
 export default function StanceSelector({ onSubmit }: Props) {
     const [stance, setStance] = useState<1 | 2 | 3 | 4 | 5>(3);
     const [privacy, setPrivacy] = useState<'public' | 'anonymous'>('public');
+    const handleSubmit = onSubmit ?? (() => { });
     return (
         <form
             className="rounded border bg-white p-4 space-y-3"
             onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit({ stance, privacy });
+                handleSubmit({ stance, privacy });
             }}
         >
             <div>

@@ -1,6 +1,6 @@
 import TopNav from '@/components/TopNav';
 
-export default function Page({ params }: { params: { debateId: string } }) {
+export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">
             <TopNav />

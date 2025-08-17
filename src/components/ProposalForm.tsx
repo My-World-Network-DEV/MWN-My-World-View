@@ -2,19 +2,20 @@
 
 import { useState } from 'react';
 
-type Props = { onSubmit: (v: { title: string; description: string; votingType: 'yesno' | 'slider' | 'qv' }) => void };
+type Props = { onSubmit?: (v: { title: string; description: string; votingType: 'yesno' | 'slider' | 'qv' }) => void };
 
 export default function ProposalForm({ onSubmit }: Props) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [votingType, setVotingType] = useState<'yesno' | 'slider' | 'qv'>('yesno');
+    const handleSubmit = onSubmit ?? (() => { });
 
     return (
         <form
             className="rounded-lg border bg-white p-4 space-y-3"
             onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit({ title, description, votingType });
+                handleSubmit({ title, description, votingType });
             }}
         >
             <div>
