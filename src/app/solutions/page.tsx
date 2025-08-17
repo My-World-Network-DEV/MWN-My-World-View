@@ -1,10 +1,10 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import SolutionCard from '../../components/SolutionCard';
 
 export default function Page() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6">
                 <h1 className="text-2xl font-semibold">Solutions</h1>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">

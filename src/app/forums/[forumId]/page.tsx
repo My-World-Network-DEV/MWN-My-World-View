@@ -1,4 +1,4 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import ProposalForm from '@/components/ProposalForm';
 import ForumThread from '@/components/ForumThread';
 
@@ -6,7 +6,7 @@ import ForumThread from '@/components/ForumThread';
 export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6 space-y-4">
                 <h1 className="text-2xl font-semibold">Forum #{params.forumId}</h1>
                 <ProposalForm />

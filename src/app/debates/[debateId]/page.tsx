@@ -1,4 +1,4 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import DebateCanvas from '@/components/DebateCanvas';
 import Card from '@/components/Card';
 import { use } from 'react';
@@ -31,7 +31,7 @@ export default function Page({ params }: any) {
     const currentIdx = Math.max(0, phases.indexOf(debate.phase as Phase));
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6 space-y-4">
                 <h1 className="text-2xl font-semibold">{debate.title}</h1>
                 <div className="flex items-center gap-2 text-xs text-gray-600">

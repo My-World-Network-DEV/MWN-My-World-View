@@ -1,11 +1,11 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import WorkingGroupPanel from '../../../components/WorkingGroupPanel';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6 space-y-4">
                 <h1 className="text-2xl font-semibold">Solution #{params.solutionId}</h1>
                 <section className="rounded-lg border bg-white p-4">

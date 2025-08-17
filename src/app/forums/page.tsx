@@ -1,4 +1,4 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import Card from '@/components/Card';
 import Link from 'next/link';
 import { use } from 'react';
@@ -18,7 +18,7 @@ export default function Page() {
     const forums = use(getForums());
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6 space-y-4">
                 <div className="flex items-center justify-between">
                     <div>

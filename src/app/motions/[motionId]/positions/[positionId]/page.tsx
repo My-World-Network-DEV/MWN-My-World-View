@@ -1,5 +1,5 @@
 import React from 'react';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import StanceBar from '@/components/StanceBar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,7 +10,7 @@ export default async function Page({ params }: any) {
     // Invalid; render simple fallback
     return (
       <div className="min-h-screen bg-gray-50">
-        <TopNav />
+        <AppMenuBar />
         <main className="container mx-auto px-4 py-6">
           <div className="rounded border bg-white p-4">
             <div className="text-sm text-gray-700">Invalid position. <a className="text-blue-600 underline" href={`/motions/${motionId}`}>Back to motion</a></div>
@@ -36,7 +36,7 @@ export default async function Page({ params }: any) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
+      <AppMenuBar />
       <header className={`${stanceColors[p]} text-white`}>
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-2xl font-semibold">{stanceNames[p]} Room · {motion.title}</h1>

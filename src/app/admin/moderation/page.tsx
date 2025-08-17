@@ -1,9 +1,9 @@
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 
 export default function Page() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <TopNav />
+            <AppMenuBar />
             <main className="container mx-auto px-4 py-6">
                 <h1 className="text-2xl font-semibold">Moderation Queue</h1>
                 <div className="mt-4 rounded border bg-white p-4">

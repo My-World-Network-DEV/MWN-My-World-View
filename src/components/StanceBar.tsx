@@ -37,6 +37,8 @@ export type StanceBarProps =
     size?: 'sm' | 'md' | 'lg';
     labels?: boolean;
     onSegmentClick?: (level: 1 | 2 | 3 | 4 | 5) => void;
+    trendDelta?: { 1?: number; 2?: number; 3?: number; 4?: number; 5?: number };
+    variant?: 'dense' | 'full';
   };
 
 export default function StanceBar(props: StanceBarProps) {
@@ -58,6 +60,18 @@ export default function StanceBar(props: StanceBarProps) {
     const hasAny = (c.counts[1] || c.counts[2] || c.counts[3] || c.counts[4] || c.counts[5]) ?? 0;
     if (!hasAny) {
       return <div className={`${barClass} items-center justify-center text-[11px] italic text-gray-500`}>No stances yet</div>;
+    }
+    if ((props as any).variant === 'dense') {
+      const pFor = p4 + p5;
+      const pAgainst = p1 + p2;
+      const pNeutral = p3;
+      return (
+        <div className={`flex ${height} w-56 overflow-hidden rounded`} role="img" aria-label="Mini stance distribution">
+          <div style={{ width: `${pFor}%`, backgroundColor: '#22c55e' }} title={`For ${pFor}%`} />
+          <div style={{ width: `${pNeutral}%`, backgroundColor: '#9ca3af' }} title={`Neutral ${pNeutral}%`} />
+          <div style={{ width: `${pAgainst}%`, backgroundColor: '#ef4444' }} title={`Against ${pAgainst}%`} />
+        </div>
+      );
     }
     return (
       <div className="w-full">

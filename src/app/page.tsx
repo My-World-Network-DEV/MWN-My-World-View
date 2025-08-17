@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Link from 'next/link';
+import QuickActions from '@/components/QuickActions';
 import AppMenuBar from '@/components/AppMenuBar';
 import Sidebar from '@/components/Sidebar';
 import Card from '@/components/Card';
@@ -37,11 +37,7 @@ export default async function Page() {
         </aside>
 
         <section className="lg:col-span-8 space-y-5">
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <a href="#composer" className="card p-3 text-sm hover:shadow-card-hover">Draft a Post</a>
-            <Link href="/motions/new" className="card p-3 text-sm hover:shadow-card-hover">Start a Motion</Link>
-            <Link href="/issues" className="card p-3 text-sm hover:shadow-card-hover">Browse Issues</Link>
-          </div>
+          <QuickActions />
           <Card id="composer">
             <Composer />
             <div className="mt-3">
@@ -57,9 +53,11 @@ export default async function Page() {
           </Suspense>
           <ul className="space-y-3">
             {posts.length === 0 && (
-              <li>
-                <SkeletonCard />
-              </li>
+              <>
+                <li><SkeletonCard /></li>
+                <li><SkeletonCard /></li>
+                <li><SkeletonCard /></li>
+              </>
             )}
             {posts.map((p: { id: string; author: { name: string; handle: string; avatarUrl?: string }; minutesAgo: number; text: string; evidenceCount?: number }) => (
               <li key={p.id}>

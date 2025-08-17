@@ -37,6 +37,12 @@ export default function CardExpandable({ header, collapsed, expanded, defaultOpe
                 className="mt-2 text-sm text-blue-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-mwv-ring"
                 aria-expanded={open}
                 onClick={() => setOpen((o) => !o)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setOpen((o) => !o);
+                    }
+                }}
             >
                 {open ? 'Show less' : 'Read more…'}
             </button>

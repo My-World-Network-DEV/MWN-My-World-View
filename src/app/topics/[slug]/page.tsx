@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 
 type Issue = {
   id: string;
@@ -42,7 +42,7 @@ export default function Page({ params }: any) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
+      <AppMenuBar />
       <header className="border-b bg-white">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-4">

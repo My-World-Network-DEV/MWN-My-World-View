@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import Chip from '@/components/Chip';
 
 type TopicTile = { slug: string; title: string; issuesCount: number };
@@ -33,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
+      <AppMenuBar />
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <section className="lg:col-span-8 space-y-6">
           {/* Sticky search + filters */}
