@@ -10,6 +10,7 @@ type MotionListItem = {
   argumentsCount: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
   const issueId = params.id;
 

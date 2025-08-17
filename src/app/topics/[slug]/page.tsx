@@ -10,6 +10,7 @@ type Issue = {
   census?: { agreePct: number; disagreePct: number; neutralPct: number };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
   // --- Mock topic + issues ---
   const topicSlug = params.slug;

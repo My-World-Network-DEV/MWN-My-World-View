@@ -1,6 +1,7 @@
 import TopNav from '@/components/TopNav';
 import WorkingGroupPanel from '../../../components/WorkingGroupPanel';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">

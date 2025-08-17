@@ -16,6 +16,7 @@ async function getCensus(motionId: string): Promise<CensusAPI | null> {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page({ params }: any) {
   const { motionId } = params;
 

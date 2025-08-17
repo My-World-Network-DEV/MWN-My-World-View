@@ -1,5 +1,6 @@
 import TopNav from '@/components/TopNav';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
     return (
         <div className="min-h-screen bg-gray-50">
