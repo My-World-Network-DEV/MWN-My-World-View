@@ -1,13 +1,36 @@
 import React from 'react';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
+import Card from '@/components/Card';
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
-      <main className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold">Search — Placeholder</h1>
-        <p className="mt-2 text-sm text-gray-600">This is a placeholder page for the route. Replace with real UI and data fetching.</p>
+      <AppMenuBar />
+      <main className="container mx-auto px-4 py-6 space-y-4">
+        <h1 className="text-2xl font-semibold">Search</h1>
+        <div className="grid gap-3 lg:grid-cols-3">
+          <Card>
+            <div className="text-sm font-medium">Topics</div>
+            <ul className="mt-2 text-sm text-gray-700 space-y-1">
+              <li>Artificial intelligence</li>
+              <li>Urban planning</li>
+            </ul>
+          </Card>
+          <Card>
+            <div className="text-sm font-medium">Issues</div>
+            <ul className="mt-2 text-sm text-gray-700 space-y-1">
+              <li>Regulate AI alignment</li>
+              <li>Plastic exports</li>
+            </ul>
+          </Card>
+          <Card>
+            <div className="text-sm font-medium">Motions</div>
+            <ul className="mt-2 text-sm text-gray-700 space-y-1">
+              <li>UBI improves societal resilience</li>
+              <li>Phase out coal by 2030</li>
+            </ul>
+          </Card>
+        </div>
       </main>
     </div>
   );
