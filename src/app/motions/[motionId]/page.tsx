@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import StanceBar from '@/components/StanceBar';
 import MotionCensusRealtime from '@/components/MotionCensusRealtime';
 import StanceSelector from '@/components/StanceSelector';
@@ -37,12 +38,13 @@ export default async function Page({ params }: any) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
+      <AppMenuBar />
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <section className="lg:col-span-8 space-y-4">
           {/* Header */}
           <div className="rounded-lg border bg-white p-4">
-            <div className="text-xs text-gray-500">Motion · <Link href={`/issues/${motion.issue.id}`} className="hover:underline">{motion.issue.title}</Link></div>
+            <Breadcrumbs items={[{ href: '/topics', label: 'Topics' }, { href: `/issues/${motion.issue.id}`, label: motion.issue.title }, { label: `Motion #${motion.id}` }]} />
+            <div className="text-xs text-gray-500 mt-1">Motion · <Link href={`/issues/${motion.issue.id}`} className="hover:underline">{motion.issue.title}</Link></div>
             <h1 className="mt-1 text-2xl font-semibold">{motion.statement}</h1>
             <div className="mt-1 text-xs text-gray-500">
               by @{motion.author.handle} · {motion.author.atMinutes}m ago

@@ -1,6 +1,10 @@
 "use client";
 
 import Image from 'next/image';
+import Card from './Card';
+import ModalDialog from './ModalDialog';
+import { useState } from 'react';
+import { useToast } from './ToastManager';
 import { useState } from 'react';
 
 type Post = {
@@ -13,9 +17,13 @@ type Post = {
 
 export default function PostCard({ post }: { post: Post }) {
   const [saved, setSaved] = useState(false);
+  const [promoteOpen, setPromoteOpen] = useState(false);
+  const [title, setTitle] = useState(post.text);
+  const [issue, setIssue] = useState('');
+  const { add } = useToast();
 
   return (
-    <article className="card card-hover p-4">
+    <Card as="article">
       <header className="mb-2 flex items-start gap-4">
         <Image
           src={post.author.avatarUrl || "/avatar-placeholder.svg"}
@@ -37,8 +45,9 @@ export default function PostCard({ post }: { post: Post }) {
 
       <footer className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
         <button
-          className="flex items-center gap-1 rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150"
+          className="flex items-center gap-1 rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150 text-mwv-accent"
           title="Draft a motion from this post"
+          onClick={() => setPromoteOpen(true)}
         >
           <span aria-hidden>🚀</span>
           Promote
@@ -57,6 +66,34 @@ export default function PostCard({ post }: { post: Post }) {
           </span>
         )}
       </footer>
-    </article>
+    </Card>
+
+    <ModalDialog open={promoteOpen} onClose={() => setPromoteOpen(false)} title="Promote to Motion">
+      <div className="space-y-3 text-sm">
+        <label className="block">
+          <span className="text-xs text-gray-600">Proposition</span>
+          <textarea className="mt-1 w-full rounded border px-3 py-2" rows={3} value={title} onChange={(e) => setTitle(e.target.value)} />
+        </label>
+        <label className="block">
+          <span className="text-xs text-gray-600">Issue</span>
+          <input className="mt-1 w-full rounded border px-3 py-2" value={issue} onChange={(e) => setIssue(e.target.value)} placeholder="Search or create issue" />
+        </label>
+        <div className="flex justify-end gap-2">
+          <button className="rounded px-3 py-2 text-sm hover:bg-gray-50" onClick={() => setPromoteOpen(false)}>Cancel</button>
+          <button
+            className="rounded bg-mwv-accent px-3 py-2 text-sm text-white disabled:opacity-50"
+            disabled={!title.trim()}
+            onClick={() => {
+              setPromoteOpen(false);
+              const newId = Math.random().toString(36).slice(2, 8);
+              add({ variant: 'success', title: 'Motion created', text: 'View your new motion', durationMs: 5000 });
+              window.location.href = `/motions/${newId}`;
+            }}
+          >
+            Create motion
+          </button>
+        </div>
+      </div>
+    </ModalDialog>
   );
 }

@@ -14,12 +14,23 @@ const config: Config = {
         mwv: {
           primary: '#2563eb',
           'primary-foreground': '#ffffff',
+          accent: 'var(--mwv-accent)',
+          'accent-foreground': '#ffffff',
+          success: 'var(--mwv-success)',
+          error: 'var(--mwv-error)',
           muted: 'var(--mwv-muted)',
           card: 'var(--mwv-card)',
           border: 'var(--mwv-border)',
           ring: 'var(--mwv-ring)',
           background: 'var(--mwv-background)',
           foreground: 'var(--mwv-foreground)',
+        },
+        gray: {
+          25: '#fcfcfd',
+          75: '#f7f7f8',
+          125: '#f2f4f7',
+          275: '#e4e7ec',
+          325: '#d0d5dd',
         },
       },
       spacing: {

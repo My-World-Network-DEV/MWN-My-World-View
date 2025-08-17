@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
 import Sidebar from '@/components/Sidebar';
+import Card from '@/components/Card';
 import Chip from '@/components/Chip';
 import { SkeletonCard } from '@/components/Skeleton';
 import Composer from '@/components/Composer';
@@ -75,7 +76,7 @@ const activeIssues: IssueLite[] = [
 export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
-      <TopNav />
+      <AppMenuBar />
       <HeaderHero />
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <aside className="hidden space-y-4 lg:col-span-2 lg:block" aria-label="Sidebar and shortcuts">
@@ -183,18 +184,6 @@ export default function Page() {
         </aside>
       </main>
     </div>
-  );
-}
-
-function Card({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
-  return (
-    <section
-      {...props}
-      className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow ${props.className || ''
-        }`}
-    >
-      {children}
-    </section>
   );
 }
 

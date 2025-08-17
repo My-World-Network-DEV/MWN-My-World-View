@@ -9,6 +9,9 @@
   --mwv-muted: #f1f5f9;
   --mwv-border: #e2e8f0;
   --mwv-ring: #3b82f6;
+  --mwv-accent: #f59e0b;
+  --mwv-success: #10b981;
+  --mwv-error: #ef4444;
 }
 
 .dark {
@@ -18,6 +21,25 @@
   --mwv-muted: #334155;
   --mwv-border: #475569;
   --mwv-ring: #3b82f6;
+  --mwv-accent: #d97706;
+  --mwv-success: #34d399;
+  --mwv-error: #f87171;
+}
+
+/* High-contrast theme overrides */
+.high-contrast {
+  --mwv-background: #ffffff;
+  --mwv-foreground: #0c0c0c;
+  --mwv-card: #f5f5f5;
+  --mwv-muted: #eaeaea;
+  --mwv-border: #111827;
+  --mwv-ring: #111827;
+  --mwv-accent: #b45309;
+  /* darker amber for contrast */
+  --mwv-success: #047857;
+  /* darker green */
+  --mwv-error: #b91c1c;
+  /* darker red */
 }
 
 body {
@@ -51,4 +73,3 @@ body {
 *:focus-visible {
   @apply outline-none ring-2 ring-mwv-ring ring-opacity-60 ring-offset-2;
 }
-

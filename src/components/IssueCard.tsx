@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './Card';
 
 type IssueCardProps = {
   title: string;
@@ -8,7 +9,7 @@ type IssueCardProps = {
 
 export default function IssueCard({ title, description, evidenceCount }: IssueCardProps) {
   return (
-    <article className="card card-hover p-4">
+    <Card as="article">
       <h3 className="mb-2 text-sm font-medium">{title}</h3>
       {description && <p className="text-sm text-gray-600">{description}</p>}
       {typeof evidenceCount === 'number' && (
@@ -18,6 +19,6 @@ export default function IssueCard({ title, description, evidenceCount }: IssueCa
           </span>
         </div>
       )}
-    </article>
+    </Card>
   );
 }

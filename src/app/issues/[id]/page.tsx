@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import TopNav from '@/components/TopNav';
+import AppMenuBar from '@/components/AppMenuBar';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import Image from 'next/image';
 
 type MotionListItem = {
@@ -50,9 +51,10 @@ export default async function Page({ params }: any) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNav />
+      <AppMenuBar />
       <header className="border-b bg-white">
         <div className="container mx-auto px-4 py-6">
+          <Breadcrumbs items={[{ href: '/topics', label: 'Topics' }, { href: `/topics/ai-labor`, label: 'AI' }, { label: issue.title }]} />
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <h1 className="text-2xl font-semibold">{issue.title}</h1>
