@@ -16,7 +16,7 @@ export default function PostCard({ post }: { post: Post }) {
 
   return (
     <article className="card card-hover p-4">
-      <header className="mb-2 flex items-start gap-3">
+      <header className="mb-2 flex items-start gap-4">
         <Image
           src={post.author.avatarUrl || "/avatar-placeholder.svg"}
           alt={post.author.name}
@@ -32,27 +32,29 @@ export default function PostCard({ post }: { post: Post }) {
           </div>
           <p className="mt-1 text-[15px] text-gray-800">{post.text}</p>
         </div>
-        <button className="rounded p-1 text-gray-500 hover:bg-gray-50">⋯</button>
+        <button className="rounded p-2 text-gray-500 hover:bg-gray-50">⋯</button>
       </header>
 
-      <footer className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-600">
+      <footer className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
         <button
-          className="flex items-center gap-1 rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150"
+          className="flex items-center gap-1 rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150"
           title="Draft a motion from this post"
         >
           <span aria-hidden>🚀</span>
           Promote
         </button>
-        <button className="rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150">Comment</button>
-        <button className="rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150">Share</button>
+        <button className="rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150">Comment</button>
+        <button className="rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150">Share</button>
         <button
-          className={`rounded px-2 py-1 hover:bg-mwv-muted transition-all duration-150 ${saved ? 'text-mwv-primary' : ''}`}
+          className={`rounded px-2 py-2 hover:bg-mwv-muted transition-all duration-150 ${saved ? 'text-mwv-primary' : ''}`}
           onClick={() => setSaved((s) => !s)}
         >
           {saved ? 'Saved' : 'Save'}
         </button>
         {typeof post.evidenceCount === 'number' && (
-          <span className="ml-auto pill">{post.evidenceCount} evidence</span>
+          <span className="ml-auto pill" aria-label={`${post.evidenceCount} pieces of evidence`}>
+            Evidence · {post.evidenceCount}
+          </span>
         )}
       </footer>
     </article>
