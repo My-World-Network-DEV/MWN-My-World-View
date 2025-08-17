@@ -39,21 +39,22 @@ m AS (
     FROM i
     RETURNING id AS motion_id
 )
-INSERT INTO stance_events (user_id, motion_id, stance, metadata)
+INSERT INTO stance_events (user_id, motion_id, stance, metadata, privacy)
 SELECT (
         SELECT user_id
         FROM u
     ),
     motion_id,
     s.stance,
-    '{}'::jsonb
+    '{}'::jsonb,
+    s.privacy
 FROM m,
     LATERAL (
-        VALUES ('for'),
-            ('for'),
-            ('for'),
-            ('against'),
-            ('against'),
-            ('abstain')
-    ) AS s(stance);
+        VALUES (5, 'public'),
+            (5, 'public'),
+            (4, 'anonymous'),
+            (3, 'hiddenWeighted'),
+            (2, 'public'),
+            (1, 'anonymous')
+    ) AS s(stance, privacy);
 COMMIT;

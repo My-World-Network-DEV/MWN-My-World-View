@@ -1,20 +1,9 @@
 import Link from 'next/link';
 import TopNav from '@/components/TopNav';
 import StanceBar from '@/components/StanceBar';
+import MotionCensusRealtime from '@/components/MotionCensusRealtime';
 
-type CensusAPI = { motionId: string; total: number; counts: { for: number; against: number; abstain: number } };
-
-async function getCensus(motionId: string): Promise<CensusAPI | null> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/census/motion/${motionId}`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return null;
-    return (await res.json()) as CensusAPI;
-  } catch {
-    return null;
-  }
-}
+//
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page({ params }: any) {
@@ -32,12 +21,18 @@ export default async function Page({ params }: any) {
     ],
   };
 
-  const api = await getCensus(motionId);
+  const api = await (async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/census/motion/${motionId}`, { cache: 'no-store' });
+      if (!res.ok) return null;
+      return (await res.json()) as { counts: Record<number, number>; total: number; percentages?: Record<number, number> };
+    } catch {
+      return null;
+    }
+  })();
 
-  const counts = api?.counts ?? { for: 55, against: 35, abstain: 10 };
-  const total = api?.total ?? 100;
-
-  const toPct = (n: number) => Math.round((n / Math.max(total, 1)) * 100);
+  const counts5 = (api?.counts as Record<number, number> | undefined) ?? { 1: 10, 2: 10, 3: 20, 4: 30, 5: 30 };
+  const total = api?.total ?? Object.values(counts5).reduce((a, b) => a + b, 0);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -56,11 +51,12 @@ export default async function Page({ params }: any) {
           {/* Census card */}
           <div className="rounded-lg border bg-white p-4">
             <div className="text-sm font-medium mb-2">Census</div>
-            <StanceBar counts={counts} />
-            <div className="mt-2 text-xs text-gray-600">
-              For {toPct(counts.for)}% · Against {toPct(counts.against)}% · Abstain {toPct(counts.abstain)}%
-              {api ? ` · ${api.total.toLocaleString()} participants` : ' · mock data'}
-            </div>
+            {api ? (
+              <MotionCensusRealtime motionId={motionId} initialCounts={counts5 as any} />
+            ) : (
+              <StanceBar census5={{ counts: counts5 as any, total }} />
+            )}
+            <div className="mt-2 text-xs text-gray-600">{api ? `${total.toLocaleString()} participants` : 'mock data'}</div>
             <div className="mt-3 flex gap-2">
               <Link href="#" className="rounded bg-emerald-600 px-3 py-2 text-sm text-white">
                 Vote For

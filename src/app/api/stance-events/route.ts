@@ -3,15 +3,21 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-type Body = { motionId?: string; stance?: 'for' | 'against' | 'abstain'; reasonText?: string };
+type Body = { motionId?: string; stance?: number; privacy?: string; reasonText?: string };
 
 export async function POST(req: Request) {
-  const { motionId, stance, reasonText } = (await req.json().catch(() => ({}))) as Body;
-  const allowed = new Set(['for', 'against', 'abstain']);
+  const body = (await req.json().catch(() => ({}))) as Body;
+  const motionId = typeof body.motionId === 'string' ? body.motionId : '';
+  const stance = typeof body.stance === 'number' ? Math.trunc(body.stance) : NaN;
+  const privacy = (typeof body.privacy === 'string' ? body.privacy : 'public') as
+    | 'public'
+    | 'anonymous'
+    | 'hiddenWeighted';
+  const reasonText = typeof body.reasonText === 'string' ? body.reasonText : undefined;
 
-  if (!motionId || !stance || !allowed.has(stance)) {
+  if (!motionId || !(stance >= 1 && stance <= 5) || !['public', 'anonymous', 'hiddenWeighted'].includes(privacy)) {
     return NextResponse.json(
-      { error: 'motionId and stance (for|against|abstain) are required' },
+      { error: 'Invalid body', details: { motionId: !!motionId, stance: stance, privacy } },
       { status: 400 }
     );
   }
@@ -24,11 +30,16 @@ export async function POST(req: Request) {
 
   const admin = createClient(url, serviceKey);
 
-  const { error } = await admin.from('stance_events').insert({
-    motion_id: motionId,
-    stance,
-    metadata: reasonText ? { reasonText } : {},
-  });
+  const { error } = await admin
+    .from('stance_events')
+    .insert({
+      motion_id: motionId,
+      stance,
+      privacy,
+      metadata: reasonText ? { reasonText } : {},
+    })
+    .select()
+    .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   return NextResponse.json({ ok: true }, { status: 201 });

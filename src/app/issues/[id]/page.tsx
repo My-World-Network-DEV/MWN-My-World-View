@@ -11,11 +11,10 @@ type MotionListItem = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Page({ params }: any) {
+export default async function Page({ params }: any) {
   const issueId = params.id;
 
-  // --- Mock Issue ---
-  const issue = {
+  let issue = {
     id: issueId,
     title: 'AI and Entry-Level Jobs',
     definitions: [
@@ -27,22 +26,27 @@ export default function Page({ params }: any) {
     census: { agree: 58, neutral: 13, disagree: 29 },
   };
 
-  const motions: MotionListItem[] = [
-    {
-      id: '9001',
-      statement: 'Governments should fund AI job retraining credits for young workers.',
-      createdAtMinutesAgo: 42,
-      stance: { forPct: 62, againstPct: 28, abstainPct: 10 },
-      argumentsCount: 23,
-    },
-    {
-      id: '9002',
-      statement: 'Introduce apprenticeship tax offsets for employers hiring displaced workers.',
-      createdAtMinutesAgo: 95,
-      stance: { forPct: 54, againstPct: 31, abstainPct: 15 },
-      argumentsCount: 11,
-    },
-  ];
+  let motions: MotionListItem[] = [];
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/issues/${issueId}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      issue = {
+        id: data.issue.id,
+        title: data.issue.title,
+        definitions: [],
+        description: data.issue.description ?? '',
+        census: { agree: 0, neutral: 0, disagree: 0 },
+      };
+      motions = (data.motions ?? []).map((m: any) => ({
+        id: m.id,
+        statement: m.title,
+        createdAtMinutesAgo: 0,
+        stance: { forPct: 0, againstPct: 0, abstainPct: 0 },
+        argumentsCount: 0,
+      }));
+    }
+  } catch { }
 
   return (
     <div className="min-h-screen bg-gray-50">

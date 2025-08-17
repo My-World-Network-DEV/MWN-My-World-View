@@ -8,10 +8,19 @@ export async function GET(_: Request, context: any) {
   const { motionId } = context?.params ?? {};
   if (!motionId) return NextResponse.json({ error: 'motionId required' }, { status: 400 });
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anon) {
+    return NextResponse.json({
+      motionId,
+      total: 0,
+      counts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      percentages: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      mock: true,
+    });
+  }
+
+  const supabase = createClient(url, anon);
 
   const { data, error } = await supabase
     .from('stance_events')
@@ -20,14 +29,17 @@ export async function GET(_: Request, context: any) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
-  const counts = { for: 0, against: 0, abstain: 0 };
+  const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   for (const row of data ?? []) {
-    const k = (row as any).stance as keyof typeof counts;
-    if (k in counts) counts[k] += 1;
+    const s = Number((row as any).stance) as 1 | 2 | 3 | 4 | 5;
+    if (s >= 1 && s <= 5) counts[s] += 1;
   }
-  const total = counts.for + counts.against + counts.abstain;
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const percentages = Object.fromEntries(
+    Object.entries(counts).map(([k, v]) => [k, total > 0 ? Math.round((Number(v) / total) * 100) : 0])
+  );
 
-  return NextResponse.json({ motionId, total, counts });
+  return NextResponse.json({ motionId, total, counts, percentages });
 }
 
 
