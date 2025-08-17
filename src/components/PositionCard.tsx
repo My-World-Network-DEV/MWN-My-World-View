@@ -1,12 +1,23 @@
 import React from 'react';
 
-type PositionCardProps = { title: string; stance?: string };
+type PositionCardProps = {
+  title: string;
+  stance?: string;
+  evidenceCount?: number;
+};
 
-export default function PositionCard({ title, stance }: PositionCardProps) {
+export default function PositionCard({ title, stance, evidenceCount }: PositionCardProps) {
   return (
-    <div className="border p-4 rounded">
-      <div className="font-medium">{title}</div>
+    <article className="card card-hover p-4">
+      <h3 className="mb-2 text-sm font-medium">{title}</h3>
       {stance && <p className="text-sm text-gray-600">{stance}</p>}
-    </div>
+      {typeof evidenceCount === 'number' && (
+        <div className="mt-4">
+          <span className="pill" aria-label={`${evidenceCount} pieces of evidence`}>
+            Evidence · {evidenceCount}
+          </span>
+        </div>
+      )}
+    </article>
   );
 }

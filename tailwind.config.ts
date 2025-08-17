@@ -22,6 +22,9 @@ const config: Config = {
           foreground: 'var(--mwv-foreground)',
         },
       },
+      spacing: {
+        18: '4.5rem', // 72px helper for 8pt scale
+      },
       fontSize: {
         '2.5xl': ['1.75rem', { lineHeight: '2rem' }],
       },

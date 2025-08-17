@@ -1,5 +1,6 @@
 "use client";
 import StanceBar from './StanceBar';
+import SectionTitle from './SectionTitle';
 
 export default function RightRail() {
   const suggestedTopics = [
@@ -9,36 +10,46 @@ export default function RightRail() {
   ];
 
   const trending = [
-    { title: 'AI is essential for …', forPct: 62, againstPct: 28, abstainPct: 10 },
-    { title: 'Ban plastic bags in …', forPct: 54, againstPct: 36, abstainPct: 10 },
-    { title: 'Universal basic income …', forPct: 39, againstPct: 48, abstainPct: 13 },
+    { title: 'AI is essential for …', counts: { for: 62, against: 28, abstain: 10 } },
+    { title: 'Ban plastic bags in …', counts: { for: 54, against: 36, abstain: 10 } },
+    { title: 'Universal basic income …', counts: { for: 39, against: 48, abstain: 13 } },
   ];
 
   return (
-    <aside className="lg:col-span-4 xl:col-span-3 space-y-4">
-      <div className="rounded-lg border bg-white p-4">
-        <div className="text-sm font-medium">Suggested Topics</div>
-        <ul className="mt-3 space-y-2 text-sm">
+    <aside className="space-y-4 lg:col-span-4 xl:col-span-3">
+      <div className="card p-4">
+        <SectionTitle>Suggested Topics</SectionTitle>
+        <ul className="mt-4 flex flex-wrap gap-2 text-sm">
           {suggestedTopics.map((t) => (
             <li key={t.title}>
-              <button className="flex w-full items-center justify-between rounded-md px-2 py-1 hover:bg-gray-50">
-                <span>{t.title}</span>
-                <span className="text-gray-400">›</span>
+              <button className="rounded-full border border-mwv-border bg-mwv-muted px-3 py-1 hover:bg-mwv-border/30">
+                {t.title}
               </button>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="rounded-lg border bg-white p-4">
-        <div className="text-sm font-medium">Trending Motions</div>
-        <ul className="mt-3 space-y-3">
-          {trending.map((m) => (
-            <li key={m.title} className="space-y-1">
-              <div className="text-sm text-gray-800 line-clamp-1">{m.title}</div>
-              <StanceBar forPct={m.forPct} againstPct={m.againstPct} abstainPct={m.abstainPct} />
-            </li>
-          ))}
+      <div className="card p-4">
+        <SectionTitle>Trending Motions</SectionTitle>
+        <ul className="mt-4 space-y-4">
+          {trending.map((m) => {
+            const total = m.counts.for + m.counts.against + m.counts.abstain;
+            const forPct = Math.round((m.counts.for / total) * 100);
+            const againstPct = Math.round((m.counts.against / total) * 100);
+            const abstainPct = Math.round((m.counts.abstain / total) * 100);
+            return (
+              <li key={m.title} className="space-y-2">
+                <div className="text-sm text-gray-800 line-clamp-1">{m.title}</div>
+                <StanceBar counts={m.counts} size="sm" labels={false} />
+                <div className="flex justify-between text-xs text-gray-600">
+                  <span>For {forPct}%</span>
+                  <span>Against {againstPct}%</span>
+                  <span>Abstain {abstainPct}%</span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </aside>
