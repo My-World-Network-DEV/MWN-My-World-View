@@ -39,7 +39,9 @@ export async function GET(_: Request, context: any) {
     Object.entries(counts).map(([k, v]) => [k, total > 0 ? Math.round((Number(v) / total) * 100) : 0])
   );
 
-  return NextResponse.json({ motionId, total, counts, percentages });
+  const res = NextResponse.json({ motionId, total, counts, percentages });
+  res.headers.set('Cache-Control', 'no-store');
+  return res;
 }
 
 

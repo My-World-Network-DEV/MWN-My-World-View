@@ -12,8 +12,35 @@ export default function MotionCensusRealtime({ motionId, initialCounts }: { moti
     const total = useMemo(() => Object.values(counts).reduce((a, b) => a + b, 0), [counts]);
 
     useEffect(() => {
+        const onSubmit = (e: any) => {
+            try {
+                const d = e?.detail as { motionId: string; stance: 1 | 2 | 3 | 4 | 5 };
+                if (d?.motionId === motionId && d?.stance >= 1 && d?.stance <= 5) {
+                    setCounts((prev) => ({ ...prev, [d.stance]: (prev[d.stance] || 0) + 1 } as Counts5));
+                }
+            } catch { }
+        };
+        const onRollback = (e: any) => {
+            try {
+                const d = e?.detail as { motionId: string; stance: 1 | 2 | 3 | 4 | 5 };
+                if (d?.motionId === motionId && d?.stance >= 1 && d?.stance <= 5) {
+                    setCounts((prev) => ({ ...prev, [d.stance]: Math.max(0, (prev[d.stance] || 0) - 1) } as Counts5));
+                }
+            } catch { }
+        };
+        if (typeof window !== 'undefined') {
+            window.addEventListener('stance:submitted', onSubmit as any);
+            window.addEventListener('stance:rollback', onRollback as any);
+        }
+
         // If supabase is misconfigured, supabase client may throw; guard channel setup
-        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return;
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('stance:submitted', onSubmit as any);
+                window.removeEventListener('stance:rollback', onRollback as any);
+            }
+        };
+
         const channel = supabase
             .channel(`stance_events_motion_${motionId}`)
             .on(
@@ -33,6 +60,10 @@ export default function MotionCensusRealtime({ motionId, initialCounts }: { moti
             try {
                 supabase.removeChannel(channel);
             } catch { }
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('stance:submitted', onSubmit as any);
+                window.removeEventListener('stance:rollback', onRollback as any);
+            }
         };
     }, [motionId]);
 

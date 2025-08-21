@@ -2,8 +2,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
+import { useCallback, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function TopNav() {
+  const [isLoadingAuth, setIsLoadingAuth] = useState(false);
+  const handleSignIn = useCallback(async () => {
+    setIsLoadingAuth(true);
+    try {
+      const email = window.prompt('Enter magic-link email:');
+      if (!email) return;
+      await supabase.auth.signInWithOtp({ email });
+      alert('If this were configured, a magic link would be sent.');
+    } finally {
+      setIsLoadingAuth(false);
+    }
+  }, []);
+  const handleSignOut = useCallback(async () => {
+    setIsLoadingAuth(true);
+    try {
+      await supabase.auth.signOut();
+      window.location.reload();
+    } finally {
+      setIsLoadingAuth(false);
+    }
+  }, []);
   return (
     <header className="sticky top-0 z-30 w-full border-b border-mwv-border bg-mwv-card/80 backdrop-blur">
       <div className="container mx-auto flex items-center gap-3 px-4 py-3">
@@ -29,16 +52,21 @@ export default function TopNav() {
           <span className="absolute -top-0.5 -right-0.5 inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-medium text-white">1</span>
         </button>
         <ThemeToggle />
-        <Image
-          src="/avatar-placeholder.svg"
-          alt="Profile"
-          width={28}
-          height={28}
-          className="ml-2 rounded-full ring-1 ring-mwv-border"
-          loading="lazy"
-        />
+        <div className="ml-2 flex items-center gap-2">
+          <button onClick={handleSignIn} disabled={isLoadingAuth} className="rounded border px-2 py-1 text-sm">Sign in</button>
+          <button onClick={handleSignOut} disabled={isLoadingAuth} className="rounded border px-2 py-1 text-sm">Sign out</button>
+          <Link href="/profile" className="rounded-full ring-1 ring-mwv-border">
+            <Image
+              src="/avatar-placeholder.svg"
+              alt="Profile"
+              width={28}
+              height={28}
+              loading="lazy"
+            />
+          </Link>
+        </div>
       </div>
     </header>
   );
 }
- 
+

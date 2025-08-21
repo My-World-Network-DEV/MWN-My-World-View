@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-type Body = { motionId?: string; stance?: number; privacy?: string; reasonText?: string };
+type Body = { motionId?: string; stance?: number; privacy?: string; reasonText?: string; evidenceUrls?: string[] };
 
 export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as Body;
@@ -14,6 +14,9 @@ export async function POST(req: Request) {
     | 'anonymous'
     | 'hiddenWeighted';
   const reasonText = typeof body.reasonText === 'string' ? body.reasonText : undefined;
+  const evidenceUrls = Array.isArray((body as any).evidenceUrls)
+    ? ((body as any).evidenceUrls as unknown[]).map((x) => (typeof x === 'string' ? x : '')).filter(Boolean)
+    : undefined;
 
   if (!motionId || !(stance >= 1 && stance <= 5) || !['public', 'anonymous', 'hiddenWeighted'].includes(privacy)) {
     return NextResponse.json(
@@ -30,19 +33,28 @@ export async function POST(req: Request) {
 
   const admin = createClient(url, serviceKey);
 
-  const { error } = await admin
+  const { data, error } = await admin
     .from('stance_events')
     .insert({
       motion_id: motionId,
       stance,
       privacy,
-      metadata: reasonText ? { reasonText } : {},
+      reason_text: reasonText,
+      evidence_urls: evidenceUrls ?? undefined,
     })
     .select()
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-  return NextResponse.json({ ok: true }, { status: 201 });
+  return NextResponse.json({
+    id: data?.id,
+    motionId,
+    stance,
+    privacy,
+    reasonText,
+    evidenceUrls: evidenceUrls ?? [],
+    createdAt: data?.created_at ?? null,
+  }, { status: 201 });
 }
 
 

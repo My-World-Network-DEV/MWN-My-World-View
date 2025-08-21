@@ -11,12 +11,21 @@ import StanceSelector from '@/components/StanceSelector';
 export default async function Page({ params }: any) {
   const { motionId } = params;
 
-  // --- Mock motion copy (replace with Supabase wired data later) ---
-  const motion = {
+  // Fetch motion details from API (falls back to mock if env missing)
+  const motionResp = await (async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/motions/${motionId}`, { cache: 'no-store' });
+      if (!res.ok) return null;
+      return (await res.json()) as any;
+    } catch {
+      return null;
+    }
+  })();
+  const motion = motionResp?.motion ?? {
     id: motionId,
-    statement: 'AI will displace more jobs than it creates (by 2035).',
+    title: 'AI will displace more jobs than it creates (by 2035).',
+    description: null,
     issue: { id: '101', title: 'AI and Entry-Level Jobs' },
-    author: { name: 'Ava', handle: 'ava', atMinutes: 32 },
     related: [
       { id: '9003', title: 'Mandate employer-funded reskilling for affected roles' },
       { id: '9004', title: 'Expand apprenticeship pathways in tech-adjacent fields' },
@@ -44,11 +53,9 @@ export default async function Page({ params }: any) {
           {/* Header */}
           <div className="rounded-lg border bg-white p-4">
             <Breadcrumbs items={[{ href: '/topics', label: 'Topics' }, { href: `/issues/${motion.issue.id}`, label: motion.issue.title }, { label: `Motion #${motion.id}` }]} />
-            <div className="text-xs text-gray-500 mt-1">Motion · <Link href={`/issues/${motion.issue.id}`} className="hover:underline">{motion.issue.title}</Link></div>
-            <h1 className="mt-1 text-2xl font-semibold">{motion.statement}</h1>
-            <div className="mt-1 text-xs text-gray-500">
-              by @{motion.author.handle} · {motion.author.atMinutes}m ago
-            </div>
+            <div className="text-xs text-gray-500 mt-1">Motion · {motion.issue ? (<Link href={`/issues/${motion.issue.id}`} className="hover:underline">{motion.issue.title}</Link>) : 'Unlinked Issue'}</div>
+            <h1 className="mt-1 text-2xl font-semibold">{motion.title}</h1>
+            {motion.description ? (<div className="mt-1 text-sm text-gray-600">{motion.description}</div>) : null}
           </div>
 
           {/* Census card */}
@@ -63,17 +70,21 @@ export default async function Page({ params }: any) {
             <div className="mt-3 flex gap-2">
               <div className="w-full">
                 <StanceSelector
-                  onSubmit={async ({ stance, privacy, reasonText }) => {
+                  onSubmit={async ({ stance, privacy, reasonText, evidenceUrls }) => {
+                    const detail = { motionId: motionId as string, stance } as const;
                     try {
-                      await fetch('/api/stance-events', {
+                      // optimistic increment
+                      window.dispatchEvent(new CustomEvent('stance:submitted', { detail }));
+                      const res = await fetch('/api/stance-events', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ motionId: motionId, stance, privacy, reasonText }),
+                        body: JSON.stringify({ motionId: motionId, stance, privacy, reasonText, evidenceUrls }),
                       });
-                      // Redirect to room
+                      if (!res.ok) throw new Error('failed');
                       window.location.href = `/motions/${motionId}/positions/${stance}`;
                     } catch {
-                      // ignore for now
+                      // rollback optimistic if failed
+                      window.dispatchEvent(new CustomEvent('stance:rollback', { detail }));
                     }
                   }}
                 />
@@ -105,7 +116,7 @@ export default async function Page({ params }: any) {
           <div className="rounded-lg border bg-white p-4">
             <div className="text-sm font-medium">Related motions</div>
             <ul className="mt-2 space-y-2 text-sm">
-              {motion.related.map((rm) => (
+              {(motion.related ?? []).map((rm: any) => (
                 <li key={rm.id}>
                   <Link href={`/motions/${rm.id}`} className="hover:underline">
                     {rm.title}
