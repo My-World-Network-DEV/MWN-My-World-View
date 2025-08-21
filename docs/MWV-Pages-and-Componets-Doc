@@ -1,0 +1,851 @@
+# MWV Pages and Components: Descriptions and
+
+# Purposes v
+
+This document provides a concise description and purpose for each page and component in the
+My World View (MWV) project. Descriptions summarize the UI/UX, functionality, and key
+elements based on the project's vision (e.g., structured debates from micro-posts, evidence
+focus, stance system) and current repo state (e.g., scaffolds with Supabase). Purposes explain
+the role in user flows, aligning with goals like civic discourse, escalation from posts to solutions,
+and community collaboration. This is designed for an AI coding agent to reference when
+implementing or extending code, ensuring consistency with Next.js App Router, Tailwind, and
+Supabase patterns.
+The content has been reorganized from the original "MWV_ Pages and Components v1.pdf" by
+consolidating duplicate descriptions (e.g., merging variant details for Position Card and Motion
+Card), removing redundancies, and grouping logically under Pages and Components. Headers
+for missing pages and components (sourced from the project state, code document, and master
+document) have been added as skeletons with placeholders for descriptions and purposes.
+
+## Pages
+
+## layout.tsx (root layout)
+
+- **Description** : A global wrapper for all pages, including HTML structure, metadata, global
+    CSS imports, and an accessibility skip link (hidden until focused). It sets dark mode class
+    and base styles.
+- **Purpose** : Ensures consistent site-wide layout, accessibility (e.g., skip to main content),
+    and performance (SSR base) while wrapping child pages.The layout.tsx file serves
+    as the root layout for all pages in the My World View (MWV) project.
+-
+- **Description:**
+- This file acts as a global wrapper, meaning it encloses all other page content. It's
+    responsible for defining the fundamental HTML structure of the application, incorporating
+    essential metadata (like title, description, and viewport settings), and importing global
+    CSS styles that apply across the entire site. A key accessibility feature included is a
+    "skip link," which is hidden by default but becomes visible and focusable when a user
+    navigates with a keyboard, allowing them to quickly jump to the main content area.
+    Additionally, layout.tsx is where the dark mode class is set and base styles are
+    established, providing a foundational visual theme for the application.
+-
+- **Purpose:**
+
+
+- The primary purpose of layout.tsx is to guarantee a consistent site-wide layout. By
+    wrapping all child pages, it ensures that elements like headers, footers, and global
+    styling are uniformly applied. It significantly contributes to accessibility by implementing
+    features like the "skip to main content" link, which benefits users relying on keyboard
+    navigation or screen readers. Furthermore, it plays a crucial role in performance by
+    enabling Server-Side Rendering (SSR) for the base structure of the application, which
+    can improve initial page load times and search engine optimization.
+**Implemented Components:**
+● **ThemeToggle:** Integrated globally to set dark mode class, allowing theme switching
+across all wrapped pages without page-specific variations.
+**Unimplemented Components:**
+● **ModalDialog:** Could be used for site-wide dialogs like login prompts, but not yet
+integrated; would appear as an overlay on any child page.
+
+## page.tsx (Home page)
+
+- **Description** : Displays a personalized feed with tabs (For You, Following, Latest)
+    showing micro-posts, promoted Motions/Issues, and StanceBars. Includes Sidebar for
+    navigation, RightRail for trends, and promote Motions CTAs on posts.
+- **Purpose** : Serves as the entry point for users to browse viral content, take quick stances,
+    and escalate posts into structured debates, preserving social immediacy.
+**Implemented Components:**
+● **FeedTabs:** Displays tabs for For You, Following, Latest feeds, customized to filter
+micro-posts and promoted content.
+● **PostCard:** Shows micro-posts in the feed, with promote CTAs specific to escalation on
+Home.
+● **MotionCard:** Used for promoted Motions in the feed, highlighting viral propositions.
+● **PositionCard:** Displays promoted Positions if escalated, with stance selectors tailored to
+quick Home engagement.
+● **StanceBar:** Visualizes stances on promoted items, proportionally sized for Home feed
+previews.
+● **Sidebar:** Provides navigation links, persistent on left for easy access from Home.
+● **RightRail:** Shows trends like popular Motions, contextual to user's feed.
+● **Composer:** Embedded for promote CTAs on posts, with quick stance and evidence
+attachments.
+**Unimplemented Components:**
+● **ToastManager:** Would show success toasts for stance submissions or promotions,
+appearing after actions on Home.
+
+
+## about/page.tsx
+
+- **Description** : Static prose page with HeaderHero banner, sections on elevator pitch,
+    problem, goals, non-goals, audience/use cases from the Master Document.
+- **Purpose** : Informs new users about MWV's mission (evidence-based civic discourse)
+    and differentiates it from generic social platforms.
+**Implemented Components:**
+● **HeaderHero:** Banner with sections on pitch/problem/goals, static and full-width for
+informational display.
+**Unimplemented Components:**
+● **None:** No additional components inferred for this static page.
+
+## admin/page.tsx
+
+- **Description** : Dashboard shell with tabs for admin tools (e.g., users, stats), currently
+    mocked; extends to moderation queue in subpages.
+- **Purpose** : Allows admins to monitor platform health, manage users/content, and handle
+    escalations like flagged arguments.
+**Implemented Components:**
+● **FeedTabs:** Used for tabs like users/stats/moderation queue, with admin-specific filters.
+**Unimplemented Components:**
+● **ModerationFlag:** Integrated into queue items for reviewing flagged content, with admin
+approval buttons.
+
+## explore/page.tsx
+
+- **Description** : Grid-based browse page with filters/tabs for Topics, Issues, Posts; renders
+    cards (TopicCard, IssueCard) and search input.
+- **Purpose** : Helps users discover broad domains (Topics) or specific problems (Issues),
+    encouraging exploration and joining debates.
+**Implemented Components:**
+● **FeedTabs:** Handles filters/tabs for Topics/Issues/Posts, with grid layout adjustments.
+● **TopicCard:** Renders Topic summaries in grid, with follow buttons prominent for
+discovery.
+● **IssueCard:** Displays Issues in browse grid, with stance selectors for quick interaction.
+● **PostCard:** Shows Posts in filtered views, lighter for exploration.
+
+
+**Unimplemented Components:**
+● **Search input:** Custom search bar at top, integrated with filters for dynamic results
+(though basic input may exist, full component unimplemented).
+
+## issues/[id]/page.tsx
+
+- **Description** : Details page for an Issue, showing title/description, shared evidence,
+    linked Motions list with StanceBars, and create Motion CTA.
+- **Purpose** : Narrows context within a Topic, allowing users to view/curate evidence and
+    escalate to Motions for propositions.
+**Implemented Components:**
+● **HeaderHero:** Shows Issue title/description, with shared evidence overview.
+● **EvidenceCard:** Lists shared evidence, with credibility scores specific to Issue curation.
+● **MotionCard:** Displays linked Motions, with mini StanceBars.
+● **StanceBar:** Attached to linked Motions, showing census data.
+● **Composer:** For create Motion CTA, pre-filled with Issue context.
+**Unimplemented Components:**
+● **EvidenceAttach:** Allows attaching new evidence, integrated into curation section.
+
+## motions/[motionId]/page.tsx
+
+- **Description** : Motion proposition display with StanceBar (5-point census), position rooms
+    list, arguments overview, and stance submission form.
+- **Purpose** : Captures user stances on propositions, directing to Position Rooms for
+    collaboration, and escalating high-activity to Debates.
+**Implemented Components:**
+● **HeaderHero:** Displays Motion proposition, with stance submission prompt.
+● **StanceBar:** Full 5-point census bar, central for overview.
+● **PositionCard:** Lists position rooms, expandable for previews.
+● **ArgumentCard:** Shows arguments overview, stacked lightly.
+**Unimplemented Components:**
+● **StanceSelector:** Form for stance submission, with privacy options specific to Motion.
+● **VotingSlider:** Alternative to selector for degree-based input on proposition.
+
+
+## motions/[motionId]/positions/[positionId]/page.tsx (Position
+
+## Room)
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., stance-specific room with
+    collaborative Contention drafting, argument/evidence curation.]
+- **Purpose** : [Placeholder: Explain role, e.g., enables users in the same stance to refine
+    thesis, gather evidence, and build cases.]
+**Implemented Components:**
+● **HeaderHero:** Stance-specific thesis drafting area in banner.
+● **ArgumentCard:** Stacked in expandable orange panels for arguments.
+● **EvidenceCard:** In lavender panels for evidence curation.
+● **StanceBar:** Confirms room stance, with room-specific census.
+● **Composer:** For submitting/editing content, integrated with room collaboration.
+**Unimplemented Components:**
+● **StanceSelector:** For stance confirmation upon entry.
+● **ArgumentForm:** Dedicated form for argument submission, with EvidenceAttach.
+● **ForumThread:** Hosts discussions under arguments, realtime and threaded.
+● **Comment:** Builds threads in forum, recursive for replies.
+
+## notifications/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., list of alerts for stance updates,
+    new arguments, escalations.]
+- **Purpose** : [Placeholder: Explain role, e.g., keeps users engaged with real-time updates
+    on followed debates or personal mentions.]
+**Implemented Components:**
+● **FeedTabs:** Categorizes alerts by type, with chronological sorting.
+**Unimplemented Components:**
+● **Comment:** Displays alerts as threaded previews, with mark-as-read.
+
+## posts/[postId]/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., single post view with comments,
+    stance options, promote to Motion CTA.]
+- **Purpose** : [Placeholder: Explain role, e.g., displays micro-post details, allowing evidence
+    attachment and escalation to Issues/Motions.]
+**Implemented Components:**
+
+
+● **PostCard:** Central display of the post, with full text and attachments.
+● **StanceSelector:** For quick stances on the post.
+● **Composer:** For promote CTA or comments.
+**Unimplemented Components:**
+● **Comment:** Builds the comments thread, recursive and realtime.
+● **EvidenceAttach:** For attaching evidence to post or comments.
+
+## privacy/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., static page outlining data
+    handling, stance privacy options (public/anonymous/hidden).]
+- **Purpose** : [Placeholder: Explain role, e.g., informs users on privacy features like
+    anonymous stances and builds trust in civic platform.]
+**Implemented Components:**
+● **HeaderHero:** Outlines policies in banner, static sections.
+**Unimplemented Components:**
+● **None:** No additional components inferred for this static page.
+
+## profile/[username]/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., user bio, stance history,
+    contributed arguments/evidence, followed Topics.]
+- **Purpose** : [Placeholder: Explain role, e.g., showcases user contributions, enables
+
+### following, and supports community building.]
+
+**Implemented Components:**
+● **HeaderHero:** Shows profile picture, name, stats, and analytics charts.
+**Unimplemented Components:**
+● **CensusBar:** For mini stance history visualizations.
+● **StanceBar:** Displays user's stance distributions across entities.
+
+## search/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., input for querying Topics, Issues,
+    Motions, Posts; results as cards.]
+- **Purpose** : [Placeholder: Explain role, e.g., facilitates quick discovery of content across
+    the platform.]
+
+
+**Implemented Components:**
+● **TopicCard:** In results grid for Topics.
+● **IssueCard:** For Issue results.
+● **MotionCard:** For Motion results.
+● **PostCard:** For Post results, with previews.
+**Unimplemented Components:**
+● **None:** Search input is basic; no dedicated component listed as unimplemented.
+
+## settings/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., user preferences for notifications,
+    theme, privacy defaults.]
+- **Purpose** : [Placeholder: Explain role, e.g., allows customization of experience, including
+    stance privacy and AI assistance toggles.]
+**Implemented Components:**
+● **ThemeToggle:** Integrated into the appearance section for switching.
+**Unimplemented Components:**
+● **None:** List rows are custom, no specific unimplemented components.
+
+## topics/[slug]/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., Topic overview with hero, linked
+    Issues list, stance slider.]
+- **Purpose** : [Placeholder: Explain role, e.g., organizes broad categories, captures
+    high-level stances, and funnels to specific Issues.]
+**Implemented Components:**
+● **HeaderHero:** Topic name, AI summary, stats in rounded header.
+● **StanceBar:** For high-level Topic stance.
+● **PostCard:** In chronological feed.
+● **FeedTabs:** For sorting like Newest.
+● **Composer:** Floating + button for creation.
+**Unimplemented Components:**
+● **VotingSlider:** Alternative for Topic stance capture.
+
+
+## topics/[slug]/issues/[issueId]/page.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., nested Issue view under Topic,
+    with shared evidence and Motions.]
+- **Purpose** : [Placeholder: Explain role, e.g., provides hierarchical navigation from broad
+    Topics to focused problems.]
+**Implemented Components:**
+● **HeaderHero:** Nested Issue details under Topic.
+● **EvidenceCard:** For shared evidence.
+● **MotionCard:** Linked Motions with StanceBars.
+● **Composer:** For creating Motions/definitions.
+**Unimplemented Components:**
+● **StanceBar:** Attached to Motions, but full integration for nested view unimplemented.
+
+## Browse Positions Page
+
+- **Description** : The page uses a top navigation bar with a centered title flanked by a
+    hamburger menu on the left and a vertical-dot menu on the right. Below, a tab strip
+    spans horizontally with filter options (All, Affirmative, Neutral, Oppose). Each Position
+    block repeats the same style as the Position Card—title, overview, and expandable
+    argument/evidence sections with pastel highlight panels. A persistent bottom navigation
+    bar uses icon buttons (home, search, add, notifications, save) with a purple accent
+    background, maintaining rounded edges for consistency. The page has a purple header
+    bar with a centered title and hamburger/overflow menus. Directly beneath, a tab strip
+    organizes filters (All Positions, Affirmative, Neutral, Oppose), each in bold with a thin
+    underline indicator for the active state. Cards sit below in stacked layout—white with
+    rounded corners, showing Position Title, creator info, and overview text. At the bottom of
+    each card, a horizontal stance selector (Oppose → Neutral → Affirm) is presented with
+    radio-style circles. The footer shows interaction icons (like, share, comment) on the left
+    and a purple “Following” pill button on the right. A fixed bottom navigation bar uses icon
+    buttons on a purple strip (home, search, add, notifications, save).
+- **Purpose** : Organizes and filters Positions by stance, enabling users to browse, select
+    stances, and engage with debate objects in a structured, mobile-friendly layout.
+**Implemented Components:**
+● **PositionCard:** Stacked cards with expandable sections.
+● **TopNav:** Purple header bar with menus and title.
+● **FeedTabs:** Tab strip for filters like All/Affirmative.
+● **Sidebar:** Bottom navigation bar with icons.
+**Unimplemented Components:**
+
+
+```
+● None: Page is design-only; all listed are from repo but page itself unimplemented.
+```
+## Components
+
+## ArgumentCard.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., card for individual arguments with
+    title, body, creator, evidence links.]
+- **Purpose** : [Placeholder: Explain role, e.g., displays reasoned claims in Position Rooms,
+    with voting and escalation options.]
+- **Design:** Bordered card with rounded corners, showing argument title in bold, creator
+    attribution in muted text, and detailed body in left-aligned format. Stacks vertically in
+    expanded sections with dividers for separation.
+- **Design Ideas:** Incorporate strong contrast between the card and background using drop
+    shadows or elevation for a lifted appearance, while maintaining balanced font sizes to
+    avoid small text; add interactive elements like voting buttons or evidence links with hover
+    states for better engagement in debate contexts, and ensure accessibility with ARIA
+    labels for screen readers.
+
+## Composer.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., text input for creating
+    posts/arguments, with evidence attachment and stance selector.]
+- **Purpose** : [Placeholder: Explain role, e.g., enables quick creation of micro-content,
+    integrating with escalation flows.]
+- **Design:** Text input area for creating posts, arguments, or motions, with attachments for
+    evidence/definitions, stance selectors, character limits (280-500), and CTAs like AI Draft
+    or Submit.
+- **Design Ideas:** Enhance with auto-save drafts and real-time character counters that
+    change color as limits approach; integrate predictive text or emoji suggestions for
+    quicker input, and use modular layouts to support multimedia attachments like images or
+    links with previews, drawing from social media apps for intuitive manipulation.
+
+## EvidenceCard.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., card showing source link,
+    credibility score, community feedback.]
+- **Purpose** : [Placeholder: Explain role, e.g., promotes evidence-first discourse by scoring
+    and curating verifiable sources.]
+- **Design:** Compact card showing source link/title, credibility score (community/AI rated),
+    preview snippet, and feedback icons (upvote/downvote for reliability).
+- **Design Ideas:** Add visual indicators like color-coded borders for credibility levels (e.g.,
+    green for high, red for low) and expandable previews for deeper fact-checking; integrate
+
+
+```
+AI-driven summaries or dispute flags to align with modern fact-checking tools, ensuring
+hidden user votes for privacy during feedback.
+```
+-
+
+## FeedTabs.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., tab strip for switching feeds (For
+    You, Following, Latest).]
+- **Purpose** : [Placeholder: Explain role, e.g., personalizes content discovery on
+    Home/Explore pages.]
+- **Design:** Horizontal tab strip with options like For You, Following, Latest, using bold text
+    and underline indicators for active state.
+- **Design Ideas:** Implement sticky tabs that remain visible during scrolling, with
+    customizable personalization options like drag-and-drop reordering; add subtle
+    animations for tab transitions and accessibility features such as keyboard navigation, to
+    enhance content discovery in 2025 apps.
+-
+
+## HeaderHero.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., banner with title, description,
+    stance slider for pages like Topics/Issues.]
+- **Purpose** : [Placeholder: Explain role, e.g., provides visual intro and quick stance capture
+    on entity pages.]
+- **Design:** Banner section with entity title (e.g., Topic/Issue name) in bold,
+    description/subtitle, stance slider, and optional AI summary or stats.
+- **Design Ideas:** Use dynamic backgrounds or subtle animations to draw attention without
+    overwhelming, incorporating clear CTAs like "Join Debate" buttons; ensure responsive
+    scaling for mobile with truncated text and read-more links, inspired by hero images that
+    balance visuals and interactivity.
+-
+
+## IssueCard.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., compact card with Issue title,
+    overview, linked Motions count.]
+- **Purpose** : [Placeholder: Explain role, e.g., lists Issues in Explore/Topics for quick
+    browsing and entry.]
+- **Design:** Rounded white card with light shadow, bold Issue Title, creator info in muted
+    text, "Issue Description" body, three-option stance selector (Not Important → Neutral →
+    Important) as circular buttons, and footer with interaction icons (heart, share, comment)
+    left and purple "Following" pill right.
+- **Design Ideas:** Add progress indicators for linked motions or evidence counts, with hover
+    effects revealing more details; integrate tags for categorization to improve browsing in
+    issue tracking apps, and ensure cards maintain visual consistency across grids.
+
+
+#### -
+
+## MotionCard.tsx
+
+- **Description** : A rounded white card with light shadow, presenting the Motion Title in bold
+    and creator info beneath. The body has a “Motion Statement” heading followed by
+    explanatory text. Below, a stance selector row includes four circular options (Strongly
+    Disagree → Neutral → Strongly Agree), spaced evenly. A “Browse All Propositions” link
+    is styled subtly at the bottom right of the content. The card footer repeats the interaction
+    row with heart, share, comment icons left-aligned and a purple “Following” pill button
+    right-aligned. A white, rounded card with Motion Title in bold and creator handle below.
+    Inside, a “Motion Statement” heading introduces the main text block. Beneath, a
+    four-option stance selector appears as a horizontal row of circles labeled from Strongly
+    Disagree → Neutral → Strongly Agree. At the bottom, a “Browse All Propositions” link is
+    aligned right in subtle colored text. The footer mirrors other cards with interaction icons
+    left and the purple “Following” pill button on the right.
+- **Purpose** : Displays Motion propositions with stance options, facilitating quick
+    engagement and escalation to debates while maintaining consistency with other cards.
+- **Design:** A rounded white card with light shadow, presenting the Motion Title in bold and
+    creator info beneath. The body has a “Motion Statement” heading followed by
+    explanatory text. Below, a stance selector row includes four circular options (Strongly
+    Disagree → Neutral → Strongly Agree), spaced evenly. A “Browse All Propositions” link
+    is styled subtly at the bottom right of the content. The card footer repeats the interaction
+    row with heart, share, comment icons left-aligned and a purple “Following” pill button
+    right-aligned. A white, rounded card with Motion Title in bold and creator handle below.
+    Inside, a “Motion Statement” heading introduces the main text block. Beneath, a
+    four-option stance selector appears as a horizontal row of circles labeled from Strongly
+    Disagree → Neutral → Strongly Agree. At the bottom, a “Browse All Propositions” link is
+    aligned right in subtle colored text. The footer mirrors other cards with interaction icons
+    left and the purple “Following” pill button on the right.
+- **Design Ideas:** Enhance with visual polls or mini stance bars showing current vote
+    distributions; add expandable sections for quick proposition overviews, aligning with
+    voting systems that emphasize clear, hierarchical information display.
+-
+
+## PositionCard.tsx
+
+- **Description** : A clean card with rounded corners and a white background framed by a
+    thin border. The header shows the Position Title with creator info underneath in smaller
+    text. The overview section is presented as plain body text. Below, a stance selector
+    displays circular radio-style buttons aligned horizontally for Oppose → Neutral → Affirm.
+    Key content areas—Top Arguments and Top Evidence—are grouped in soft pastel
+    panels (orange and lavender), each with bold section headers, subtle rounded outlines,
+    and “Browse” links aligned right. The bottom row contains interaction icons (like, share,
+    comment) and a pill-shaped follow button in purple. When expanded, the Top Arguments
+
+
+```
+panel reveals stacked argument cards inside the orange-framed section. Each card is
+bordered lightly with rounded corners, showing an argument title, creator attribution, and
+detailed body text styled in a simple, left-aligned format. Multiple arguments cascade
+vertically, separated with subtle dividers. Typography is consistent with the
+overview—bold headers, regular body, and small muted creator credits. This variant
+shows the Position Card populated with multiple Argument items inside the Top
+Arguments panel. Each entry uses a minimal card style—white box, light border,
+rounded corners, and compact layout with just title + creator attribution. These cards
+stack vertically with equal spacing, creating a structured but lightweight list feel. The Top
+Evidence panel remains collapsed below, styled in lavender. Interaction controls at the
+bottom mirror the standard card layout, ensuring consistency across states.
+```
+- **Purpose** : Represents stance-specific Positions, allowing expansion for
+    arguments/evidence, and supports collaborative debate in rooms.
+- **Design:** A clean card with rounded corners and a white background framed by a thin
+    border. The header shows the Position Title with creator info underneath in smaller text.
+    The overview section is presented as plain body text. Below, a stance selector displays
+    circular radio-style buttons aligned horizontally for Oppose → Neutral → Affirm. Key
+    content areas—Top Arguments and Top Evidence—are grouped in soft pastel panels
+    (orange and lavender), each with bold section headers, subtle rounded outlines, and
+    “Browse” links aligned right. The bottom row contains interaction icons (like, share,
+    comment) and a pill-shaped follow button in purple. When expanded, the Top Arguments
+    panel reveals stacked argument cards inside the orange-framed section. Each card is
+    bordered lightly with rounded corners, showing an argument title, creator attribution, and
+    detailed body text styled in a simple, left-aligned format. Multiple arguments cascade
+    vertically, separated with subtle dividers. Typography is consistent with the
+    overview—bold headers, regular body, and small muted creator credits. This variant
+    shows the Position Card populated with multiple Argument items inside the Top
+    Arguments panel. Each entry uses a minimal card style—white box, light border,
+    rounded corners, and compact layout with just title + creator attribution. These cards
+    stack vertically with equal spacing, creating a structured but lightweight list feel. The Top
+    Evidence panel remains collapsed below, styled in lavender. Interaction controls at the
+    bottom mirror the standard card layout, ensuring consistency across states.
+- **Design Ideas:** Incorporate stance-specific color coding (e.g., red for oppose, green for
+    affirm) and collapsible sub-sections for arguments; add social features like direct reply
+    buttons to foster discussions, drawing from stance-based UI that emphasizes hierarchy
+    and quick selection.
+-
+
+## PostCard.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., micro-post display with text,
+    evidence, promote CTA.]
+- **Purpose** : [Placeholder: Explain role, e.g., core unit for viral content, with paths to
+    escalation.]
+
+
+- **Design:** Rounded card for micro-posts with bold title, short body text, creator
+    handle/timestamp, optional evidence links, stance/promote options, and interaction icons
+    (like, comment, share).
+- **Design Ideas:** Include embedded media previews and expandable threads for
+    comments; enhance with sentiment indicators or promote badges to highlight viral
+    potential, inspired by social feed cards that prioritize engagement and brevity.
+-
+
+## RightRail.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., sidebar for trends, suggested
+    follows, ads.]
+- **Purpose** : [Placeholder: Explain role, e.g., enhances discovery with contextual
+    recommendations.]
+- **Design:** Sidebar column on wider views showing trends (e.g., Trending Motions/Issues),
+    suggested follows, or related content previews in stacked cards.
+- **Design Ideas:** Make it collapsible for user preference and add personalization options
+    like "Hide This" buttons; use subtle animations for updates to combat right-rail blindness,
+    ensuring it complements the main content without distraction.
+-
+
+## Sidebar.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., navigation menu with Topics,
+    Profile, Settings links.]
+- **Purpose** : [Placeholder: Explain role, e.g., provides persistent navigation across the app.]
+- **Design:** Persistent navigation menu with links to Home, Explore, Topics, Profile,
+    Settings, Notifications, and create actions, using icons and text.
+- **Design Ideas:** Optimize width (240-300px expanded, 48-64px collapsed) with hover
+    expansions for icons; integrate search bars or quick actions at the top, following 2025
+    trends for minimalist, accessible navigation.
+-
+
+## StanceBar.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., visual bar/graph showing 5-point
+    stance distribution.]
+- **Purpose** : [Placeholder: Explain role, e.g., visualizes census data on Motions/Positions
+    for quick consensus insight.]
+- **Design:** Horizontal bar segmented into five color-coded sections (red → pink → gray →
+    light green → dark green) for stances from Strongly Disagree to Strongly Agree, with
+    proportional widths, bold percentages, and labels below.
+- **Design Ideas:** Add hover tooltips for detailed breakdowns and interactive resizing for
+    what-if scenarios; use diverging stacked bars for Likert scales to better visualize neutral
+    opinions, enhancing clarity in polls.
+
+
+#### -
+
+## ThemeToggle.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., switch for light/dark mode.]
+- **Purpose** : [Placeholder: Explain role, e.g., improves accessibility and user preference.]
+- **Design:** Simple switch or icon button for toggling between light and dark modes,
+    integrated into settings or top nav.
+- **Design Ideas:** Animate the toggle with fun effects like a skillet switch or neon indicators;
+    support system preference detection and accessibility labels, drawing from creative
+    toggles that blend functionality with delight.
+-
+
+## TopNav.tsx
+
+- **Description** : [Placeholder: Describe UI/UX here, e.g., top bar with search, notifications,
+    profile icon.]
+- **Purpose** : [Placeholder: Explain role, e.g., global navigation for quick access to core
+    features.]
+- **Design:** Top bar with centered title, hamburger menu left, overflow menu right, search
+    input, notifications icon (with badge), and profile avatar.
+- **Design Ideas:** Implement sticky positioning with subtle shadows for depth and mega
+    menus for deeper navigation; add AI-driven search suggestions, aligning with 2025
+    trends for intuitive, minimalist top bars.
+-
+
+## TopicCard.tsx
+
+```
+● Description : Rounded white card with light shadow, presenting the Topic title in bold,
+short description below, follower count badge, and a purple pill-shaped follow/unfollow
+button. Includes subtle interaction icons (share, comment) and optional stance selector
+for high-level engagement.
+● Purpose : Summarizes broad categories for exploration and following, allowing users to
+quickly scan and subscribe to domains like Climate or Education in browse views.
+● Design: Rounded white card with light shadow, presenting the Topic title in bold, short
+description below, follower count badge, and a purple pill-shaped follow/unfollow button.
+Includes subtle interaction icons (share, comment) and optional stance selector for
+high-level engagement.
+● Design Ideas: Add category tags or image thumbnails for visual appeal; ensure
+consistent sizing in grids with hover expansions for previews, to improve scanning in
+category browsers.
+●
+```
+
+### DebateCard.tsx
+
+```
+● Description : Rounded card with debate title in bold, phase badge (e.g., "Active",
+"Resolved") in colored pill, metrics like time remaining or popularity (views/participants),
+and StanceBar overview. Footer includes join button and interaction icons.
+● Purpose : Lists debates in browse views or escalation feeds, highlighting activity and
+status to encourage participation in formal visual debates.
+● Design: Rounded card with debate title in bold, phase badge (e.g., "Active", "Resolved")
+in colored pill, metrics like time remaining or popularity (views/participants), and
+StanceBar overview. Footer includes join button and interaction icons.
+● Design Ideas: Incorporate countdown timers and participant avatars for urgency; use
+expandable details for rules or history, inspired by debate listing cards that highlight
+activity.
+●
+```
+### SolutionCard.tsx
+
+```
+● Description : Compact card showing proposal title in bold, vote bar (for/against/abstain)
+with percentages, status indicator (e.g., "Implemented", "Pending"), and links to working
+groups or petitions.
+● Purpose : Overviews actionable outcomes from debates, displaying community support
+and tracking real-world impact for civic action.
+● Design: Compact card showing proposal title in bold, vote bar (for/against/abstain) with
+percentages, status indicator (e.g., "Implemented", "Pending"), and links to working
+groups or petitions.
+● Design Ideas: Add progress trackers for implementation steps and share buttons for
+petitions; color-code status for quick scans, fitting civic apps' emphasis on actionable
+outcomes.
+●
+```
+### CensusBar.tsx
+
+```
+● Description : Horizontal 5-color bar (red to green gradient) for stance distributions, with
+hover tooltips showing exact percentages and counts, reusable across entities like
+Topics or Motions.
+● Purpose : Provides a compact visualization of stance censuses, similar to StanceBar but
+optimized for reusability in dashboards or overviews to gauge consensus at a glance.
+● Design: Horizontal 5-color bar (red to green gradient) for stance distributions, with hover
+tooltips showing exact percentages and counts, reusable across entities like Topics or
+Motions.
+● Design Ideas: Integrate interactive filters to drill down by demographics; use aggregated
+stacked bars for multi-category views, enhancing survey visualizations.
+●
+```
+
+### DebateCanvas.tsx
+
+```
+● Description : Interactive graph component with zoom/pan functionality, nodes for
+arguments/evidence (colored by stance), and edges for rebuttals/counterarguments,
+using a library like React Flow for layout.
+● Purpose : Visualizes complex debate structures for auditability, navigation, and
+transparency, allowing users to explore argument trees in formal Debates.
+● Design: Interactive graph component with zoom/pan functionality, nodes for
+arguments/evidence (colored by stance), and edges for rebuttals/counterarguments,
+using a library like React Flow for layout.
+● Design Ideas: Add collaborative editing with real-time updates and node search;
+incorporate mindmap-like branching with color themes for stances, to improve navigation
+in complex debates.
+●
+```
+### ProposalForm.tsx
+
+```
+● Description : Multi-field form with inputs for title, description, voting type (e.g., simple
+majority, quadratic), evidence attachments, and submit button, integrated with stance
+selectors.
+● Purpose : Enables community suggestions in forums or positions, facilitating governance
+proposals like policy changes or platform features.
+● Design: Multi-field form with inputs for title, description, voting type (e.g., simple majority,
+quadratic), evidence attachments, and submit button, integrated with stance selectors.
+● Design Ideas: Use conditional fields that appear based on voting type and inline
+validation; add previews for proposals, following governance app practices for
+transparency.
+●
+```
+### VotingSlider.tsx
+
+```
+● Description : Horizontal slider ranging from 1-5 with labels (Strongly Disagree to
+Strongly Agree), snap-to points, and optional reason textarea below.
+● Purpose : Captures degree-based votes or stances on propositions, supporting nuanced
+input in Motions, Debates, or Solutions.
+● Design: Horizontal slider ranging from 1-5 with labels (Strongly Disagree to Strongly
+Agree), snap-to points, and optional reason textarea below.
+● Design Ideas: Include color gradients along the slider for visual feedback and
+accessibility via keyboard controls; add undo buttons for adjustments, inspired by poll
+sliders.
+●
+```
+### QVInterface.tsx
+
+
+```
+● Description : Credit allocation UI for quadratic voting, featuring a spend slider, voice
+credit balance display, and visual feedback on vote weight (e.g., quadratic cost curve).
+● Purpose : Supports advanced governance voting mechanisms for fairer consensus in
+high-stakes decisions, like Solution approvals.
+● Design: Credit allocation UI for quadratic voting, featuring a spend slider, voice credit
+balance display, and visual feedback on vote weight (e.g., quadratic cost curve).
+● Design Ideas: Visualize cost curves with animations and real-time previews of vote
+impacts; add tooltips explaining quadratic mechanics, to demystify for users.
+●
+```
+### Comment.tsx
+
+```
+● Description : Recursive component for threaded comments, showing author
+avatar/handle, text body, timestamp, like/reply icons, and nested replies with indentation.
+● Purpose : Builds discussion threads in posts, forums, or under arguments, enabling civil,
+structured conversations.
+● Design: Recursive component for threaded comments, showing author avatar/handle,
+text body, timestamp, like/reply icons, and nested replies with indentation.
+● Design Ideas: Implement collapse/expand for deep threads and real-time editing; add
+sentiment analysis highlights, enhancing threaded views in forums.
+●
+```
+### ToastManager.tsx
+
+```
+● Description : Global handler for ephemeral notifications, displaying success/error/info
+toasts with icons, messages, and auto-dismiss timers, positioned at screen edges.
+● Purpose : Provides immediate feedback for actions like stance submission, evidence
+upload, or errors, improving UX responsiveness.
+● Design: Global handler for ephemeral notifications, displaying success/error/info toasts
+with icons, messages, and auto-dismiss timers, positioned at screen edges.
+● Design Ideas: Stack multiple toasts with undo actions and customizable themes; ensure
+non-disruptive animations, aligning with modern web app feedback.
+●
+```
+### ModalDialog.tsx
+
+```
+● Description : Accessible modal overlay with title header, content area, action buttons
+(e.g., Confirm/Cancel), and focus trap to prevent external interaction.
+● Purpose : Handles dialogs for edits, confirms, or previews, ensuring user focus and
+accessibility in interactive flows.
+● Design: Accessible modal overlay with title header, content area, action buttons (e.g.,
+Confirm/Cancel), and focus trap to prevent external interaction.
+● Design Ideas: Use subtle animations for entry/exit and ensure mobile responsiveness;
+limit buttons to primary/secondary, with clear purposes to avoid confusion.
+```
+
+#### ●
+
+### StanceSelector.tsx
+
+```
+● Description : Combined slider (1-5 scale) with privacy dropdown
+(public/anonymous/hiddenWeighted), optional reason input, and submit button.
+● Purpose : Streamlines stance event capture for various objects (Topics, Motions),
+logging events with privacy options for flexibility.
+● Design: Combined slider (1-5 scale) with privacy dropdown
+(public/anonymous/hiddenWeighted), optional reason input, and submit button.
+● Design Ideas: Add visual previews of stance impacts and integration with polls; use
+emojis for quick selections, improving opinion poll interfaces.
+●
+```
+### CreateWizard.tsx
+
+```
+● Description : Multi-step form with progress stepper, back/next buttons, and conditional
+fields (e.g., title → description → evidence), guiding through validation.
+● Purpose : Guides structured creation flows for Topics, Issues, or Motions, reducing
+friction and ensuring completeness.
+● Design: Multi-step form with progress stepper, back/next buttons, and conditional fields
+(e.g., title → description → evidence), guiding through validation.
+● Design Ideas: Include skip options for optional steps and auto-save across sessions;
+add branching logic for conditional paths, enhancing multi-step usability.
+●
+```
+### EvidenceAttach.tsx
+
+```
+● Description : Dynamic input field for adding evidence URLs or uploads, with previews
+(e.g., link snippets or image thumbnails), credibility checker button, and remove icons.
+● Purpose : Facilitates attaching verifiable sources to claims, posts, or arguments,
+enforcing evidence-first principles.
+● Design: Dynamic input field for adding evidence URLs or uploads, with previews (e.g.,
+link snippets or image thumbnails), credibility checker button, and remove icons.
+● Design Ideas: Support drag-and-drop with progress indicators and auto-validation for
+sources; integrate AI credibility checks with suggestions, for intuitive uploads.
+●
+```
+### ArgumentForm.tsx
+
+```
+● Description : Form with textarea for body, EvidenceAttach component, title input, and
+submit button, with optional AI suggestion integration.
+● Purpose : Allows submission of reasoned claims in Position Rooms or Debates, linking
+to evidence for structured argumentation.
+```
+
+```
+● Design: Form with textarea for body, EvidenceAttach component, title input, and submit
+button, with optional AI suggestion integration.
+● Design Ideas: Add rich text formatting and real-time previews; include templates for
+common argument structures, streamlining submissions in forums.
+●
+```
+### AISuggestionButton.tsx
+
+```
+● Description : Button with AI icon that triggers suggestions (e.g., "Coach Argument" or
+"Fact-Check"), displaying labeled, reversible outputs in a popover.
+● Purpose : Augments user input with on-demand AI help (e.g., devil's advocate), always
+labeled to maintain transparency and user control.
+● Design: Button with AI icon that triggers suggestions (e.g., "Coach Argument" or
+"Fact-Check"), displaying labeled, reversible outputs in a popover.
+● Design Ideas: Integrate seamlessly into editors with contextual prompts; add
+acceptance sliders for partial edits, ensuring transparency in AI assistance.
+●
+```
+### ForumThread.tsx
+
+```
+● Description : Threaded list using Comment components, with realtime updates via
+Supabase subscriptions, sort options (newest/top), and post composer at top.
+● Purpose : Hosts discussions in forums, Positions, or under Issues, supporting
+community collaboration beyond stances.
+● Design: Threaded list using Comment components, with realtime updates via Supabase
+subscriptions, sort options (newest/top), and post composer at top.
+● Design Ideas: Add infinite scrolling and notification badges for new replies; implement
+search within threads, enhancing forum usability.
+●
+```
+### WorkingGroupPanel.tsx
+
+```
+● Description : Panel displaying members list, milestones timeline, task assignments, and
+progress badges for Solution follow-up.
+● Purpose : Manages real-world implementation tracking for Solutions, enabling civic
+organizers to coordinate petitions or actions.
+● Design: Panel displaying members list, milestones timeline, task assignments, and
+progress badges for Solution follow-up.
+● Design Ideas: Integrate Kanban views for tasks and real-time collaboration tools; add
+role-based access for members, fitting project management apps.
+●
+```
+### ModerationFlag.tsx
+
+
+```
+● Description : Flag/report button with dropdown for reasons (e.g., spam, abuse), submit
+form, and confirmation toast.
+● Purpose : Enables community moderation by reporting abusive content, with escalation
+to admins for safety and respect.
+● Design: Flag/report button with dropdown for reasons (e.g., spam, abuse), submit form,
+and confirmation toast.
+● Design Ideas: Use subtle icons to avoid clutter and include quick previews of flagged
+content; add AI-assisted moderation hints, promoting safe social platforms.
+```
+# User Flow
+
+
