@@ -28,9 +28,9 @@ export default function Page() {
                     </div>
                 </Card>
                 <div className="grid gap-3 sm:grid-cols-2">
-                    <MotionCard motion={{ id: 'm1', title: 'Demo Motion', statement: 'This is a motion statement.' }} />
-                    <IssueCard issue={{ id: 'i1', title: 'Demo Issue', summary: 'Issue summary', motionsCount: 2 }} />
-                    <TopicCard topic={{ id: 't1', title: 'Demo Topic', description: 'Topic description', followers: 10 }} />
+                    <MotionCard title="Demo Motion" census={{ total: 100, counts: { for: 40, against: 30, abstain: 30 } }} evidenceCount={3} />
+                    <IssueCard title="Demo Issue" description="Issue summary" evidenceCount={2} />
+                    <TopicCard title="Demo Topic" description="Topic description" />
                     <SolutionCard solution={{ id: 's1', title: 'Demo solution', votes: { for: 10, against: 2, abstain: 1 } }} />
                 </div>
                 <EvidencePanel />
