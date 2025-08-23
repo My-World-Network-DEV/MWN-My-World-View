@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import StanceBar from '@/components/StanceBar';
 import MotionCensusRealtime from '@/components/MotionCensusRealtime';
 import StanceSelector from '@/components/StanceSelector';
+import ForumOpenButton from '@/components/ForumOpenButton';
 
 //
 
@@ -140,9 +141,7 @@ export default async function Page({ params }: { params: Promise<{ motionId: str
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-blue-600 hover:underline">
-                  View debate log
-                </Link>
+                <ForumOpenButton entityType="Motion" entityId={motion.id} className="text-blue-600 hover:underline" />
               </li>
             </ul>
           </div>

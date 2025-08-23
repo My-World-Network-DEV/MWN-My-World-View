@@ -2,6 +2,8 @@ import Link from 'next/link';
 import AppMenuBar from '@/components/AppMenuBar';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Image from 'next/image';
+import ForumOpenButton from '@/components/ForumOpenButton';
+import EvidencePanel from '@/components/EvidencePanel';
 
 type MotionListItem = {
   id: string;
@@ -90,11 +92,15 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <section className="lg:col-span-8 space-y-4">
+          <EvidencePanel header="Issue Evidence" issueId={issue.id} />
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-medium">Motions in this issue</h2>
-            <Link href={`/topics/ai-labor/issues/${issue.id}`} className="text-sm text-blue-600 hover:underline">
-              View in Topic
-            </Link>
+            <div className="flex items-center gap-3">
+              <ForumOpenButton entityType="Issue" entityId={issue.id} className="text-blue-600 hover:underline" />
+              <Link href={`/topics/ai-labor/issues/${issue.id}`} className="text-sm text-blue-600 hover:underline">
+                View in Topic
+              </Link>
+            </div>
           </div>
 
           <ul className="space-y-3">
