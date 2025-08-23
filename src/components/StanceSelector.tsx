@@ -28,8 +28,8 @@ export default function StanceSelector({ onSubmit, initial }: Props) {
             }}
         >
             <div>
-                <label className="text-sm font-medium">Stance: {stance}</label>
-                <input aria-label="Select stance from 1 Strongly Disagree to 5 Strongly Agree" className="mt-1 w-full" type="range" min={1} max={5} step={1} value={stance} onChange={(e) => setStance(Number(e.target.value) as any)} />
+                <label htmlFor="stance-range" className="text-sm font-medium">Stance: {stance}</label>
+                <input id="stance-range" aria-label="Select stance from 1 Strongly Disagree to 5 Strongly Agree" className="mt-1 w-full" type="range" min={1} max={5} step={1} value={stance} onChange={(e) => setStance(Number(e.target.value) as any)} />
                 <div className="mt-1 grid grid-cols-5 text-[11px] text-gray-600">
                     <span>1 SD</span>
                     <span className="text-center">2 D</span>
@@ -39,17 +39,17 @@ export default function StanceSelector({ onSubmit, initial }: Props) {
                 </div>
             </div>
             <div>
-                <label className="text-sm font-medium">Privacy</label>
-                <select className="mt-1 w-full rounded border px-3 py-2" value={privacy} onChange={(e) => setPrivacy(e.target.value as any)}>
+                <label htmlFor="privacy-select" className="text-sm font-medium">Privacy</label>
+                <select id="privacy-select" aria-describedby="privacy-help" className="mt-1 w-full rounded border px-3 py-2" value={privacy} onChange={(e) => setPrivacy(e.target.value as any)}>
                     <option value="public">Public</option>
                     <option value="anonymous">Anonymous</option>
                     <option value="hiddenWeighted">Hidden (Weighted)</option>
                 </select>
-                <div className="mt-1 text-[11px] text-gray-500">Hidden: included in metrics, identity not shown.</div>
+                <div id="privacy-help" className="mt-1 text-[11px] text-gray-500">Hidden: included in metrics, identity not shown.</div>
             </div>
             <div>
-                <label className="text-sm font-medium">Reason (optional)</label>
-                <textarea className="mt-1 w-full rounded border px-3 py-2" rows={3} maxLength={500} value={reasonText} onChange={(e) => setReasonText(e.target.value)} placeholder="Explain your stance (max 500 chars)" />
+                <label htmlFor="reason-text" className="text-sm font-medium">Reason (optional)</label>
+                <textarea id="reason-text" className="mt-1 w-full rounded border px-3 py-2" rows={3} maxLength={500} value={reasonText} onChange={(e) => setReasonText(e.target.value)} placeholder="Explain your stance (max 500 chars)" />
             </div>
             <div>
                 <label className="text-sm font-medium">Evidence URLs (optional)</label>
