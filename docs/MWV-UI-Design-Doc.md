@@ -463,6 +463,7 @@ describe('Performance Metrics', () => {
 ```
 
 **Key performance indicators for civic platforms include:**
+
 - **Accessibility compliance**: 100% WCAG 2.1 AA adherence with zero critical violations
 - **Task completion rates**: ≥95% for users with assistive technology across all civic functions  
 - **Response time**: <3 seconds for critical civic actions (voting, proposal submission)

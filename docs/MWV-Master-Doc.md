@@ -1,7 +1,8 @@
-```
-My World View (MWV) Master Document
-```
-1. Overview
+
+# My World View (MWV) Master Document
+
+## 1. Overview
+
 Elevator Pitch
 My World View (MWV) is a Twitter-like platform that combines the immediacy and brevity of
 micro-posts with a rigorous, structured debate and solution workflow. Users can publish short
@@ -20,6 +21,7 @@ MWV addresses this by providing structured debate scaffolding under each Topic a
 The platform’s goal is to surface civic issues, capture community stance (Census), gather
 evidence and reasoned arguments, and guide debates into actionable, auditable solutions.
 Goals
+
 * Brevity + Structure: Posts are short and fast, but major claims can be escalated to Issues and
 Motions for deeper deliberation.
 * Evidence-First: Every claim should link to verifiable sources. Evidence cards score sources by
@@ -32,7 +34,6 @@ real-world impact.
 demand, always labeled and reversible.
 * Safety & Respect: Encourage civil argument through positive UX (e.g., rewarding source use),
 
-
 community moderation, and rate-limits to curb abuse.
 Non-Goals
 MWV is not a generic chat or Reddit clone. It is not designed for ephemeral viral content with no
@@ -41,6 +42,7 @@ viral engagement but steering it toward evidence-backed dialogue and outcomes.
 Audience & Use Cases
 The primary audience includes engaged citizens, researchers/academics, and civic organizers.
 Use cases include:
+
 * Everyday Citizen: Browses Home and Topics; sees a viral claim, upvotes or promotes it to a
 Motion, then joins a Position Room to submit a stance and arguments.
 * Researcher: Curates evidence and arguments under a specific Issue; exports evidence packs
@@ -48,7 +50,8 @@ for reports or policy briefs.
 * Civic Organizer: Monitors stance Census on Motions, drafts community Solutions when
 consensus emerges, and spawns working groups or petitions for implementation.
 
-2. Domain Glossary
+## 2. Domain Glossary
+
 * Topic: A broad domain or category (e.g., Climate, Education, Healthcare). Topics organize the
     platform’s content and contain Issues.
 * Issue: A focused question or problem within a Topic. Each Issue narrows the context and
@@ -66,9 +69,9 @@ anonymous), optional reason text, evidence links, and privacy (enum: public, ano
 hiddenWeighted).
 * Debate: A structured interaction between opposing stances. Can be a real-time or threaded
 
-
 debate, often visualized as an argument map (tree). High-activity Motions may be escalated into
 a formal Debate Arena to resolve contention.
+
 * Argument: A claim (with evidence) in support or opposition to a Motion, typically contributed
 inside a Position Room or Debate. Arguments may be scored by community flags and author
 reputation.
@@ -100,15 +103,15 @@ contributors.)
 contributor expertise (reputation) to score arguments. (We assume arguments accrue a score
 field based on such signals.)
 
-
 * Position Room (Forum): Synonymous with Position (above). Sometimes called a “forum” for
 that stance.
 * Census (as above): Reflects community opinion; see Stance Events.
-* Debate Arena: A specialized page (see Page Specs) for formal debates. * Solution Hub:
-A section listing all proposed solutions; users can vote and track adoption. * Card/Tile:
+* Debate Arena: A specialized page (see Page Specs) for formal debates. *Solution Hub:
+A section listing all proposed solutions; users can vote and track adoption.* Card/Tile:
 Generic terms for UI content blocks (Posts, Motions, etc.).
 
-3. Platform Axioms / Principles
+## 3. Platform Axioms / Principles
+
 * Evidence‑first: Structure before sprawl.
 * AI is opt‑in coach: Transparency & audit.
 * Action & outcomes: Accessibility & performance by default.
@@ -131,9 +134,9 @@ dispute.
 * Open Standards: Whenever possible, use open protocols/standards (e.g., open APIs,
 federated identities). Allow data portability (users can export their data).
 
+## 4. Democratic Governance and Forums
 
-4. Democratic Governance and Forums
-    Each level of the MWV ladder (Topic, Issue, Motion, Position, Debate, Solution) includes a
+Each level of the MWV ladder (Topic, Issue, Motion, Position, Debate, Solution) includes a
 dedicated "Forum" tab/section for democratic rule-making and discussion. Forums are
 accessible only to "joined" users (e.g., those who have followed the Topic, taken a stance on the
 Motion, or participated in the Debate). Rules are proposed as mini-Motions within the forum,
@@ -144,34 +147,41 @@ from reputation or AI credits) quadratically to express intensity, preventing sp
 require a minimum reputation to submit, and voting periods last 7-14 days with notifications.
 Global axioms override local rules. This system empowers users while fallback to defaults
 prevents chaos.
-    Implementation: Add a `forums` table linked to entities, with `rules` and `proposals` as child
+
+Implementation: Add a `forums` table linked to entities, with `rules` and `proposals` as child
     records. UI: Forum tab with threaded discussions, proposal forms, and voting components
     (sliders, QV interfaces).
     Brainstormed Key Criteria and Voting Mechanics by Level
-* Topic Forum (Broad Scope): Criteria include topic boundaries (e.g., off-topic tolerance:
+
+Topic Forum (Broad Scope): Criteria include topic boundaries (e.g., off-topic tolerance:
 1=Immediate delete, 5=Allow tangents), posting frequency limits, minimum evidence for claims.
 Voting: Slider for tolerance; yes/no on enforcement bots. Lax in exploratory topics (philosophy),
 strict in factual (science).
-* Issue Forum (Focused Problems): Criteria: Definition editing thresholds (e.g., consensus % for
+
+Issue Forum (Focused Problems): Criteria: Definition editing thresholds (e.g., consensus % for
 changes), evidence standards (peer-reviewed only? 1-5 degree), motion promotion velocity.
 Voting: Approval for multi-rules; slider for strictness. Mandatory counter-evidence in divisive
 issues (climate), simpler in niche (local housing).
-* Motion Forum (Propositions): Criteria: Stance change limits (cooldown: 1=None, 5=1 month),
+
+Motion Forum (Propositions): Criteria: Stance change limits (cooldown: 1=None, 5=1 month),
 argument length caps, rebuttal requirements. Voting: QV for intensity. Timed responses in
 high-stakes (policy), fun polls in casual (entertainment).
-* Position Forum (Stance-Specific): Criteria: Thesis edit approval (1=Anyone, 5=Majority),
+
+Position Forum (Stance-Specific): Criteria: Thesis edit approval (1=Anyone, 5=Majority),
 member ejection for bad faith, evidence protocols. Voting: Slider for openness; yes/no on
 anti-troll. Devil's advocate mandatory in polarized, open editing in collaborative.
-* Debate Forum (Structured Clashes): Criteria: Phase timings (rebuttal limit: 1=Unlimited, 5=
+
+Debate Forum (Structured Clashes): Criteria: Phase timings (rebuttal limit: 1=Unlimited, 5=
     min), judging (AI weight: 1=Advisory, 5=Decisive), multimedia rules. Voting: QV; timed polls.
     Evidence pre-submission in formal (ethics), memes in informal (sports).
-* Solution Forum (Actionable Outcomes): Criteria: Adoption thresholds (consensus: 1=Majority,
-5=Unanimous), impact tracking, group sizes. Voting: Approval for steps; slider for checks. Strict
 
+Solution Forum (Actionable Outcomes): Criteria: Adoption thresholds (consensus: 1=Majority,
+5=Unanimous), impact tracking, group sizes. Voting: Approval for steps; slider for checks. Strict
 
 accountability in real-world (petitions), creative in hypothetical (sci-fi).
 
-5. Information Architecture & Routing
+## 5. Information Architecture & Routing
+
 The app uses a Next.js/SPA architecture with server-side rendering (SSR) for SEO-critical
     pages and dynamic client updates for real-time interactions.
     | Route | Page Name | Public? | Auth Required? | Params |
@@ -180,25 +190,26 @@ The app uses a Next.js/SPA architecture with server-side rendering (SSR) for SEO
 ----|
     | / | Home Feed (For You)| Yes | No (guest can browse) | none | Home |
     | /explore or /topics | Explore/Topics List| Yes | No | none | Topics |
-    | /topics/[slug] or /topic/<id> | Topic Page | Yes | No | topicSlug | Topics > Topic |
+    | /topics/[slug] or /topic/"id" | Topic Page | Yes | No | topicSlug | Topics " Topic |
     | /issues/[id] or /topics/[slug]/issues/[id] | Issue Page | Yes | No | issueId (+topicSlug) |
-    Topics > [Topic] > Issues > [Issue] |
-    | /motions/[id] | Motion Page | Yes | No (view); Yes (join stance) | motionId | Topics > [Topic]
-> Issues > [Issue] > Motion |
-    | /positions/[id] | Position Room | No (private) | Yes (must select stance) | positionId | Topics >
-... > Motion > Position (Stance)|
-    | /debates/[id] | Debate Arena | Yes | No | debateId | Topics > ... > Motion > Debate |
+    Topics " [Topic] " Issues " [Issue] |
+    | /motions/[id] | Motion Page | Yes | No (view); Yes (join stance) | motionId | Topics " [Topic]
+
+" Issues " [Issue] " Motion |
+    | /positions/[id] | Position Room | No (private) | Yes (must select stance) | positionId | Topics "
+... " Motion " Position (Stance)|
+    | /debates/[id] | Debate Arena | Yes | No | debateId | Topics " ... " Motion " Debate |
     | /solutions | Solutions Hub | Yes | No | none (filters query)| Solutions |
-    | /solutions/[id] | Solution Page | Yes | No | solutionId | Solutions > [Solution] |
+    | /solutions/[id] | Solution Page | Yes | No | solutionId | Solutions " [Solution] |
     | /profile or /profile/me | My Profile | No | Yes | none (redirects to /profile/[userId]) | Profile |
     | /profile/[user] | User Public Profile| Yes | No | userId or handle |
     (none/breadcrumbs independent) |
     | /notifications | Notifications/Inbox| No | Yes | none | (User menu) |
     | /search | Search Results | Yes | No | q (query), filters | (Global) |
-    | /create/topic | Create Topic | No | Yes | none | (Add > Topic) |
-    | /create/issue | Create Issue | No | Yes | optionally parentTopic | (Add > Issue) |
-    | /create/motion | Create Motion | No | Yes | parentIssue (or new) | (Add > Motion) |
-    | /create/solution | Create Solution | No | Yes | linkedMotion (if applicable) | (Add > Solution) |
+    | /create/topic | Create Topic | No | Yes | none | (Add " Topic) |
+    | /create/issue | Create Issue | No | Yes | optionally parentTopic | (Add " Issue) |
+    | /create/motion | Create Motion | No | Yes | parentIssue (or new) | (Add " Motion) |
+    | /create/solution | Create Solution | No | Yes | linkedMotion (if applicable) | (Add " Solution) |
     Navigation Model: The Header contains the global search bar, logo (link to Home), and user
 menu (profile, settings, logout). A persistent left rail (on desktop) lists followed Topics and quick
 links (Home, Explore, Notifications). Top tabs or breadcrumb are used on content pages (e.g.,
@@ -209,18 +220,19 @@ Home › Climate › Issue: ...), reflecting the hierarchy. On mobile, a bottom 
 as above. Links in posts (quotes/shares) carry metadata so context is preserved. Users can
 share direct links to any room; if unauthenticated, viewing is allowed but taking actions prompts
 
-
 login.
-Breadcrumbs: For nested pages, breadcrumbs show the path, e.g., Topics > [Topic Name] >
-[Issue Title] > [Motion Statement]. Each crumb is clickable to navigate up.
+Breadcrumbs: For nested pages, breadcrumbs show the path, e.g., Topics " [Topic Name] "
+[Issue Title] " [Motion Statement]. Each crumb is clickable to navigate up.
 
-6. Visual System & Style Inventory
+## 6. Visual System & Style Inventory
+
     MWV’s look-and-feel is defined via a comprehensive design system including tokens (colors,
 spacing, typography, iconography), motion guidelines (animation easing, durations), and layout
 conventions (grid, breakpoints). Follow modern design principles (referential & expressive
 aesthetics, vivid elements balanced with clarity), while ensuring accessibility. The style should
 feel fresh, somewhat playful (collage, color pops) yet trust-building.
     Design Tokens
+
 * Colors: primary = #3B82F6 (blue), secondary = #F59E0B (amber), plus success/error colors.
 For primary = #3882F6 (blue), secondary = #F59E0B (amber), plus success/error colors. (See
 color-coded card schemes.)
@@ -233,35 +245,37 @@ typography: h1-h2, body, small.
 collapse/expand threads (ease-out). Avoid excessive motion for accessibility (follow
 prefers-reduced-motion).
 * Layout Grids:
-    * Mobile: Single-column scroll. Bottom navigation (Home, Search, Profile).
-    * Tablet/Desktop: Multi-column: e.g., left nav (topics/issues), main content, right sidebar
+  * Mobile: Single-column scroll. Bottom navigation (Home, Search, Profile).
+  * Tablet/Desktop: Multi-column: e.g., left nav (topics/issues), main content, right sidebar
     (contextual).
-       * Responsive breakpoints (e.g., 640px, 1024px).
+    * Responsive breakpoints (e.g., 640px, 1024px).
 * Themes: Clean dark mode (e.g., soft grays/blues for readability) with auto-detect.
     High-contrast variant for accessibility.
 Style Guide & Components: Maintain a living style guide (Storybook or zeroheight). List all
 
-
 components with usage.
 Implementation Notes
+
 * UI components and copy must reference axioms: e.g., badge icons that say “AI-Suggested” or
 “Evidence Required”.
 * Semi-custom design system: Use vivid accent colors and expressive typography, but maintain
 a clean base (whites, grays) for content. Start with Material or CivicTheme core and layer
 custom variables.
 
-7. Component Gallery
+## 7. Component Gallery
+
 Catalog all reusable UI components (buttons, cards, input fields, modals, etc.) with clear specs.
 For each component: list props, state variations, accessibility requirements, and copy examples.
 This ensures consistency and speeds development. The gallery follows atomic design
 principles: from basic elements (“atoms”: Button, Icon) through composed “molecules” (e.g.,
 SearchBox = Icon+Input) up to full “organisms” (e.g., DebateCard with header, body, actions).
     Key Components
+
 * Button: Props: label, variant (primary/secondary/ghost), disabled. UX: shows loading state
 spinner if isLoading. Copy: e.g., “Follow”, “Submit Motion”.
 * Card: For posts/issues. Props: headerText, bodyContent, footerActions. Optional: media
 thumbnail.
-* Tabs: For page sections. Props: tabs=[{key,title}], activeKey. Accessible: uses <button> or
+* Tabs: For page sections. Props: tabs=[{key,title}], activeKey. Accessible: uses "button" or
     role="tab".
 * Modal: Props: title, content, actions (e.g., Confirm/Cancel). Trap focus, ARIA-labeled.
 * Census Bar: Horizontal bar (5 segments). Props: distribution = [n1,n2,n3,n4,n5]; shows
@@ -269,21 +283,20 @@ thumbnail.
 * PostCard: Displays a micro-post with actions (like, reply, promote). Variants: compact (2–
     lines) vs expanded (full text + top replies).
 * MotionCard / IssueCard: Summary card for a Motion or Issue with title, snippet, and maybe
-stance bar. Props: {motion: Motion} or {issue: Issue}, onOpen: (id) => void.
+stance bar. Props: {motion: Motion} or {issue: Issue}, onOpen: (id) =" void.
 * StanceBar: Visualizes stance distribution with 5 colored segments; clickable segments to join
-stance. Props: {counts: number[5], onSelect: (stance: 1|2|3|4|5) => void}.
-
+stance. Props: {counts: number[5], onSelect: (stance: 1|2|3|4|5) =" void}.
 
 * EvidenceCard: Shows an evidence source with title, domain, date, credibility badge. Props: {
-evidence: Evidence, onFlag: (id) => void }.
+evidence: Evidence, onFlag: (id) =" void }.
 * CensusDonut: Shows consensus % in center and breakdown by stance (as a donut chart).
-Props: {snapshot: CensusSnapshot, onOpenModal: () => void}.
+Props: {snapshot: CensusSnapshot, onOpenModal: () =" void}.
 * DebateTreeCanvas: Interactive graph for debates. Props: {nodes: Node[], edges: Edge[],
-onNodeSelect: (id) => void}. Supports pan/zoom (multi-touch or mouse), selects nodes.
+onNodeSelect: (id) =" void}. Supports pan/zoom (multi-touch or mouse), selects nodes.
 * ArgumentCard: Displays a single argument within a Position Room or Debate. Props:
 {argument: Argument}. Events: On flag or upvote (if implemented).
 * SolutionCard: Represents a solution with vote/feasibility UI. Props: {solution: Solution,
-onAdopt: (id) => void}.
+onAdopt: (id) =" void}.
 * SearchBox: Debounces user input using a useDebounce hook and triggers a server action to
 query a Postgres FTS index. Renders results in a keyboard-accessible dropdown and hides
 when focus is lost.
@@ -301,55 +314,55 @@ degree), QVInterface (credit spending for quadratic votes).
 All components must handle keyboard focus, ARIA labels (e.g., aria-label="Claim statement:
 City X should ...") and be fully accessible.
 
-8. Data Model & RLS
+## 8. Data Model & RLS
+
     Design the backend schema and security for MWV’s data. Core entities include Users, Topics,
 Issues, Motions, Positions (stance-specific containers), Debates, Solutions,
 Comments/Arguments, StanceEvents, etc. Use Row-Level Security (RLS) or equivalent ACLs to
 enforce permissions (e.g., owners can edit their content, moderators can delete, stance data
 
-
 write). Structure for fast querying (indexes) and RLS to ensure privacy controls (e.g.,
 anonymous stance only visible as aggregate).
 ERD (Text)
-Users ──< Posts
-\\─< Motions
-\\─< Arguments ──> Motions
-\\─< Evidence ───┐
-\\─< Solutions ├─> Motions
-Topics ──< Issues ──> Motions
+Users ──" Posts
+\\─" Motions
+\\─" Arguments ──" Motions
+\\─" Evidence ───┐
+\\─" Solutions ├─" Motions
+Topics ──" Issues ──" Motions
 \\ \\
-> Motions
-Issues ──< Motions ──> StanceEvents
+" Motions
+Issues ──" Motions ──" StanceEvents
 \\
-> Arguments
-Motions ──< Arguments
-\\ \> Evidence (via parent arguments)
-\\──< Solutions
-Each Motion, Issue, Debate, Solution has many StanceEvents (for census). New: Forums ──>
+" Arguments
+Motions ──" Arguments
+\\ \" Evidence (via parent arguments)
+\\──" Solutions
+Each Motion, Issue, Debate, Solution has many StanceEvents (for census). New: Forums ──"
 Entities (Topics etc.), with Rules and Proposals as children.
 Tables & Schemas
+
 * users: (id UUID PK, display_name TEXT NOT NULL, handle TEXT UNIQUE, email_hash
 TEXT, reputation FLOAT DEFAULT 0.0, badges JSONB, created_at TIMESTAMP NOT
 NULL
 DEFAULT now(), role ENUM('user','moderator','admin') DEFAULT 'user'). Index on
 handle. Reputation: 0-100, visible with links to flags.
 * topics: (id UUID PK, slug TEXT UNIQUE, title TEXT NOT NULL, summary TEXT, categories
-TEXT[], followers INT DEFAULT 0, created_by UUID FK->users(id), created_at TIMESTAMP,
+TEXT[], followers INT DEFAULT 0, created_by UUID FK-"users(id), created_at TIMESTAMP,
 updated_at TIMESTAMP). Index on created_at.
-* issues: (id UUID PK, topic_id UUID FK -> topics(id), title TEXT NOT NULL, summary TEXT,
-canonical_definitions TEXT[], evidence_bank JSONB, created_by UUID FK->users(id),
+* issues: (id UUID PK, topic_id UUID FK -" topics(id), title TEXT NOT NULL, summary TEXT,
+canonical_definitions TEXT[], evidence_bank JSONB, created_by UUID FK-"users(id),
 created_at TIMESTAMP, tags TEXT[], status ENUM('active','closed','cancelled') DEFAULT
 'active'). Index on (topic_id).
-* motions: (id UUID PK, issue_id UUID FK->issues(id) NULLABLE, author_id UUID
-FK->users(id), statement TEXT NOT NULL, created_at TIMESTAMP, status
+* motions: (id UUID PK, issue_id UUID FK-"issues(id) NULLABLE, author_id UUID
+FK-"users(id), statement TEXT NOT NULL, created_at TIMESTAMP, status
 ENUM('open','closed','archived') DEFAULT 'open').
 
-
-* position_rooms: (id UUID PK, motion_id FK->motions, stance INT CHECK (1<=stance<=5),
+* position_rooms: (id UUID PK, motion_id FK-"motions, stance INT CHECK (1"=stance"=5),
 contention TEXT, created_at TIMESTAMP); unique(motion_id,stance).
 * stance_events: (id UUID PK, object_type TEXT CHECK (object_type IN
 ('Topic','Issue','Motion','Debate','Solution')), object_id UUID, user_id UUID NULLABLE, stance
-INT CHECK (1<=stance<=5), reason_text TEXT, evidence_links UUID[] REFERENCES
+INT CHECK (1"=stance"=5), reason_text TEXT, evidence_links UUID[] REFERENCES
 evidence(id), weight FLOAT DEFAULT 1.0, privacy
 ENUM('public','anonymous','hiddenWeighted') DEFAULT 'public', created_at
 TIMESTAMP, ip_hash TEXT, user_agent TEXT). Index on (object_type, object_id) and
@@ -357,26 +370,25 @@ TIMESTAMP, ip_hash TEXT, user_agent TEXT). Index on (object_type, object_id) and
 * census_snapshots: (id UUID PK, object_type TEXT, object_id UUID, raw_counts JSONB,
 weighted_counts JSONB, total_participants INT, weighted_total FLOAT, confidence_score
 FLOAT, last_updated TIMESTAMP). (Raw_counts: {1: n1,2: n2,...} ; weighted_counts similarly.)
-* arguments: (id UUID PK, motion_id UUID FK->motions(id), position INT, author_id UUID
-FK->users(id), text TEXT NOT NULL, evidence_refs JSONB, parent_id UUID
-FK->arguments(id), score FLOAT DEFAULT 0, created_at TIMESTAMP). Position ties to stance
+* arguments: (id UUID PK, motion_id UUID FK-"motions(id), position INT, author_id UUID
+FK-"users(id), text TEXT NOT NULL, evidence_refs JSONB, parent_id UUID
+FK-"arguments(id), score FLOAT DEFAULT 0, created_at TIMESTAMP). Position ties to stance
 (1–5).
-* evidence: (id UUID PK, argument_id UUID FK->arguments(id), url TEXT, domain TEXT, title
+* evidence: (id UUID PK, argument_id UUID FK-"arguments(id), url TEXT, domain TEXT, title
 TEXT, authors JSONB, publish_date DATE, credibility_score FLOAT, flags JSONB, created_at
 TIMESTAMP).
 * solutions: (id UUID PK, motion_ids UUID[] REFERENCES motions(id), draft JSONB, status
 ENUM('draft','voting','adopted','archived') DEFAULT 'draft', adopted_at TIMESTAMP, owner_id
-UUID FK->users(id), created_at TIMESTAMP).
+UUID FK-"users(id), created_at TIMESTAMP).
 * forums: (id UUID PK, entity_type TEXT, entity_id UUID, rules JSONB). Rules store approved
 policies.
-* proposals: (id UUID PK, forum_id FK->forums, title TEXT, description TEXT, voting_type
+* proposals: (id UUID PK, forum_id FK-"forums, title TEXT, description TEXT, voting_type
 ENUM('yesno','slider','qv'), status ENUM('proposed','voting','approved','rejected')).
-* votes: (id UUID PK, proposal_id FK->proposals, user_id FK->users, vote_value INT or JSONB
+* votes: (id UUID PK, proposal_id FK-"proposals, user_id FK-"users, vote_value INT or JSONB
 for QV).
 Enumerations
 * stance: 1,2,3,4,5 (Strongly Disagree to Strongly Agree).
 * privacy: public, anonymous, hiddenWeighted (see stance_events).
-
 
 * content status: as above for motions, issues, solutions.
 * roles: user, moderator, admin (on users table).
@@ -406,36 +418,35 @@ Under Climate: “How should City X achieve carbon neutrality?”; with canonica
 of carbon neutrality) and initial sources. Motions: e.g., “City X should ban single-use plastics”
 under an environmental issue. Sample Users: Test users with different roles (alice as moderator,
 
-
 bob as user). Sample Arguments/Evidence: One motion with initial arguments and evidence
 cards pulled from Wikipedia or news (for testing). Add sample forums with default rules.
 
-9. Census / Stance System
+## 9. Census / Stance System
+
 The Census captures users’ stances on any debate object (Topic, Issue, Motion, Position,
 Debate, Solution). It quantitatively shows how the community is split (e.g., “Agree 62%,
 Disagree 38%”). This section covers UI (how users submit stances and view results), API (data
 model and endpoints), and edge cases (anonymity, flip-flopping, manipulation). Stances
 weighted by reputation.
     Implementation Notes
+
 * UI Components:
-    * CensusBar: A compact horizontal bar divided into 5 segments (color-coded for each stance).
+  * CensusBar: A compact horizontal bar divided into 5 segments (color-coded for each stance).
 Show hover tooltips with % and counts.
-    * CensusDonut: On Motion/Issue pages, a larger pie chart (donut) summarizing majority stance
+  * CensusDonut: On Motion/Issue pages, a larger pie chart (donut) summarizing majority stance
 with consensus%. Clicking opens full details.
-    * CensusModal: A full-screen modal showing raw counts, weighted view toggle, confidence
+  * CensusModal: A full-screen modal showing raw counts, weighted view toggle, confidence
 score, history chart, top contributors, and link to raw events.
 * Taking Stance Flow:
     1. User clicks “Take a Stance” or the CensusBar.
     2. Show a quick form: choose stance (1–5, perhaps with emoji labels), optional short reason
     (140 chars), optional evidence URL list.
-       3. Privacy toggle (Public = shown with name, Anonymous = hidden). Auto-record privacy
-choice.
-    4. Submit -> POST to /api/stanceEvents with payload.
+    3. Privacy toggle (Public = shown with name, Anonymous = hidden). Auto-record privacy choice.
+    4. Submit -" POST to /api/stanceEvents with payload.
     5. Show confirmation and prompt (optionally) “AI coach: Need help justifying your stance?”.
 * APIs:
-    * POST /api/stanceEvents to submit (body: objectType, objectId, stance, reason, etc). *
+  * POST /api/stanceEvents to submit (body: objectType, objectId, stance, reason, etc). *
     GET /api/census/:objectType/:objectId returns censusSnapshot (from DB or computed).
-
 
 * GET /api/census/:objectType/:objectId/history returns time series of past snapshots (for
 debate timeline charts).
@@ -464,10 +475,10 @@ can change to anonymous.
 * Given 3 months have passed, When user revisits issue, Then their last stance is still recorded
 but editable (no stale data).
 
-10. Threads & Comments
+## 10. Threads & Comments
+
 This covers the design of threaded comment interactions across MWV (e.g., in Debate Arena,
 Position Rooms, Issue discussions). It includes nesting behavior, sorting options, and
-
 
 accessibility concerns. Aim to make conversations easy to follow, encourage engagement, and
 be inclusive.
@@ -475,9 +486,10 @@ Nested threaded comments with collapsible branches and sorting controls. Show fi
 comments and one highlighted reply (e.g., most-upvoted) by default; allow expanding deeper
 replies on click. Provide sorting dropdown (Newest, Top).
 Implementation Notes
+
 * Comment Component: Each comment shows author, timestamp, text, actions (Reply, Like,
-Report). Use <ul role="list"> with <li role="listitem"> for accessibility.
-* Nesting: Render replies as nested <ul> inside parent <li>. Include visual cues (indentation,
+Report). Use "ul role="list"" with "li role="listitem"" for accessibility.
+* Nesting: Render replies as nested "ul" inside parent "li". Include visual cues (indentation,
 lines or background shading).
 * Collapse Mechanism: Automatically collapse replies beyond level 2. Show “View X more
 replies” link that expands them.
@@ -493,21 +505,22 @@ structure).
 * Performance: Paginate or lazy-load threads (e.g., initially load 20 top-level comments, fetch
 more as user scrolls).
 Acceptance Criteria
-* Given a thread with >3 replies under one comment, When displayed, Then only one reply is
+* Given a thread with "3 replies under one comment, When displayed, Then only one reply is
 shown by default with “+2 replies” link.
 * Given user selects “Top” sort, When applied, Then comments re-order correctly by likes (verify
 with test data).
 
-
 * Given screen reader usage, When focusing the thread, Then ARIA announces comment
 hierarchy (via aria-level or appropriate roles).
 
-11. AI Integrations
+## 11. AI Integrations
+
 Integrate AI as transparent assistants, each with a role. Use a mix of OpenAI APIs for general
 intelligence (prompted tasks like summarization, debate coaching, devil’s advocate) and
 specialized services for fact-checking. Implement with label disclosures and human oversight.
 Ethics: Annual audits for bias, public reports.
 User-Facing AI Features
+
 * AI Coach: Suggests clarity edits, missing evidence, or stronger wording. Prompt: “Improve this
 argument for clarity and add a source.” The assistant suggests a draft; user can accept or
 ignore. All AI suggestions are labeled “AI Coach” and are not auto-applied.
@@ -530,7 +543,6 @@ Guardrails
 * Always label AI content clearly: e.g., prefix suggestions with “AI-suggested:”.
 * Keep an audit log of AI-generated content.
 
-
 * Rate-limit AI generation per user to prevent abuse or runaway costs.
 * Human review for sensitive tasks (if feasible, e.g., flag dispute to staff). Tiers: Free limited, paid
 for more credits.
@@ -548,7 +560,8 @@ result prefixed with “AI:” and user can accept or edit it.
 * Given user-generated content, When posted, Then it passes through the moderation API and
 only visible if approved.
 
-12. Page Blueprints
+## 12. Page Blueprints
+
 Home
 The Home page at app/page.tsx serves as the fast personal hub where users toggle between
 For You, Following, Latest or Heated feeds and access the Solutions Hub or My Activity tab. A
@@ -562,7 +575,6 @@ You": 70% similar, 30% opposing (toggleable).
 Purpose: Fast personal hub: For You, Following, Latest, Heated, plus My World View and
 Solutions slices.
 Primary UI: Header (search, notifications, quick create) • Left Sidebar (nav, pinned topics,
-
 
 shortcuts) • Right Rail (trending motions, notifications) • Main feed with Post/Motion cards.
 Data/Perf: RSC streams personalized slices from aggregated views; client tabs mutate URL
@@ -594,7 +606,6 @@ Functions as global discovery: browse all Topics, Issues, Debates, trending Solu
 powered by Postgres Full-Text Search initially, pgvector optional later. Realtime trending
 updates via Supabase postgres_changes. UI: infinite scroll, tabs (“Trending,” “Newest,” “By
 Category”).
-
 
 Topic
 The Topic layer under app/topics/[topicId] offers umbrella context and incubates focused
@@ -629,7 +640,6 @@ table through a server action. Each ArgumentTile displays tags, upvote counts an
 CTA that triggers AI-suggested Issue or Motion creation flows. Threads load with
 server-rendered first pages and subscribe to new replies via Supabase realtime channels, while
 
-
 moderation controls allow sticky, move or merge actions for moderators. Governance proposals
 here.
 Community page: overviews, questions, clarifications. Moderation pipeline before publishing.
@@ -662,7 +672,6 @@ attachments with verification badges. The linked Motions are shown in a MotionsL
 previews, and the forum tab surfaces threads for clarifications and proposals. All lists use cursor
 pagination and realtime channels to update counts.
 Census snapshot for Issue-level stance. Linked Motions with debate entry points.
-
 
 Browse-Issues: The Browse-Issues screen at app/issues/page.tsx shows Issues grouped by
 parent Topic, filtering by trending, active or recent. It leverages a server-rendered Postgres view
@@ -698,7 +707,6 @@ selector unlocks Position rooms.
 Data/Perf: Upsert stance → positions table (unique user+motion); debounced
 edits; approval/merge for thesis revisions; presence & typing indicators.
 
-
 Permissions: Authors/mods can edit statement pre/post publish per policy; stance writes are
 immutable records.
 Metrics: Stances, join‑to‑position, argument velocity, debate creation triggers.
@@ -732,7 +740,6 @@ Positions capture individual user stances on a Motion and live under app/positio
 Each Position page hosts a collaborative thesis panel, an argument feed template and an
 evidence shelf. Unique constraints ensure one Position per user per motion, and CRDT-friendly
 
-
 state persists thesis revisions.
 Purpose: Stance‑specific thesis & argument workspace.
 Primary UI: Thesis panel with version history; argument feed; evidence
@@ -765,7 +772,6 @@ attachments, Visibility (private until ready). Assist: Argument templates; AI cr
 citation validator. Rules: One position per user per motion; publishing joins the camp. Routes &
 Actions: GET /create/position?motion= • upsertPosition() ensures uniqueness.
 
-
 Debate
 Debates provide structured clashes across positions when opposing viewpoints exist. Hosted
 under app/debates/[debateId], each Debate page features a live DebateCanvas of argument
@@ -796,7 +802,6 @@ a moderator-gated queue. Export buttons allow transcript downloads and archive p
 setup. Governance proposals here.
 Meta-discussion about debate structure, not direct argumentation.
 Create-Debate: The Create-Debate page at app/debates/new/page.tsx offers a form linking to a
-
 
 parent Motion or Position, selecting debate format, scheduling phases and inviting participants.
 AI auto-invites existing camp members and generates calendar blocks. Submissions call
@@ -831,7 +836,6 @@ in a responsive grid of SolutionCard components. Filters allow users to explore 
 state (Draft, Review, Published, Accepted). Census bars animate vote changes in real time.
 Explore solutions per Issue or across Topics.
 
-
 Solution-Forum: The Solution-Forum under app/solutions/[solutionId]/forum/page.tsx supports
 change-request threads, vote-explanation comments and impact update posts. A timeline view
 maps milestones to discussion threads and all interactions persist through Supabase with RLS
@@ -849,9 +853,11 @@ Working‑group setup. Assist: Feasibility checklist; risk prompts; KPI template
 preview. Rules: Versioned docs; votes gated by community rules. Routes & Actions: GET
 /create/solution?motion= • createSolution() + initial version snapshot.
 
-13. Flows
+## 13. Flows
+
 Discover relevant Topics/Issues/Motions via Home/Explore
 Promote unstructured posts/ideas into Issues or Motions (guided + AI assist)
+
 * Topic-Forum posts → Issue/Motion
 * Issue-Forum proposals → Motion
 * Motion-Forum disputes → Debate
@@ -861,14 +867,14 @@ Join a Position Room (camp thesis; arguments; evidence; coordination)
 Escalate to a Debate when counter-positions exist (live arena + threaded
 forum) Synthesize a Solution (collaborative editor, feasibility checks, consensus
 
-
 voting) Adopt & track impact (working groups, updates, timelines, analytics)
 Promotion/escalation functions. AI Assist features: summarization, duplicate detection, critique
 prompts, feasibility checklists, etc.
 New: Governance Flow in Forums: Propose rule → Debate thread → Vote (yes/no + slider/QV)
 → Enforce (update RLS/moderation).
 
-14. Stack & Implementation
+## 14. Stack & Implementation
+
 Stack: Next.js 15 (App Router) with React Server Components for data‑heavy reads and Client
 Components for interactivity; Supabase Postgres (RLS), Auth, Storage, and Realtime;
 TailwindCSS design tokens; route handlers under app/api/*; server actions for mutations.
@@ -885,8 +891,10 @@ Added Census subsystem: stances recorded at each stage (Topic, Issue, Motion, et
 aggregated snapshots, realtime updates.
 Moderation pipeline: every Create- page (Topic, Issue, Motion, Position, Debate, Solution)
 mentions AI moderation + human review queue.
-15. Performance, Accessibility, i18n
-Performance Budgets: Aim for LCP < 2.5s, INP (Interactivity) < 100ms, CLS (layout shift) < 0.1.
+
+## 15. Performance, Accessibility, i18n
+
+Performance Budgets: Aim for LCP " 2.5s, INP (Interactivity) " 100ms, CLS (layout shift) " 0.1.
 Use SSR caching for public pages, lazy-load images/attachments, and virtualize long lists
 (feeds, arguments) to meet speed goals.
 Accessibility: Keyboard Navigation: All interactive elements (tabs, modals, carousels) are
@@ -894,7 +902,6 @@ reachable via Tab/Enter. Keyboard shortcuts (e.g., “J/K” to scroll feed) may
 ARIA/Labels: Form controls and buttons have aria-labels (e.g., “Set stance to Agree”). Live
 regions announce updates (e.g., “Stance submitted”). Contrast: Ensure all text ≥4.5:1 contrast.
 E.g., status messages on colored badges. Screen Readers: Layout uses semantic HTML (nav,
-
 
 article, aside). Modal dialogs trap focus and have role="dialog". Census Visualization: Textual
 summaries accompany charts (e.g., “62% Agree (310 of 500 voters)”). All color combinations
@@ -905,7 +912,8 @@ Intl). Units/ordering adapt to locale. Copy strategy: keys in code, with locale 
 embedding user content in images. Translation: Design allows multi-language by pulling all
 labels via a translation function. No hard-coded strings in components.
 
-16. Analytics & Telemetry
+## 16. Analytics & Telemetry
+
 Event Tracking: The app emits structured analytics events via an internal analytics service or
 third-party (e.g., Snowplow, Segment). Sample events: page_view (payload {page: string,
 userId?, params}). promote_clicked ({postId, suggestedTo: 'motion'|'issue'}). stance_submitted
@@ -920,7 +928,9 @@ Privacy: Analytics do not capture PII. Consent required for demographic tracking
 GDPR/CCPA guidelines.)
 Metrics collected include time-to-first-action, conversion rates (e.g., post→motion,
 debate→solution), and engagement (DAU/MAU, average stance submissions per user).
-17. Security & Privacy
+
+## 17. Security & Privacy
+
 Threat Model: MWV must mitigate misinformation, manipulation, and harassment. Supply
 chains: content posted by users may be malicious. Main threats: bot-generated stance-events,
 coordinated brigading, doxxing via evidence.
@@ -928,7 +938,6 @@ PII Classes: User Data: Email hashes, IP hashes (for anti-fraud), geolocation op
 Data: Posts, arguments (user-generated). Behavioral: Stance events.
 Storage Rules: PII (email, IP) is hashed. Email is never exposed to other users. IP is only used
 for abuse detection and stored as a hash. All personal data can be deleted on user request.
-
 
 Retention: Posts/stances indefinite unless deleted; logs/analytics 1 year then anonymized.
 Consent: Explicit consent flows for optional data (e.g., location for demographic filters).
@@ -939,7 +948,8 @@ Terms of Service and Privacy Policy outlining content ownership (users retain co
 to platform to display). ToS: Age 13+, prohibit illegal/hate/misinfo (flagged via rep).
 DMs: End-to-end encrypted, with block/report feeding rep.
 
-18. Testing & QA
+## 18. Testing & QA
+
 Acceptance Criteria (Given/When/Then): Define a BDD style spec for core flows. Examples: -
 Given a logged-in user on a Motion page, when they submit a stance, then the census bar
 updates and the stance is recorded. - Given a moderator, when they flag evidence, then
@@ -965,11 +975,11 @@ AI and ensure no suggestions appear. 7. Accessibility: Navigate entire site with
 collapses to burger menu, bottom tabs on mobile. 10. Security: Attempt actions as guest vs user
 vs mod. Try unauthorized updates (should be blocked). 11. Governance: Propose/vote on rule in
 
-
 forum; verify enforcement.
 Record any deviations, broken flows, or inconsistencies during QA.
 
-19. Operational Playbook
+## 19. Operational Playbook
+
 Environment Variables (.env): NEXT_PUBLIC_SUPABASE_URL,
 NEXT_PUBLIC_SUPABASE_ANON_KEY (used on client). SUPABASE_SERVICE_KEY
 (server-only for admin operations). DATABASE_URL (for migrations). JWT_SECRET (for auth if
@@ -990,13 +1000,14 @@ analytics & errors (Sentry).
 Monitoring: Use Supabase’s logs and a monitoring tool. Alert on 5xx rate or suspicious DB
 queries. Dashboard shows active debates, solutions, bot signals.
 Backups: Daily Supabase snapshots; RTO 1hr, RPO 5min.
-Scale: <100 users at launch; Hobby tiers.
+Scale: "100 users at launch; Hobby tiers.
 Budget: $1000; Supabase ~$25/mo, OpenAI ~$100/mo cap.
 Open-Source: Closed for now to protect IP; revisit post-MVP.
-20. References
+
+## 20. References
+
 * Brainstorming/Design Docs: MWV vision and design principles.
 * MWV Blueprint/Documents: Core principles and AI augmentation.
-
 
 * USWDS/Civic guidelines: Design tokens and accessibility.
 * Comment/Thread UX: Nested comments and collapsing strategy.
@@ -1009,5 +1020,3 @@ Aug, 2025 | Medium.
 * sort - Which comment sorting order makes more sense on blogs? - User Experience Stack
 Exchange.
 * Accessibility: native comments threading not visible to screenreader - Bugs - Ghost Forum.
-
-

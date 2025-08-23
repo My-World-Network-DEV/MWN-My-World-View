@@ -42,33 +42,23 @@ enhancement.
 Critical accessibility implementations include **hierarchical heading structures** using logical H1-H
 organization for debate threads and responses, skip navigation links enabling users
 
-```
 Knack
-```
-```
+
 Coursera +
-```
-```
+
 LogRocket +
-```
-```
+
 Nielsen Norman Group +
-```
-```
+
 Stack Exchange +
-```
-```
+
 LogRocket Stack Overflow
-```
-```
+
 Maxiom Technology
-```
-```
+
 ADA.gov +
-```
-```
+
 Wayne Yale University
-```
 
 to jump directly to main content areas, sophisticated focus management for dynamic content
 loading, and ARIA live regions announcing new replies, vote counts, or status updates in real-time.
@@ -114,41 +104,30 @@ scrolling for long discussion threads.
 
 ## Proven civic platform patterns guide implementation
 
-```
 Level Access
 UX4G
-```
-```
+
 W3C
-```
-```
+
 Wiley Online Library
-```
-```
+
 Section508.gov
 Home Office +
-```
-```
+
 UX4G Decidim
-```
-```
+
 Justinmind | Agente
-```
-```
+
 Carlos Barraza BrowserStack
 Agente
 IxDF
-```
-```
+
 Nielsen Norman Group +
-```
-```
+
 InspireHUB Inc.
 Citizens Foundation
-```
-```
+
 Rocket Clicks
-```
 
 Analysis of successful civic engagement platforms reveals **convergent design patterns** that enhance
 democratic participation across diverse cultural and political contexts. **Decidim's multi-space
@@ -193,36 +172,26 @@ alongside AI assessments, track historical accuracy for credibility evaluations,
 between human and AI judgments, and provide uncertainty indicators when assessment confidence
 remains low.
 
-```
 Decidim +
-```
-```
+
 Citizens Foundation
 Knack
-```
-```
+
 Wikipedia +
-```
-```
+
 Loomio +
-```
-```
+
 Loomio +
 Wikipedia
 Participedia
-```
-```
+
 Microsoft Microsoft
-```
-```
+
 UXmatters UX Design
-```
-```
+
 Microsoft Learn
-```
-```
+
 Adam Fard Studio
-```
 
 AI coaching features require **explainability interfaces** using progressive disclosure from summarized
 explanations to deeper chain-of-thought reasoning displays, consistent visual styling with clear AI
@@ -268,15 +237,11 @@ implementation success correlating with community satisfaction.
 **Technical architecture** should prioritize component-based design systems enabling consistent patterns
 across platform sections, API-first development supporting third-party integrations with existing
 
-```
 UX Design
-```
-```
+
 Sisense
-```
-```
+
 Mysidewalk +3 Splunk
-```
 
 government systems, robust permissions frameworks accommodating different user
 roles and responsibilities, and comprehensive audit trails tracking all user actions and content
@@ -295,16 +260,10 @@ integration, and community-centered governance patterns. Success requires balanc
 sophisticated functionality with intuitive usability, ensuring that democratic participation becomes more
 accessible without sacrificing the depth necessary for meaningful political discourse.
 
-```
 Citizens Foundation
-```
-```
-Uxcel School of Information
-```
-```
-PubMed Central
-```
-```
-Nielsen Norman Group
-```
 
+Uxcel School of Information
+
+PubMed Central
+
+Nielsen Norman Group
