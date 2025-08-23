@@ -1,125 +1,179 @@
-# MWV Development Task List: Comprehensive High-Level Project Plan
+# MWV Development Task List: Enhanced Project Plan with Critical Additions
 
 ## Executive Summary
 
-This comprehensive task list bridges the gap between current project needs and the ambitious 12-week MVP timeline starting August 25, 2025. Based on extensive research into modern debate platforms, AI-assisted development practices, and the specified tech stack (Next.js 15, React 18, TypeScript, Tailwind CSS, Supabase), this plan provides actionable high-level tasks organized by the seven development phases.
+This enhanced task list incorporates critical missing components identified through comprehensive repository analysis and aligns with MWV's civic engagement mission. Based on the current project state (5-band stance census, basic Supabase integration, Next.js 15 with App Router), this updated plan addresses democratic governance, evidence-first principles, and accessibility compliance within the 12-week MVP timeline.
 
-**Key Insight**: The MWV project has the potential to synthesize proven debate platform approaches (Kialo's argument mapping, Decidim's participatory democracy, ChangeMyView's consensus mechanisms) into a comprehensive structured discourse platform using modern AI-assisted development practices.
+**Key Updates**: Democratic governance moved to Phase 2, evidence system prioritized, real-time features scoped for MVP viability, AI features postponed to Phase 5, desktop-first approach with basic mobile responsive design, and accessibility integration throughout all phases rather than concentrated in Phase 6.
 
-**Note on Repository Analysis**: Direct access to the GitHub repository was not available during research. This plan assumes a greenfield Next.js project and includes foundation setup tasks that can be adapted based on existing repository state.
+**Repository State**: The project has foundational infrastructure with stance events, census tracking, and basic Motion pages implemented. This plan builds upon existing components while adding missing civic engagement features essential for democratic discourse.
 
 ---
 
-## Phase 1: Foundation (Weeks 1-3)
+## Phase 1: Foundation (Weeks 1-3) ✅ *Enhanced*
 
- Core Infrastructure & Architecture
+### Core Infrastructure & Democratic Foundations
 
-**High-Level Task 1.1: Technical Architecture Setup:**
+**High-Level Task 1.1: Technical Architecture Setup:** *(Mostly Complete)*
 
-- Initialize Next.js 15 project with App Router configuration
-- Configure TypeScript with strict mode and custom types for debate entities
-- Set up Tailwind CSS with custom design system for debate platform aesthetics
-- Integrate shadcn/ui component library with accessibility-first configurations
-- Establish development environment with AI coding agent integration (Cursor/Claude)
+- ✅ Next.js 15 project initialized with App Router configuration
+- ✅ TypeScript configured with strict mode and debate entity types
+- ✅ Tailwind CSS integrated with custom design system
+- ✅ Development environment established with AI coding agent integration
+- 🔄 Enhance existing shadcn/ui components with accessibility-first patterns
 
-**High-Level Task 1.2: Database Architecture & Supabase Integration:**
+**High-Level Task 1.2: Database Architecture & Supabase Integration:** *(Partially Complete)*
 
-- Design PostgreSQL schema for debate entities (debates, stances, posts, evidence, users)
-- Implement Row Level Security (RLS) policies for user privacy and content access
-- Configure real-time subscriptions for live debate updates and collaborative features
-- Set up authentication system with social login options and user profile management
-- Create database migrations and seed data for development/testing
+- ✅ Core PostgreSQL schema implemented (users, topics, issues, motions, stance_events)
+- ✅ Basic RLS policies configured for stance events
+- ✅ Real-time subscriptions working for stance updates
+- ✅ Authentication system functional
+- 🆕 Extend schema for forums, proposals, votes tables (governance foundation)
+- 🆕 Add evidence table with credibility scoring fields
+- 🆕 Implement privacy controls for anonymous stances (enum: public/anonymous/hiddenWeighted)
 
-**High-Level Task 1.3: Core Application Structure:**
+**High-Level Task 1.3: Core Application Structure:** *(Mostly Complete)*
 
-- Establish scalable folder architecture optimized for AI-assisted development
-- Create TypeScript interfaces for debate entities, user interactions, and API responses
-- Set up API routes following RESTful conventions with proper error handling
-- Implement base layout components with responsive navigation and accessibility features
-- Configure environment variables, deployment pipelines, and development workflows
+- ✅ Scalable folder architecture established
+- ✅ TypeScript interfaces for core entities implemented
+- ✅ API routes following RESTful conventions
+- ✅ Base layout components with responsive navigation
+- ✅ Environment variables and development workflows configured
+
+**High-Level Task 1.4: Evidence & Privacy Foundation** *(NEW - Critical Addition)*
+
+- Implement evidence database schema with community credibility scoring (1-5 scale)
+- Create basic source type classification (academic/government/news/expert/personal)
+- Set up privacy controls for anonymous stances with GDPR-compliant consent flows
+- Build evidence attachment workflows integrated with existing components
+- Implement basic evidence credibility display with visual badges
+
+**High-Level Task 1.5: Accessibility Integration** *(NEW - Cross-Phase Foundation)*
+
+- Integrate axe-core testing into existing Vitest setup for ongoing compliance
+- Implement WCAG 2.1 AA foundations (ARIA labels, heading hierarchy, color contrast 4.5:1)
+- Set up keyboard navigation patterns for all interactive elements (44px touch targets)
+- Create accessibility-first component patterns with proper focus management
+- Establish screen reader compatibility with semantic HTML structure
 
 **Dependencies**: None (entry point)  
-**AI Agent Focus**: Infrastructure setup, boilerplate generation, configuration management  
-**Deliverables**: Functional development environment, database schema, authentication system
+**AI Agent Focus**: Schema extensions, privacy implementations, accessibility patterns  
+**Deliverables**: Enhanced database schema, evidence system foundation, accessibility compliance baseline
 
 ---
 
-## Phase 2: Content Creation (Weeks 2-5)
+## Phase 2: Content Creation & Governance (Weeks 2-5) ⚠️ *Significantly Enhanced*
 
-### Debate Post Creation & Media Management
+### Democratic Governance & Content Management
 
-**High-Level Task 2.1: Debate Creation Workflow:**
+**High-Level Task 2.1: Debate Creation Workflow:** *(Building on Existing)*
 
-- Build debate creation interface with structured form validation and rich text editing
-- Implement debate categorization system with tagging and filtering capabilities
-- Create debate templates for different discussion types (policy, philosophical, factual)
-- Develop draft/publish workflow with preview functionality and collaboration features
+- 🔄 Enhance existing Motion creation with structured form validation
+- Build Topic and Issue creation interfaces with evidence attachment
+- Implement debate categorization system with tagging capabilities
+- Create debate templates for different types (policy, philosophical, factual)
 - Set up content moderation pipeline with automated filtering and human review queues
 
 **High-Level Task 2.2: Media Handling & Rich Content:**
 
-- Integrate file upload system with Supabase storage for images, documents, and videos
+- Integrate file upload system with Supabase storage for evidence documents
 - Implement image optimization and responsive display with Next.js Image component
 - Create citation and source reference system for evidence-based discussions
-- Build link preview generation for external references and fact-checking integration
+- Build link preview generation for external references
 - Develop accessibility features for media content (alt text, transcripts, descriptions)
 
 **High-Level Task 2.3: Content Management System:**
 
 - Create debate editing interface with version control and change tracking
-- Implement content search functionality with full-text search and filtering
-- Build content archiving and organization features for long-term debate management
+- Implement content search functionality with Postgres full-text search
+- Build content archiving and organization features for long-term management
 - Develop export functionality for debate summaries and analysis reports
-- Set up content analytics tracking for engagement metrics and improvement insights
+- Set up content analytics tracking for engagement metrics
 
-**Dependencies**: Foundation (authentication, database)  
-**AI Agent Focus**: Form creation, validation logic, content processing, search implementation  
-**Deliverables**: Debate creation tools, media management, content organization system
+**High-Level Task 2.4: Democratic Governance Foundation** *(MOVED FROM PHASE 5 - Critical)*
+
+- Implement forum database schema (`forums`, `proposals`, `votes` tables) with RLS policies
+- Build basic forum components (ProposalForm, simple voting interfaces, vote display)
+- Create rule proposal workflows for each entity level (Topic/Issue/Motion/Position forums)
+- Implement simple majority voting with 1-5 slider for degree/strictness decisions
+- Set up governance-specific moderation queues and transparent resolution processes
+- Build forum tabs integration for all entity pages (Topics, Issues, Motions)
+
+**High-Level Task 2.5: Position Room Collaboration** *(NEW - Essential for MVP)*
+
+- Build text-based collaborative thesis editing with simple conflict resolution (last-write-wins)
+- Implement within-camp argument aggregation and evidence curation workflows
+- Create position membership management and basic presence indicators
+- Set up real-time updates for position activities via Supabase channels
+- Build cross-position interaction workflows (rebuttal requests, evidence sharing)
+- Integrate with existing StanceSelector component for seamless position entry
+
+**Dependencies**: Enhanced Foundation (database schema, evidence system)  
+**AI Agent Focus**: Form creation, governance workflows, collaborative editing, real-time features  
+**Deliverables**: Democratic governance system, position room collaboration, enhanced content creation
 
 ---
 
-## Phase 3: Debate & Consensus (Weeks 3-6)
+## Phase 3: Debate & Consensus (Weeks 3-6) ⚠️ *Enhanced with Evidence Focus*
 
-### Structured Discussion & Community Interaction
+### Structured Discussion & Evidence-First Discourse
 
-**High-Level Task 3.1: Argument Structure & Threading:**
+**High-Level Task 3.1: Argument Structure & Threading:** *(Building on Existing)*
 
-- Implement threaded discussion system with Pro/Con argument hierarchies (Kialo-inspired)
-- Create stance tracking interface allowing users to declare and update positions
+- 🔄 Enhance existing argument display with Pro/Con hierarchies (Kialo-inspired)
+- 🔄 Extend current stance tracking interface with evolution tracking
 - Build argument visualization with tree structures and relationship mapping
 - Develop comment nesting with unlimited depth and visual threading indicators
 - Set up argument impact voting and quality scoring mechanisms
 
-**High-Level Task 3.2: Consensus Building Tools:**
+**High-Level Task 3.2: Consensus Building Tools:** *(Building on Census System)*
 
-- Create polling and voting systems with multiple voting methods (approval, ranked choice)
-- Implement consensus measurement tools showing agreement/disagreement distributions
+- 🔄 Enhance existing census tracking with multiple voting methods support
+- 🔄 Extend current StanceBar with consensus measurement and agreement distributions
 - Build mediation tools for facilitating productive discussions and conflict resolution
 - Develop stance evolution tracking to show how opinions change through discourse
 - Set up notification system for engagement updates and consensus milestones
 
-**High-Level Task 3.3: Community Moderation & Governance:**
+**High-Level Task 3.3: Community Moderation & Governance:** *(Enhanced)*
 
-- Implement community guidelines enforcement with automated and human moderation
-- Create reporting system for inappropriate content with transparent resolution processes
+- Implement community guidelines enforcement with hybrid AI/human moderation
+- Create reporting system for inappropriate content with transparent resolution
 - Build reputation system rewarding constructive engagement and quality contributions
 - Develop role-based permissions for moderators, experts, and community leaders
-- Set up governance tools for community decision-making about platform rules
+- Integrate governance tools from Phase 2 for community decision-making
 
-**Dependencies**: Content Creation (requires debate posts to discuss)  
-**AI Agent Focus**: Discussion algorithms, voting logic, moderation tools, community features  
-**Deliverables**: Threaded discussions, consensus tools, moderation system
+**High-Level Task 3.4: Evidence Curation System** *(NEW - Evidence-First Priority)*
+
+- Build community evidence flagging and validation workflows
+- Implement evidence comparison interfaces with credibility displays and visual indicators
+- Create source diversity tracking and bias detection alerts for arguments
+- Set up evidence export functionality for research use cases and citations
+- Build evidence bank curation tools for Issues with collaborative editing
+- Integrate credibility scoring with argument quality metrics
+
+**High-Level Task 3.5: Enhanced Real-time Features** *(NEW - Scoped for MVP)*
+
+- 🔄 Extend existing MotionCensusRealtime to all entity types (Topics, Issues, Solutions)
+- Build presence indicators for Position Rooms and forums (who's online, typing)
+- Create real-time notification system for engagement updates and mentions
+- Set up optimized Supabase channel management for performance and cost control
+- Implement real-time forum updates and proposal status changes
+- Add basic typing notifications for collaborative thesis editing
+
+**Dependencies**: Content Creation & Governance (requires forums and content to moderate)  
+**AI Agent Focus**: Evidence workflows, real-time optimization, moderation tools  
+**Deliverables**: Evidence-first discussion system, enhanced consensus tools, real-time collaboration
 
 ---
 
-## Phase 4: Solutions (Weeks 4-7)
+## Phase 4: Solutions & Discovery (Weeks 4-7) ⚠️ *Enhanced with Data Portability*
 
-### Discovery & Problem-Solving Features
+### Discovery, Solutions & Data Ownership
 
 **High-Level Task 4.1: Discovery & Recommendation System:**
 
 - Build intelligent content discovery using collaborative filtering and content-based algorithms
-- Implement search functionality with semantic search capabilities and advanced filtering
+- Implement search functionality with Postgres FTS and semantic search capabilities
 - Create personalized debate recommendations based on user interests and engagement history
 - Develop trending topics identification and promotion system for timely discussions
 - Set up related content suggestions to encourage deeper exploration of topics
@@ -127,224 +181,238 @@ This comprehensive task list bridges the gap between current project needs and t
 **High-Level Task 4.2: Solution Proposal & Refinement:**
 
 - Create solution proposal interface allowing users to suggest actionable outcomes
-- Implement collaborative solution editing with version control and change tracking
+- Implement collaborative solution editing with basic version control and change tracking
 - Build solution evaluation tools with criteria-based assessment and community voting
 - Develop implementation pathway tracking for proposed solutions and real-world outcomes
 - Set up solution synthesis tools for combining multiple proposals into comprehensive plans
 
-**High-Level Task 4.3: Evidence Curation & Fact-Checking:**
+**High-Level Task 4.3: Evidence Curation & Community Validation:** *(Revised Scope)*
 
-- Integrate fact-checking APIs and external verification services for evidence validation
-- Create evidence rating system allowing community assessment of source quality
+- 🔄 Focus on community-driven evidence rating rather than external API integration
+- Create evidence rating system allowing community assessment of source quality (1-5 scale)
 - Build citation management tools with automatic bibliography generation
-- Implement bias detection and diverse perspective encouragement in evidence collection
+- Implement bias detection alerts and diverse perspective encouragement
 - Develop evidence visualization tools showing support/opposition patterns for claims
+- Set up evidence library sharing and cross-debate evidence reuse
 
-**Dependencies**: Content Creation (requires content to recommend), Foundation (search infrastructure)  
-**AI Agent Focus**: Recommendation algorithms, search implementation, data analysis tools  
-**Deliverables**: Discovery system, solution tools, evidence curation features
+**High-Level Task 4.4: Data Export & Portability** *(NEW - GDPR/Democratic Values)*
+
+- Implement comprehensive user data export functionality (GDPR Article 20 compliance)
+- Create debate/argument export formats (JSON, CSV, PDF) for research and backup
+- Build API documentation for third-party integrations and open data access
+- Set up evidence library import/export functionality for academic research
+- Create backup and migration tools for user content and stance history
+- Implement audit trail export for transparency and accountability
+
+**High-Level Task 4.5: Advanced Analytics Foundation** *(NEW - Democratic Insights)*
+
+- Implement stance evolution tracking and basic visualization dashboards
+- Build engagement analytics for user journey optimization and platform improvement
+- Create consensus convergence indicators and trend analysis for moderators
+- Set up demographic analysis tools with privacy protection (aggregated only)
+- Build foundation for real-world impact tracking and solution adoption metrics
+- Create community health dashboards for administrators and moderators
+
+**Dependencies**: Content Creation (requires content to recommend), Evidence System (data to analyze)  
+**AI Agent Focus**: Search algorithms, analytics implementation, data export systems  
+**Deliverables**: Discovery system, solution workflows, data portability, analytics foundation
 
 ---
 
-## Phase 5: AI Integration (Weeks 6-9)
+## Phase 5: AI Integration (Weeks 6-9) ⚠️ *Reduced Scope, Post-MVP Focus*
 
-### Intelligent Assistance & Automation
+### Core AI Features & Transparency
 
-**High-Level Task 5.1: Content Intelligence & Personalization:**
+**High-Level Task 5.1: Essential AI Features** *(Focused MVP Scope)*
 
-- Implement AI-powered content summarization for long debates and complex discussions
-- Create personalized content curation using machine learning algorithms and user behavior
-- Build intelligent notification systems reducing noise while highlighting relevant content
-- Develop argument analysis tools identifying logical fallacies, biases, and reasoning patterns
-- Set up automated content tagging and categorization for improved organization
+- Implement AI-powered content summarization for long debates and position discussions
+- Build basic content analysis for duplicate detection and similar content identification
+- Create AI-assisted onboarding with contextual help and progressive disclosure
+- Set up comprehensive transparency frameworks for all AI interactions with clear labeling
+- Implement rate limiting and cost controls for AI features with usage monitoring
 
-**High-Level Task 5.2: Discussion Enhancement Tools:**
+**High-Level Task 5.2: Content Intelligence & Moderation Assistance:**
 
-- Create AI-assisted fact-checking with real-time verification of claims and statistics
-- Implement sentiment analysis for discussion tone monitoring and intervention triggers
-- Build perspective diversity tools encouraging consideration of alternative viewpoints
-- Develop automated summary generation for long discussions and consensus outcomes
-- Set up intelligent moderation assistance with bias detection and intervention recommendations
+- Create intelligent notification systems reducing noise while highlighting relevant content
+- Develop automated content tagging and categorization for improved organization
+- Build AI moderation assistance with bias detection and intervention recommendations
+- Implement sentiment analysis for discussion tone monitoring and escalation triggers
+- Set up audit trails for all AI-generated content and recommendations
 
-**High-Level Task 5.3: Predictive Analytics & Insights:**
+**High-Level Task 5.3: Advanced AI Features** *(Post-MVP Pipeline)*
 
-- Implement consensus prediction algorithms identifying likely areas of agreement
-- Create engagement analytics showing discussion health and participation patterns
-- Build outcome prediction tools estimating real-world impact of proposed solutions
-- Develop user journey analytics for improving platform usability and engagement
-- Set up A/B testing infrastructure for continuous platform optimization
+- Plan integration architecture for fact-checking APIs (PolitiFact, Snopes) via Edge Functions
+- Design devil's advocate counter-argument generation for position room balance
+- Blueprint feasibility analysis for solution proposals with community input weighting
+- Architect bias detection and diverse perspective encouragement systems
+- Plan AI coaching features for argument improvement and evidence strengthening
 
 **Dependencies**: Content Creation (data for training), Debate & Consensus (interaction patterns)  
-**AI Agent Focus**: Machine learning integration, data analysis, predictive modeling  
-**Deliverables**: AI-powered features, intelligent automation, analytics dashboard
+**AI Agent Focus**: Summarization algorithms, transparency systems, moderation assistance  
+**Deliverables**: Core AI summarization, transparency framework, moderation assistance
 
 ---
 
-## Phase 6: Mobile & Accessibility (Weeks 7-10)
+## Phase 6: Mobile & Accessibility (Weeks 7-10) ⚠️ *Desktop-First with Mobile Foundation*
 
-### Inclusive Design & Cross-Platform Experience
+### Desktop Optimization & Accessibility Excellence
 
-**High-Level Task 6.1: Mobile-First Responsive Design:**
+**High-Level Task 6.1: Desktop Optimization & Basic Mobile** *(Revised Priority)*
 
-- Optimize all interfaces for mobile devices with touch-friendly interactions
-- Implement progressive web app features for offline access and app-like experience
-- Create mobile-specific navigation patterns with gesture support and simplified flows
-- Develop optimized reading experience for long-form debates on mobile devices
-- Set up mobile performance optimization with lazy loading and efficient data usage
+- Optimize desktop experience for complex hierarchical navigation and debate trees
+- Implement basic mobile responsiveness with Tailwind breakpoints and touch-friendly interfaces
+- Create simplified mobile navigation patterns (limit to 2-3 hierarchy levels maximum)
+- Build touch-friendly interfaces for stance selection and voting with 44px minimum targets
+- Set up progressive disclosure patterns for mobile content consumption (not creation)
 
-**High-Level Task 6.2: Accessibility Compliance (WCAG 2.1):**
+**High-Level Task 6.2: Advanced Accessibility Compliance** *(Enhanced Throughout)*
 
-- Implement comprehensive keyboard navigation for all interactive elements
-- Create screen reader compatibility with proper ARIA labels and semantic HTML
-- Build high contrast mode and customizable visual accessibility features
-- Develop voice input capabilities and alternative interaction methods
-- Set up accessibility testing automation and compliance monitoring
+- 🔄 Build upon Phase 1 accessibility foundations with comprehensive WCAG 2.1 AA audit
+- Implement advanced screen reader support with proper ARIA live regions and navigation
+- Create high contrast mode and customizable visual accessibility features
+- Build comprehensive keyboard navigation with shortcuts and logical tab order
+- Set up accessibility testing automation and continuous compliance monitoring
 
 **High-Level Task 6.3: Inclusive Experience Design:**
 
-- Create multi-language support infrastructure with internationalization (i18n)
+- Create multi-language foundation and RTL layout support preparation
 - Implement customizable interface density for different cognitive preferences
-- Build reading assistance tools (text-to-speech, highlighting, note-taking)
+- Build reading assistance tools (text-to-speech integration, highlighting, note-taking)
 - Develop diverse communication style accommodation for various cultural approaches
 - Set up user preference management for personalized accessibility needs
 
+**High-Level Task 6.4: Progressive Web App Implementation:**
+
+- Implement PWA features for offline access to debate content and drafted responses
+- Create background sync for civic submissions and stance updates
+- Set up push notifications for meeting reminders, vote deadlines, and engagement alerts
+- Build home screen integration with shortcuts for common civic tasks
+- Optimize performance with Core Web Vitals targets (LCP <2.5s, FID <100ms, CLS <0.1)
+
 **Dependencies**: All core features (needs complete UI to optimize)  
-**AI Agent Focus**: Responsive design implementation, accessibility features, PWA setup  
-**Deliverables**: Mobile-optimized interface, accessibility compliance, inclusive features
+**AI Agent Focus**: Mobile optimization, accessibility compliance, PWA implementation  
+**Deliverables**: Desktop-optimized experience, WCAG AA compliance, basic mobile support, PWA foundation
 
 ---
 
-## Phase 7: Testing (Weeks 1-12)
+## Phase 7: Testing & Launch Preparation (Weeks 1-12) ✅ *Enhanced with Community Focus*
 
-### Continuous Quality Assurance & Validation
+### Comprehensive Quality Assurance & Community Readiness
 
-**High-Level Task 7.1: Automated Testing Infrastructure:**
+**High-Level Task 7.1: Automated Testing Infrastructure:** *(Enhanced)*
 
-- Set up comprehensive unit testing suite for all business logic and API endpoints
-- Implement integration testing for complex user workflows and data interactions
-- Create end-to-end testing scenarios covering critical user journeys and edge cases
-- Build performance testing automation with load testing and scalability validation
-- Develop security testing pipeline with vulnerability scanning and penetration testing
+- 🔄 Extend existing Vitest setup with comprehensive unit testing for governance and evidence systems
+- Implement integration testing for complex civic workflows (Topic→Issue→Motion→Position→Solution)
+- Create end-to-end testing scenarios covering critical democratic processes and edge cases
+- Build performance testing automation with load testing for consensus calculations
+- Develop security testing pipeline with vulnerability scanning and RLS policy validation
 
-**High-Level Task 7.2: User Experience Testing:**
+**High-Level Task 7.2: User Experience Testing:** *(Civic-Focused)*
 
-- Establish user testing program with regular feedback collection and analysis
-- Implement A/B testing infrastructure for feature comparison and optimization
-- Create accessibility testing protocols with assistive technology validation
-- Build usability testing procedures for complex debate workflows and interactions
-- Set up analytics tracking for user behavior analysis and improvement identification
+- Establish user testing program with diverse demographic representation and civic backgrounds
+- Implement A/B testing infrastructure for democratic process optimization
+- Create accessibility testing protocols with assistive technology validation and real user testing
+- Build usability testing procedures for complex debate workflows and hierarchical navigation
+- Set up analytics tracking for civic engagement patterns and democratic participation metrics
 
 **High-Level Task 7.3: Quality Assurance & Monitoring:**
 
-- Implement real-time monitoring with performance metrics and error tracking
-- Create automated quality gates preventing deployment of substandard code
-- Build comprehensive logging system for debugging and user support
-- Develop rollback procedures and incident response protocols
-- Set up continuous security monitoring with threat detection and response
+- Implement real-time monitoring with civic-specific performance metrics and error tracking
+- Create automated quality gates preventing deployment of democratically harmful features
+- Build comprehensive logging system for audit trails and transparency requirements
+- Develop rollback procedures and incident response protocols for civic platform stability
+- Set up continuous security monitoring with threat detection for civic discourse protection
 
-**Dependencies**: Parallel to all phases (continuous integration)  
-**AI Agent Focus**: Test generation, quality automation, monitoring setup  
-**Deliverables**: Testing framework, monitoring system, quality assurance processes
+**High-Level Task 7.4: Community Seeding & Onboarding** *(NEW - Critical for Launch)*
 
----
+- Create comprehensive seed data with realistic civic scenarios and diverse viewpoints
+- Build progressive onboarding with guided hierarchy introduction (Topics→Issues→Motions)
+- Set up beta user recruitment strategy targeting engaged citizens, academics, and civic organizers
+- Create contextual help system and glossaries for civic terminology and platform concepts
+- Implement community feedback collection and rapid iteration workflows for civic improvement
 
-## Cross-Phase Dependencies & Technical Patterns
+**High-Level Task 7.5: Content Moderation System** *(NEW - Democratic Safety)*
 
-### Critical Path Analysis
+- Build hybrid AI/human moderation pipeline with transparent escalation procedures
+- Implement community flagging and transparent resolution processes with appeal mechanisms
+- Set up moderation queue and admin dashboard functionality with audit capabilities
+- Create reputation system and community guidelines enforcement with democratic input
+- Establish escalation procedures for sensitive civic content and governance disputes
 
-1. **Foundation → Content Creation → Solutions → AI Integration** (Primary flow)
-2. **Foundation → Debate & Consensus** (Parallel development possible)
-3. **All Phases → Testing** (Continuous integration required)
-4. **Core Features → Mobile & Accessibility** (Optimization phase)
-
-### Reusable Technical Patterns
-
-- **Component Library**: Standardized UI components with accessibility built-in
-- **API Design**: RESTful endpoints with GraphQL for complex queries
-- **Real-time Updates**: Supabase subscriptions for live collaboration
-- **State Management**: Zustand or Context API for client-side state
-- **Authentication**: Supabase Auth with social login integration
-
-### Key Integration Points
-
-- **Database Schema**: Unified design supporting all debate functionalities
-- **API Layer**: Consistent interface for all client-server communications  
-- **UI Components**: Shared design system ensuring consistency across features
-- **Real-time System**: WebSocket connections for live collaboration
-- **Analytics**: Unified tracking across all user interactions
+**Dependencies**: All phases (continuous integration and civic community development)  
+**AI Agent Focus**: Testing automation, monitoring systems, community tools  
+**Deliverables**: Comprehensive testing framework, community readiness, moderation system
 
 ---
 
-## AI Agent Assignment Strategy
+## Critical Integration Points *(NEW SECTION)*
 
-### Task Granularity for AI Effectiveness
+### Cross-Phase Dependencies & Democratic Values
 
-- **Component-Level Tasks**: Individual UI components, API endpoints, utility functions
-- **Feature-Level Tasks**: Complete user workflows spanning multiple components
-- **Integration Tasks**: Connecting different system components and third-party services
+**Governance ↔ All Features**: Forum systems and democratic decision-making integrate with every entity type (Topics, Issues, Motions, Positions, Debates, Solutions), ensuring community governance is fundamental rather than peripheral.
 
-### AI Agent Specialization Areas
+**Evidence ↔ Arguments**: Credibility scoring directly affects argument quality metrics, creating feedback loops that encourage evidence-first discourse and reward high-quality source citation.
 
-1. **UI/Component Agent**: Focus on React components, styling, and user interface
-2. **Backend/API Agent**: Database queries, API endpoints, business logic
-3. **Integration Agent**: Third-party services, authentication, real-time features
-4. **Testing Agent**: Test generation, quality assurance, performance optimization
+**Real-time ↔ Collaboration**: Position room updates, forum discussions, and collaborative editing depend on optimized real-time infrastructure that scales from simple stance updates to complex multi-user interactions.
 
-### Context Optimization for AI
+**Privacy ↔ Democratic Participation**: Anonymous stance handling affects every user interaction while maintaining the ability to track consensus and prevent manipulation, balancing privacy with democratic transparency.
 
-- **Comprehensive Documentation**: Detailed project specs, coding standards, examples
-- **Type Definitions**: Strong TypeScript typing for better AI understanding
-- **Example Implementations**: Reference patterns for AI to follow
-- **Clear Specifications**: Detailed acceptance criteria and technical requirements
+### Technical Debt Prevention Strategies
 
----
+**Database Schema Front-Loading**: All governance, evidence, and privacy schema changes implemented in Phase 1 to avoid complex migrations that could disrupt civic discussions and data integrity.
 
-## Success Metrics & Milestones
+**Component Accessibility Built-In**: WCAG 2.1 AA compliance integrated from component creation rather than retrofitted, ensuring democratic participation is accessible to all citizens from day one.
 
-### Week 3 Milestone: Foundation Complete
+**API Design for Future AI**: REST endpoints designed to support future AI integration without immediate implementation, allowing for transparent AI assistance when community governance approves.
 
-- ✅ Development environment functional
-- ✅ Database schema implemented
-- ✅ Authentication system working
-- ✅ Basic UI framework established
+**Real-time Architecture Scaling**: Infrastructure designed to scale from simple consensus updates to complex collaborative features without requiring fundamental rewrites.
 
-### Week 6 Milestone: Core Features Functional
+### Success Metrics by Phase *(Enhanced with Civic KPIs)*
 
-- ✅ Debate creation and viewing working
-- ✅ User engagement features operational
-- ✅ Basic discussion threading implemented
-- ✅ Content management system functional
+**Phase 1**: Schema supporting full civic hierarchy, privacy controls functional, accessibility foundations tested with assistive technologies
 
-### Week 9 Milestone: Advanced Features Integrated
+**Phase 2**: Democratic governance proposals flowing through community forums, Position Rooms enabling collaborative thesis development, content creation supporting evidence attachment
 
-- ✅ AI features providing value
-- ✅ Consensus tools operational
-- ✅ Solution proposal system working
-- ✅ Performance optimization completed
+**Phase 3**: Multi-stance debates active with evidence curation, real-time consensus tracking accurate, community moderation reducing harmful content while preserving democratic discourse
 
-### Week 12 Milestone: MVP Launch Ready
+**Phase 4**: Solution workflows enabling civic action, data export supporting research and transparency, analytics providing insights into democratic health
 
-- ✅ All critical features tested and stable
-- ✅ Accessibility compliance achieved
-- ✅ Mobile experience optimized
-- ✅ Production deployment successful
+**Phase 5**: AI summarization improving comprehension of complex debates, transparency systems maintaining trust in AI assistance, cost controls preventing resource abuse
+
+**Phase 6**: Desktop experience supporting complex civic workflows, WCAG AA compliance verified by disabled users, mobile enabling basic participation
+
+**Phase 7**: Diverse community actively engaged in democratic processes, moderation maintaining civility without suppressing dissent, platform stable under civic discussion load
 
 ---
 
-## Risk Mitigation & Contingency Planning
+## Risk Mitigation & Contingency Planning *(Updated)*
 
-### High-Risk Areas
+### High-Risk Areas & Mitigation Strategies
 
-1. **AI Integration Complexity**: Have rule-based fallbacks for AI features
-2. **Real-time Performance**: Implement graceful degradation for high traffic
-3. **Consensus Algorithm Design**: Start simple, iterate based on user feedback
-4. **Mobile Performance**: Prioritize core features, defer advanced mobile features if needed
+1. **Democratic Governance Complexity**: Start with simple majority voting and 1-5 sliders, defer quadratic voting to post-MVP to ensure governance functions without overwhelming complexity
 
-### Scope Flexibility
+2. **Evidence System Scaling**: Begin with community-driven credibility scoring, avoid complex AI fact-checking integration until user patterns and community standards are established
 
-- **Must-Have**: Debate creation, basic discussion, user management, mobile responsiveness
-- **Should-Have**: AI recommendations, advanced consensus tools, comprehensive analytics
-- **Could-Have**: Advanced AI features, complex visualization, extensive integrations
-- **Won't-Have**: Advanced machine learning, complex gamification, enterprise features
+3. **Real-time Performance Under Civic Load**: Implement graceful degradation for high-traffic debates, use caching for census calculations, and queue non-critical updates
 
-This comprehensive task list provides a clear roadmap for building the MWV platform within the 12-week timeline, leveraging AI-assisted development while ensuring quality, accessibility, and user-centered design. The modular approach allows for iterative development and rapid response to user feedback while maintaining technical excellence.
+4. **Mobile Complexity vs Civic Depth**: Prioritize desktop for MVP where complex hierarchical discourse thrives, ensure mobile supports basic participation without sacrificing civic depth
+
+5. **Community Moderation Balance**: Design transparent appeal processes and community governance of moderation policies to prevent both under-moderation and over-censorship
+
+### Scope Flexibility for Democratic Values
+
+**Must-Have (Democratic Core)**: Position rooms, governance forums, evidence attachment, stance tracking, basic moderation, accessibility compliance
+
+**Should-Have (Democratic Enhancement)**: Advanced analytics, solution tracking, data export, community health metrics, collaborative editing
+
+**Could-Have (Future Democracy)**: AI fact-checking, quadratic voting, complex visualization, extensive third-party integrations, advanced mobile features
+
+**Won't-Have (Out of Scope)**: Enterprise features, complex gamification, non-civic social features, proprietary closed systems
+
+### Community-Centered Launch Strategy
+
+**Pre-Launch (Weeks 10-12)**: Beta testing with diverse civic groups, seed content creation, community guidelines development through democratic process
+
+**Launch (Week 12)**: Soft launch with invited civic organizers and engaged citizens, gradual public opening based on moderation capacity and community health
+
+**Post-Launch (Weeks 13+)**: Community-driven feature prioritization, democratic governance of platform evolution, expansion based on successful civic outcomes
