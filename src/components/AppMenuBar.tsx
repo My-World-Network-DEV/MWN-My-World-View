@@ -68,6 +68,44 @@ export default function AppMenuBar() {
                             ))}
                         </DropdownMenu.Content>
                     </DropdownMenu.Root>
+                    <DropdownMenu.Root>
+                        <DropdownMenu.Trigger asChild>
+                            <button className="inline-flex items-center gap-1 rounded px-2 py-1.5 hover:bg-mwv-muted" aria-label="All pages">
+                                Pages
+                                <ChevronDown className="size-3" />
+                            </button>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Content sideOffset={6} className="max-h-[60vh] w-64 overflow-auto rounded-md border bg-white p-1 text-sm shadow-card">
+                            <DropdownMenu.Item asChild>
+                                <Link href="/routes" className="block rounded px-2 py-1.5 hover:bg-gray-50">All Routes Catalog</Link>
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Separator className="my-1 h-px bg-gray-200" />
+                            {[
+                                { href: '/', label: 'Home' },
+                                { href: '/explore', label: 'Explore' },
+                                { href: '/topics', label: 'Topics (browse stub)' },
+                                { href: '/issues', label: 'Issues (browse stub)' },
+                                { href: '/motions', label: 'Motions (browse stub)' },
+                                { href: '/positions', label: 'Positions (browse stub)' },
+                                { href: '/debates', label: 'Debates' },
+                                { href: '/solutions', label: 'Solutions' },
+                                { href: '/forums', label: 'Forums' },
+                                { href: '/notifications', label: 'Notifications' },
+                                { href: '/search', label: 'Search' },
+                                { href: '/settings', label: 'Settings' },
+                                { href: '/about', label: 'About' },
+                                { href: '/privacy', label: 'Privacy' },
+                                { href: '/admin', label: 'Admin' },
+                                { href: '/admin/moderation', label: 'Admin Moderation' },
+                                { href: '/onboarding', label: 'Onboarding' },
+                                { href: '/dms', label: 'DMs' },
+                            ].map((r) => (
+                                <DropdownMenu.Item key={r.href} asChild>
+                                    <Link href={r.href} className="block rounded px-2 py-1.5 hover:bg-gray-50">{r.label}</Link>
+                                </DropdownMenu.Item>
+                            ))}
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Root>
                 </div>
             </div>
             {mobileOpen && (
