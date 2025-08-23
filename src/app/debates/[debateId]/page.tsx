@@ -1,9 +1,7 @@
 import AppMenuBar from '@/components/AppMenuBar';
 import DebateCanvas from '@/components/DebateCanvas';
 import Card from '@/components/Card';
-import { use } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Phase = 'opening' | 'rebuttal' | 'closing' | 'finished';
 
 async function getDebate(debateId: string) {
@@ -24,9 +22,9 @@ async function getDebate(debateId: string) {
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Page({ params }: any) {
-    const debate = use(getDebate(params.debateId));
+export default async function Page({ params }: { params: Promise<{ debateId: string }> }) {
+    const { debateId } = await params;
+    const debate = await getDebate(debateId);
     const phases: Phase[] = ['opening', 'rebuttal', 'closing'];
     const currentIdx = Math.max(0, phases.indexOf(debate.phase as Phase));
     return (
@@ -48,7 +46,7 @@ export default function Page({ params }: any) {
                             ))}
                         </div>
                     </div>
-                    <DebateCanvas nodes={debate.nodes as any} edges={debate.edges as any} />
+                    <DebateCanvas nodes={debate.nodes} edges={debate.edges} />
                 </Card>
                 <Card>
                     <div className="text-sm font-medium">Submit argument</div>

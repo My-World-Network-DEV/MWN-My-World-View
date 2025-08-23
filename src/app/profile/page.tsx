@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
 import AppMenuBar from '@/components/AppMenuBar';
-import { supabase } from '@/lib/supabaseClient';
 
 export default function Page() {
     const [displayName, setDisplayName] = useState('');
@@ -27,7 +26,7 @@ export default function Page() {
                             try {
                                 // Placeholder: would update users table via RPC/server action
                                 setStatus('Saved (demo).');
-                            } catch (e) {
+                            } catch {
                                 setStatus('Error saving');
                             }
                         }}

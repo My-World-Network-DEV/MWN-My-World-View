@@ -11,9 +11,8 @@ type MotionListItem = {
   argumentsCount: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Page({ params }: any) {
-  const issueId = params.id;
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id: issueId } = await params;
 
   let issue = {
     id: issueId,
@@ -39,7 +38,7 @@ export default async function Page({ params }: any) {
         description: data.issue.description ?? '',
         census: { agree: 0, neutral: 0, disagree: 0 },
       };
-      motions = (data.motions ?? []).map((m: any) => ({
+      motions = (data.motions ?? []).map((m: { id: string; title: string }) => ({
         id: m.id,
         statement: m.title,
         createdAtMinutesAgo: 0,

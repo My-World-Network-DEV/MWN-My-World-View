@@ -61,7 +61,7 @@ export default function StanceBar(props: StanceBarProps) {
     if (!hasAny) {
       return <div className={`${barClass} items-center justify-center text-[11px] italic text-gray-500`}>No stances yet</div>;
     }
-    if ((props as any).variant === 'dense') {
+    if ('variant' in props && props.variant === 'dense') {
       const pFor = p4 + p5;
       const pAgainst = p1 + p2;
       const pNeutral = p3;
@@ -76,11 +76,11 @@ export default function StanceBar(props: StanceBarProps) {
     return (
       <div className="w-full">
         <div className={barClass} role="img" aria-label="Stance distribution (1 to 5)">
-          <button style={{ width: `${p1}%`, backgroundColor: stanceColors[0] }} className="h-full" title={`1 Strongly Disagree ${p1}% (${c.counts[1] || 0})`} aria-label={`1 Strongly Disagree ${p1}% (${c.counts[1] || 0})`} onClick={(props as any).onSegmentClick ? () => (props as any).onSegmentClick(1) : undefined} />
-          <button style={{ width: `${p2}%`, backgroundColor: stanceColors[1] }} className="h-full" title={`2 Disagree ${p2}% (${c.counts[2] || 0})`} aria-label={`2 Disagree ${p2}% (${c.counts[2] || 0})`} onClick={(props as any).onSegmentClick ? () => (props as any).onSegmentClick(2) : undefined} />
-          <button style={{ width: `${p3}%`, backgroundColor: stanceColors[2] }} className="h-full" title={`3 Neutral ${p3}% (${c.counts[3] || 0})`} aria-label={`3 Neutral ${p3}% (${c.counts[3] || 0})`} onClick={(props as any).onSegmentClick ? () => (props as any).onSegmentClick(3) : undefined} />
-          <button style={{ width: `${p4}%`, backgroundColor: stanceColors[3] }} className="h-full" title={`4 Agree ${p4}% (${c.counts[4] || 0})`} aria-label={`4 Agree ${p4}% (${c.counts[4] || 0})`} onClick={(props as any).onSegmentClick ? () => (props as any).onSegmentClick(4) : undefined} />
-          <button style={{ width: `${p5}%`, backgroundColor: stanceColors[4] }} className="h-full" title={`5 Strongly Agree ${p5}% (${c.counts[5] || 0})`} aria-label={`5 Strongly Agree ${p5}% (${c.counts[5] || 0})`} onClick={(props as any).onSegmentClick ? () => (props as any).onSegmentClick(5) : undefined} />
+          <button style={{ width: `${p1}%`, backgroundColor: stanceColors[0] }} className="h-full" title={`1 Strongly Disagree ${p1}% (${c.counts[1] || 0})`} aria-label={`1 Strongly Disagree ${p1}% (${c.counts[1] || 0})`} onClick={('onSegmentClick' in props && props.onSegmentClick) ? () => props.onSegmentClick?.(1) : undefined} />
+          <button style={{ width: `${p2}%`, backgroundColor: stanceColors[1] }} className="h-full" title={`2 Disagree ${p2}% (${c.counts[2] || 0})`} aria-label={`2 Disagree ${p2}% (${c.counts[2] || 0})`} onClick={('onSegmentClick' in props && props.onSegmentClick) ? () => props.onSegmentClick?.(2) : undefined} />
+          <button style={{ width: `${p3}%`, backgroundColor: stanceColors[2] }} className="h-full" title={`3 Neutral ${p3}% (${c.counts[3] || 0})`} aria-label={`3 Neutral ${p3}% (${c.counts[3] || 0})`} onClick={('onSegmentClick' in props && props.onSegmentClick) ? () => props.onSegmentClick?.(3) : undefined} />
+          <button style={{ width: `${p4}%`, backgroundColor: stanceColors[3] }} className="h-full" title={`4 Agree ${p4}% (${c.counts[4] || 0})`} aria-label={`4 Agree ${p4}% (${c.counts[4] || 0})`} onClick={('onSegmentClick' in props && props.onSegmentClick) ? () => props.onSegmentClick?.(4) : undefined} />
+          <button style={{ width: `${p5}%`, backgroundColor: stanceColors[4] }} className="h-full" title={`5 Strongly Agree ${p5}% (${c.counts[5] || 0})`} aria-label={`5 Strongly Agree ${p5}% (${c.counts[5] || 0})`} onClick={('onSegmentClick' in props && props.onSegmentClick) ? () => props.onSegmentClick?.(5) : undefined} />
         </div>
         {labels && (
           <div className="mt-1 text-xs text-mwv-muted">

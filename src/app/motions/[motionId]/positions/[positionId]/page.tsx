@@ -2,11 +2,10 @@ import React from 'react';
 import AppMenuBar from '@/components/AppMenuBar';
 import StanceBar from '@/components/StanceBar';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Page({ params }: any) {
-  const { motionId, positionId } = params as { motionId: string; positionId: string };
-  const p = Number(positionId);
-  if (![1, 2, 3, 4, 5].includes(p)) {
+export default async function Page({ params }: { params: Promise<{ motionId: string; positionId: string }> }) {
+  const { motionId, positionId } = await params;
+  const pNum = Number(positionId);
+  if (![1, 2, 3, 4, 5].includes(pNum)) {
     // Invalid; render simple fallback
     return (
       <div className="min-h-screen bg-gray-50">
@@ -22,12 +21,13 @@ export default async function Page({ params }: any) {
 
   const motion = { id: motionId, title: 'Motion Title (stub)' };
 
+  const p = pNum as 1 | 2 | 3 | 4 | 5;
   let count = 0;
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/census/motion/${motionId}`, { cache: 'no-store' });
     if (res.ok) {
-      const data = await res.json();
-      count = Number((data.counts?.[p as any] ?? 0) as number);
+      const data = await res.json() as { counts?: Partial<Record<1 | 2 | 3 | 4 | 5, number>> };
+      count = Number((data.counts?.[p] ?? 0));
     }
   } catch { }
 

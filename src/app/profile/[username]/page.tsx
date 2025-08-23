@@ -2,16 +2,15 @@ import React from 'react';
 import AppMenuBar from '@/components/AppMenuBar';
 import Card from '@/components/Card';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Page(props: any) {
-  const params = (props as any).params || {};
+export default async function Page({ params }: { params: Promise<{ username: string }> }) {
+  const { username } = await params;
   return (
     <div className="min-h-screen bg-gray-50">
       <AppMenuBar />
       <main className="container mx-auto px-4 py-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">@{params.username}</h1>
+            <h1 className="text-2xl font-semibold">@{username}</h1>
             <div className="text-sm text-gray-600">Policy analyst · Joined 2024</div>
           </div>
           <button className="rounded border px-3 py-2 text-sm hover:bg-gray-50">Edit profile</button>

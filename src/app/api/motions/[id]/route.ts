@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-export async function GET(_: Request, context: any) {
-  const { id } = context?.params ?? {};
+export async function GET(_: Request, context: { params: Promise<{ id: string }> }) {
+  const { id } = (await context.params) ?? ({} as { id?: string });
   if (!id) return NextResponse.json({ error: 'id required' }, { status: 400 });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

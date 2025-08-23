@@ -28,7 +28,7 @@ export default function ProposalForm({ onSubmit }: Props) {
             </div>
             <div>
                 <label className="block text-sm font-medium">Voting Type</label>
-                <select className="mt-1 w-full rounded border px-3 py-2" value={votingType} onChange={(e) => setVotingType(e.target.value as any)}>
+                <select className="mt-1 w-full rounded border px-3 py-2" value={votingType} onChange={(e) => setVotingType(e.target.value as 'yesno' | 'slider' | 'qv')}>
                     <option value="yesno">Yes / No</option>
                     <option value="slider">1–5 Slider</option>
                     <option value="qv">Quadratic Voting</option>

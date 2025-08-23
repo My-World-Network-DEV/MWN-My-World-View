@@ -13,8 +13,8 @@ type SubmitPayload = {
 type Props = { onSubmit?: (v: SubmitPayload) => void; initial?: Partial<SubmitPayload> };
 
 export default function StanceSelector({ onSubmit, initial }: Props) {
-    const [stance, setStance] = useState<1 | 2 | 3 | 4 | 5>((initial?.stance as any) || 3);
-    const [privacy, setPrivacy] = useState<Privacy>((initial?.privacy as any) || 'public');
+    const [stance, setStance] = useState<1 | 2 | 3 | 4 | 5>((initial?.stance as 1 | 2 | 3 | 4 | 5) || 3);
+    const [privacy, setPrivacy] = useState<Privacy>((initial?.privacy as Privacy) || 'public');
     const [reasonText, setReasonText] = useState<string>(initial?.reasonText || '');
     const [evidenceUrls, setEvidenceUrls] = useState<string[]>(initial?.evidenceUrls || []);
     const handleSubmit = onSubmit ?? (() => { });
@@ -29,7 +29,7 @@ export default function StanceSelector({ onSubmit, initial }: Props) {
         >
             <div>
                 <label htmlFor="stance-range" className="text-sm font-medium">Stance: {stance}</label>
-                <input id="stance-range" aria-label="Select stance from 1 Strongly Disagree to 5 Strongly Agree" className="mt-1 w-full" type="range" min={1} max={5} step={1} value={stance} onChange={(e) => setStance(Number(e.target.value) as any)} />
+                <input id="stance-range" aria-label="Select stance from 1 Strongly Disagree to 5 Strongly Agree" className="mt-1 w-full" type="range" min={1} max={5} step={1} value={stance} onChange={(e) => setStance(Number(e.target.value) as 1 | 2 | 3 | 4 | 5)} />
                 <div className="mt-1 grid grid-cols-5 text-[11px] text-gray-600">
                     <span>1 SD</span>
                     <span className="text-center">2 D</span>
@@ -40,7 +40,7 @@ export default function StanceSelector({ onSubmit, initial }: Props) {
             </div>
             <div>
                 <label htmlFor="privacy-select" className="text-sm font-medium">Privacy</label>
-                <select id="privacy-select" aria-describedby="privacy-help" className="mt-1 w-full rounded border px-3 py-2" value={privacy} onChange={(e) => setPrivacy(e.target.value as any)}>
+                <select id="privacy-select" aria-describedby="privacy-help" className="mt-1 w-full rounded border px-3 py-2" value={privacy} onChange={(e) => setPrivacy(e.target.value as Privacy)}>
                     <option value="public">Public</option>
                     <option value="anonymous">Anonymous</option>
                     <option value="hiddenWeighted">Hidden (Weighted)</option>

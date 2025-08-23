@@ -14,8 +14,8 @@ export async function POST(req: Request) {
     | 'anonymous'
     | 'hiddenWeighted';
   const reasonText = typeof body.reasonText === 'string' ? body.reasonText : undefined;
-  const evidenceUrls = Array.isArray((body as any).evidenceUrls)
-    ? ((body as any).evidenceUrls as unknown[]).map((x) => (typeof x === 'string' ? x : '')).filter(Boolean)
+  const evidenceUrls = Array.isArray(body.evidenceUrls)
+    ? body.evidenceUrls.map((x) => (typeof x === 'string' ? x : '')).filter(Boolean)
     : undefined;
 
   if (!motionId || !(stance >= 1 && stance <= 5) || !['public', 'anonymous', 'hiddenWeighted'].includes(privacy)) {

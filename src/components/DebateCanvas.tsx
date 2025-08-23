@@ -14,13 +14,13 @@ export default function DebateCanvas({ nodes = [], edges = [] }: { nodes?: Node[
         <div className="h-96 w-full rounded-lg border bg-white">
             <ForceGraph2D
                 graphData={data}
-                nodeLabel={(n) => (n as any).label}
+                nodeLabel={(n) => (n as { label?: string }).label || ''}
                 nodeAutoColorBy="id"
                 enableNodeDrag
                 cooldownTicks={50}
                 linkDirectionalParticles={1}
                 onNodeClick={(n) => {
-                    const id = (n as any).id as string;
+                    const id = (n as { id?: string }).id || '';
                     window.location.href = `/posts/${id}`;
                 }}
             />

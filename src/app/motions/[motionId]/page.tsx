@@ -7,16 +7,15 @@ import StanceSelector from '@/components/StanceSelector';
 
 //
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Page({ params }: any) {
-  const { motionId } = params;
+export default async function Page({ params }: { params: Promise<{ motionId: string }> }) {
+  const { motionId } = await params;
 
   // Fetch motion details from API (falls back to mock if env missing)
   const motionResp = await (async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/motions/${motionId}`, { cache: 'no-store' });
       if (!res.ok) return null;
-      return (await res.json()) as any;
+      return (await res.json()) as { motion: { id: string; title: string; description: string | null; issue: { id: string; title: string } | null; related: Array<{ id: string; title: string }> } };
     } catch {
       return null;
     }
@@ -42,7 +41,7 @@ export default async function Page({ params }: any) {
     }
   })();
 
-  const counts5 = (api?.counts as Record<number, number> | undefined) ?? { 1: 10, 2: 10, 3: 20, 4: 30, 5: 30 };
+  const counts5: Record<1 | 2 | 3 | 4 | 5, number> = (api?.counts as Record<1 | 2 | 3 | 4 | 5, number> | undefined) ?? { 1: 10, 2: 10, 3: 20, 4: 30, 5: 30 };
   const total = api?.total ?? Object.values(counts5).reduce((a, b) => a + b, 0);
 
   return (
@@ -52,7 +51,14 @@ export default async function Page({ params }: any) {
         <section className="lg:col-span-8 space-y-4">
           {/* Header */}
           <div className="rounded-lg border bg-white p-4">
-            <Breadcrumbs items={[{ href: '/topics', label: 'Topics' }, { href: `/issues/${motion.issue.id}`, label: motion.issue.title }, { label: `Motion #${motion.id}` }]} />
+            <Breadcrumbs items={motion.issue ? [
+              { href: '/topics', label: 'Topics' },
+              { href: `/issues/${motion.issue.id}`, label: motion.issue.title },
+              { label: `Motion #${motion.id}` }
+            ] : [
+              { href: '/topics', label: 'Topics' },
+              { label: `Motion #${motion.id}` }
+            ]} />
             <div className="text-xs text-gray-500 mt-1">Motion · {motion.issue ? (<Link href={`/issues/${motion.issue.id}`} className="hover:underline">{motion.issue.title}</Link>) : 'Unlinked Issue'}</div>
             <h1 className="mt-1 text-2xl font-semibold">{motion.title}</h1>
             {motion.description ? (<div className="mt-1 text-sm text-gray-600">{motion.description}</div>) : null}
@@ -62,9 +68,9 @@ export default async function Page({ params }: any) {
           <div className="rounded-lg border bg-white p-4">
             <div className="text-sm font-medium mb-2">Census</div>
             {api ? (
-              <MotionCensusRealtime motionId={motionId} initialCounts={counts5 as any} />
+              <MotionCensusRealtime motionId={motionId} initialCounts={counts5} />
             ) : (
-              <StanceBar census5={{ counts: counts5 as any, total }} />
+              <StanceBar census5={{ counts: counts5, total }} />
             )}
             <div className="mt-2 text-xs text-gray-600">{api ? `${total.toLocaleString()} participants` : 'mock data'}</div>
             <div className="mt-3 flex gap-2">
@@ -116,7 +122,7 @@ export default async function Page({ params }: any) {
           <div className="rounded-lg border bg-white p-4">
             <div className="text-sm font-medium">Related motions</div>
             <ul className="mt-2 space-y-2 text-sm">
-              {(motion.related ?? []).map((rm: any) => (
+              {(motion.related ?? []).map((rm: { id: string; title: string }) => (
                 <li key={rm.id}>
                   <Link href={`/motions/${rm.id}`} className="hover:underline">
                     {rm.title}
