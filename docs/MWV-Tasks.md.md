@@ -345,6 +345,52 @@ This enhanced task list incorporates critical missing components identified thro
 
 ---
 
+## Current Implementation Progress (local dev)
+
+- Infrastructure & Navigation
+  - ✅ Consistent header via `AppMenuBar` across the app
+  - ✅ Added universal Pages dropdown and Routes Catalog for quick navigation
+  - ✅ Added simple, testable UIs for all major pages (Home/Explore/Topics/Issues/Motions/Positions/Debates/Solutions/Profile/DMs/Admin/etc.)
+  - ✅ Added browse stubs: `/topics`, `/issues`, `/motions`, `/positions`
+  - ✅ Added "My" pages: `/my/topics`, `/my/issues`, `/my/motions`, `/my/positions`, `/my/debates`, `/my/solutions`
+
+- Database & Realtime
+  - ✅ New migration: forums/proposals/votes/evidence tables with basic RLS
+  - ✅ Seeds for sample forum/proposal/evidence data
+  - ✅ Realtime presence implemented (Supabase channels) for forums and position forums
+  - ✅ 1–5 stance schema with privacy and realtime motion census already in place
+
+- APIs
+  - ✅ Implemented `/api/forums`, `/api/proposals`, `/api/votes`, `/api/evidence`
+  - ✅ Existing `/api/stance-events`, `/api/census/motion/[motionId]`, `/api/issues/[id]`, `/api/motions/[id]`
+
+- Governance UI
+  - ✅ Forum pages for Topic/Issue/Motion/Debate/Solution with `ForumThread` and `PresencePill`
+  - ✅ Proposal submission UI (wired to `/api/proposals`) and voting UI (wired to `/api/votes`)
+
+- Evidence UI
+  - ✅ `EvidencePanel` added to Issue pages and nested Topic→Issue pages, wired to `/api/evidence`
+  - ⏭ Integrate evidence display/attach within Motion and Argument flows next
+
+- Position & Census
+  - ✅ Motion pages include `StanceSelector` and Motion census (realtime + optimistic)
+  - ✅ Position forum route present and presence indicator
+
+- Component testing surface
+  - ✅ `gallery/` page exercises core components (StanceBar, StanceSelector, Cards, EvidencePanel, ProposalForm)
+
+- Build & Run
+  - ✅ Production build succeeded (`pnpm build`)
+  - ✅ Local server running successfully for manual testing (`pnpm start`)
+
+### Upcoming (near-term)
+
+- Integrate `EvidencePanel`/`EvidenceCard` into Motion and Argument flows
+- Persist `ForumThread` (DB-backed) and moderation actions
+- Add search wiring and results rendering
+- Expand accessibility test coverage (axe) and CI hook
+- Optional: add browse lists for Debates/Solutions/Forums matching new stub style
+
 ## Critical Integration Points *(NEW SECTION)*
 
 ### Cross-Phase Dependencies & Democratic Values

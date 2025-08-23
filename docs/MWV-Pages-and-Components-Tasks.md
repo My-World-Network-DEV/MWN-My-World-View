@@ -7,7 +7,7 @@
 - **Topics (slug) (`src/app/topics/[slug]/page.tsx`)**: Implemented. Topic header, issue list. Consistent header.
 - **Topics → Issue (`src/app/topics/[slug]/issues/[issueId]/page.tsx`)**: Implemented. Breadcrumbs, issue card, related motions, `EvidencePanel` added.
 - **Issues (id) (`src/app/issues/[id]/page.tsx`)**: Implemented. Issue header, motions list, `EvidencePanel`, forum open button.
-- **Issues/New (`src/app/issues/new/page.tsx`)**: Implemented (simple). Uses `CreateWizard` skeleton.
+- **Issues/New (`src/aap/issues/new/page.tsx`)**: Implemented (simple). Uses `CreateWizard` skeleton.
 - **Motions (id) (`src/app/motions/[motionId]/page.tsx`)**: Implemented. Census (`MotionCensusRealtime`), `StanceSelector`, Actions with Forum button.
 - **Motions/New (`src/app/motions/new/page.tsx`)**: Implemented (simple). Uses `CreateWizard` skeleton.
 - **Positions/New (`src/app/positions/new/page.tsx`)**: Implemented (simple). `StanceSelector` UI.
@@ -20,6 +20,11 @@
 - **Solutions/New (`src/app/solutions/new/page.tsx`)**: Implemented (simple). `CreateWizard` skeleton.
 - **Forums (list) (`src/app/forums/page.tsx`)**: Implemented (basic). Mock list; consistent header.
 - **Forum (id) (`src/app/forums/[forumId]/page.tsx`)**: Implemented. `ProposalForm` (POST → `/api/proposals`), `ProposalList` + `VoteWidget`, `ForumThread`, `PresencePill`.
+- **Topic Forum (`src/app/topics/[slug]/forum/page.tsx`)**: Implemented. `ForumThread` + presence.
+- **Issue Forum (`src/app/issues/[id]/forum/page.tsx`)**: Implemented. `ForumThread` + presence.
+- **Motion Forum (`src/app/motions/[motionId]/forum/page.tsx`)**: Implemented. `ForumThread` + presence.
+- **Debate Forum (`src/app/debates/[debateId]/forum/page.tsx`)**: Implemented. `ForumThread` + presence.
+- **Solution Forum (`src/app/solutions/[solutionId]/forum/page.tsx`)**: Implemented. `ForumThread` + presence.
 - **DMs (list) (`src/app/dms/page.tsx`)**: Implemented (basic). Inbox with mock threads.
 - **DMs (conversation) (`src/app/dms/[conversationId]/page.tsx`)**: Implemented (basic). Conversation shell.
 - **Profile (`src/app/profile/page.tsx`)**: Implemented (basic). Editable display name.
@@ -33,6 +38,12 @@
 - **Admin Moderation (`src/app/admin/moderation/page.tsx`)**: Implemented (basic). Queue shell.
 - **Onboarding (`src/app/onboarding/page.tsx`)**: Implemented (basic). Checklist.
 - **Routes Catalog (`src/app/routes/page.tsx`)**: Implemented. Links to major routes.
+- **My Topics (`src/app/my/topics/page.tsx`)**: Implemented. List of followed topics.
+- **My Issues (`src/app/my/issues/page.tsx`)**: Implemented. List of my issues.
+- **My Motions (`src/app/my/motions/page.tsx`)**: Implemented. List of my motions.
+- **My Positions (`src/app/my/positions/page.tsx`)**: Implemented. List of my positions.
+- **My Debates (`src/app/my/debates/page.tsx`)**: Implemented. List of my debates.
+- **My Solutions (`src/app/my/solutions/page.tsx`)**: Implemented. List of my solutions.
 
 All listed pages use the shared header `AppMenuBar` for consistent navigation.
 
@@ -70,7 +81,7 @@ All listed pages use the shared header `AppMenuBar` for consistent navigation.
 
 ## Notable Next Steps
 
-- Add browse pages for `/topics`, `/issues`, `/motions`, `/positions` to back links in header dropdown.
+- Add deep-links for all Forum tabs and My pages in Routes Catalog and Header menu.
 - Integrate `EvidencePanel` or `EvidenceCard` into Motion and Argument flows.
 - Expand `ForumThread` to persist and fetch threads; wire moderation.
 - Add presence/typing to additional collaborative contexts.
