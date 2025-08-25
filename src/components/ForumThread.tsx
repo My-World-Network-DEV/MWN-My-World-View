@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 type Post = { id: string; forum_id: string; parent_id: string | null; body: string; created_by: string | null; created_at: string };
 
-export default function ForumThread({ forumId }: { forumId: string }) {
+export default function ForumThread({ forumId }: { forumId?: string }) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -22,6 +22,7 @@ export default function ForumThread({ forumId }: { forumId: string }) {
     }, [posts]);
 
     useEffect(() => {
+        if (!forumId) return;
         let cancelled = false;
         (async () => {
             setLoading(true);
@@ -41,6 +42,7 @@ export default function ForumThread({ forumId }: { forumId: string }) {
     }, [forumId]);
 
     const submit = async (parentId?: string) => {
+        if (!forumId) return;
         setError(null);
         try {
             const res = await fetch(`/api/forums/${forumId}/posts`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ parentId: parentId ?? null, body }) });
@@ -79,6 +81,14 @@ export default function ForumThread({ forumId }: { forumId: string }) {
         );
     };
 
+    if (!forumId) {
+        return (
+            <div className="rounded border bg-white p-3 text-sm text-gray-600">
+                Forum thread is unavailable for this page.
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-3">
             <div>
@@ -90,7 +100,7 @@ export default function ForumThread({ forumId }: { forumId: string }) {
                 <label className="text-sm font-medium">New post</label>
                 <textarea className="mt-2 w-full rounded border px-3 py-2" rows={3} value={body} onChange={(e) => setBody(e.target.value)} />
                 <div className="mt-2">
-                    <button className="rounded bg-emerald-600 px-3 py-2 text-sm text-white" onClick={() => submit(null)} disabled={!body.trim()}>Post</button>
+                    <button className="rounded bg-emerald-600 px-3 py-2 text-sm text-white" onClick={() => submit()} disabled={!body.trim()}>Post</button>
                 </div>
             </div>
             <div>{renderBranch(null)}</div>
