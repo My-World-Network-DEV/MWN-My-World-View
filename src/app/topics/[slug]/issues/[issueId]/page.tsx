@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string;
           <h1 className="text-lg font-medium">Issue title for {issueId}</h1>
           <p className="mt-1 text-sm text-gray-700">Issue summary and definitions go here.</p>
         </Card>
-        <EvidencePanel header="Issue Evidence" />
+        <EvidencePanel header="Issue Evidence" entityType="Issue" entityId={issueId} />
         <Card>
           <div className="text-sm font-medium">Related motions</div>
           <ul className="mt-2 space-y-2 text-sm">

@@ -30,7 +30,7 @@ export default function Page({ params }: any) {
                         <ProposalList forumId={params.forumId} />
                     </div>
                 </div>
-                <ForumThread />
+                <ForumThread forumId={params.forumId} />
             </main>
         </div>
     );

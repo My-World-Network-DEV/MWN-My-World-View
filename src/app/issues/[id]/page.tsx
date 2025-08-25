@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
       <main className="container mx-auto grid grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-12">
         <section className="lg:col-span-8 space-y-4">
-          <EvidencePanel header="Issue Evidence" issueId={issue.id} />
+          <EvidencePanel header="Issue Evidence" entityType="Issue" entityId={issue.id} />
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-medium">Motions in this issue</h2>
             <div className="flex items-center gap-3">

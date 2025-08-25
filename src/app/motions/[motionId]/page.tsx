@@ -5,6 +5,7 @@ import StanceBar from '@/components/StanceBar';
 import MotionCensusRealtime from '@/components/MotionCensusRealtime';
 import StanceSelector from '@/components/StanceSelector';
 import ForumOpenButton from '@/components/ForumOpenButton';
+import EvidencePanel from '@/components/EvidencePanel';
 
 //
 
@@ -117,6 +118,7 @@ export default async function Page({ params }: { params: Promise<{ motionId: str
               </li>
             </ul>
           </div>
+          <EvidencePanel header="Motion Evidence" entityType="Motion" entityId={motionId} />
         </section>
 
         <aside className="lg:col-span-4 space-y-4">

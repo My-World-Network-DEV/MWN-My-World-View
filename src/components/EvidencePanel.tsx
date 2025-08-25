@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 type Evidence = { id: string; url: string | null; title: string | null; domain: string | null; credibility: number | null; source_type: string | null };
 
-export default function EvidencePanel({ header = 'Evidence', issueId }: { header?: string; issueId?: string }) {
+export default function EvidencePanel({ header = 'Evidence', entityType, entityId }: { header?: string; entityType?: 'Topic' | 'Issue' | 'Motion' | 'Position' | 'Debate' | 'Solution'; entityId?: string }) {
     const [items, setItems] = useState<Evidence[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -18,8 +18,8 @@ export default function EvidencePanel({ header = 'Evidence', issueId }: { header
         (async () => {
             setLoading(true);
             try {
-                // In MVP, fetch all evidence (later scope by issue/motion/argument)
-                const res = await fetch('/api/evidence', { cache: 'no-store' });
+                const qs = entityType && entityId ? `?entityType=${encodeURIComponent(entityType)}&entityId=${encodeURIComponent(entityId)}` : '';
+                const res = await fetch(`/api/evidence${qs}`, { cache: 'no-store' });
                 if (!res.ok) throw new Error('Failed to load evidence');
                 const data = (await res.json()) as { evidence: Evidence[] };
                 if (!cancelled) setItems(data.evidence ?? []);
@@ -32,16 +32,17 @@ export default function EvidencePanel({ header = 'Evidence', issueId }: { header
         return () => {
             cancelled = true;
         };
-    }, [issueId]);
+    }, [entityType, entityId]);
 
     const addEvidence = async () => {
         setError(null);
         try {
-            const res = await fetch('/api/evidence', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url, title, sourceType, credibility: cred }) });
+            const res = await fetch('/api/evidence', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url, title, sourceType, credibility: cred, entityType, entityId }) });
             if (!res.ok) throw new Error('Failed to add evidence');
             setUrl(''); setTitle(''); setSourceType('news'); setCred(3);
             // refresh
-            const r = await fetch('/api/evidence', { cache: 'no-store' });
+            const qs = entityType && entityId ? `?entityType=${encodeURIComponent(entityType)}&entityId=${encodeURIComponent(entityId)}` : '';
+            const r = await fetch(`/api/evidence${qs}`, { cache: 'no-store' });
             const d = (await r.json()) as { evidence: Evidence[] };
             setItems(d.evidence ?? []);
         } catch (e: any) {
