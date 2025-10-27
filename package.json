@@ -34,7 +34,7 @@
     "@vercel/toolbar": "^0.1.38",
     "autoprefixer": "^10.4.16",
     "eslint": "^9.10.0",
-    "eslint-config-next": "^15.0.0",
+    "eslint-config-next": "^16.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.0.1",
     "jest-axe": "^10.0.0",
